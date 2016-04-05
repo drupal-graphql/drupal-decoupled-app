@@ -13,7 +13,7 @@ import Root from './root';
 export default (store, history, mountNode) => {
   const routes = createRoutes(store);
 
-  return match({ history, routes }, (error, redirectLocation, renderProps) => {
-    ReactDOM.render(<Root store={store} {...renderProps} />, mountNode);
+  return match({ history, routes }, () => {
+    ReactDOM.render(<Root store={store} history={history} routes={routes} />, mountNode);
   });
 };
