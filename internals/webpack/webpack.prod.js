@@ -92,8 +92,6 @@ module.exports = require('./webpack.base')({
     // Put it in the end to capture all the HtmlWebpackPlugin's assets
     // manipulations and do leak its manipulations to HtmlWebpackPlugin.
     new OfflinePlugin({
-      relativePaths: true, // Use generated relative paths by default
-
       caches: {
         main: [':rest:'],
 
@@ -101,6 +99,12 @@ module.exports = require('./webpack.base')({
         // not prevent SW to install. Change to `optional` if do not want them
         // to be preloaded at all (cached only when first loaded).
         additional: ['*.chunk.js'],
+      },
+
+      AppCache: false,
+
+      ServiceWorker: {
+        output: '/serviceworker.js',
       },
     }),
   ],
