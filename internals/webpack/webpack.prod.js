@@ -102,10 +102,6 @@ module.exports = require('./webpack.base')({
       },
 
       AppCache: false,
-
-      ServiceWorker: {
-        output: '/serviceworker.js',
-      },
     }),
   ],
 });
