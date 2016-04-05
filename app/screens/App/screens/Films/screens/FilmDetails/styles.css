@@ -1,0 +1,11 @@
+.Wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: auto;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.75);
+  border: 1px solid black;
+  padding: 1rem;
+}

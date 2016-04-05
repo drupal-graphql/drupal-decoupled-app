@@ -1,0 +1,26 @@
+.Preview {
+  margin: auto;
+  max-width: 500px;
+  margin-bottom: 2rem;
+}
+
+.Link {
+  cursor: pointer;
+  font-weight: normal;
+}
+
+.LinkActive {
+  font-weight: bold;
+}
+
+.Title {
+  font-size: 1.1rem;
+}
+
+.ReleaseDate {
+  font-size: 0.85rem;
+}
+
+.OpeningCrawl {
+  margin-top: 1rem;
+}
