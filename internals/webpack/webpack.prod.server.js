@@ -8,14 +8,11 @@ const postcssReporter = require('postcss-reporter');
 
 module.exports = require('./webpack.base')({
   // No need for any of the hot-reloading stuff on the server side.
-  entry: {
-    server: './entry/server',
-  },
+  entry: './entry/server',
 
   // Don't use hashes in dev mode for better performance.
   output: {
-    filename: '[name].js',
-    chunkFilename: '[name].chunk.js',
+    filename: 'server.js',
     libraryTarget: 'commonjs2',
     path: path.resolve(process.cwd(), 'build'),
     publicPath: '/public',

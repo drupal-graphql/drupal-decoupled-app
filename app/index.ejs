@@ -2,19 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="mobile-web-app-capable" content="yes">
-    <% if (isProduction) { %>
     <link rel="manifest" href="/manifest.json">
-    <link rel="stylesheet" media="all" href="/main.css">
-    <% } %>
     <title>Prototype</title>
   </head>
   <body>
     <div id="app"><%- renderedContent %></div>
     <script>window.__INITIAL_STATE__ = <%- initialState %>;</script>
     <script>window.__PRELOADED_DATA__ = <%- preloadedData %>;</script>
-    <script type="text/javascript" charset="utf-8" src="/common.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/main.js"></script>
   </body>
 </html>

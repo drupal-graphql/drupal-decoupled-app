@@ -6,7 +6,7 @@ const app = require('express')();
 const proxy = require('http-proxy-middleware');
 const render = require(path.resolve(process.cwd(), 'build', 'server')).default;
 
-app.set('views', path.resolve(process.cwd(), 'app', 'entry', 'server'));
+app.set('views', path.resolve(process.cwd(), 'build', 'views'));
 app.set('view engine', 'ejs');
 
 app.use(compression());

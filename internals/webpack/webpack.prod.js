@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
 
@@ -17,8 +18,8 @@ module.exports = require('./webpack.base')({
   // Utilize long-term caching by adding content hashes (not compilation hashes)
   // to compiled assets.
   output: {
-    filename: '[name].js',
-    chunkFilename: '[name].chunk.js',
+    filename: '[name].[chunkhash].js',
+    chunkFilename: '[name].[chunkhash].chunk.js',
     path: path.resolve(process.cwd(), 'build', 'public'),
     publicPath: '/',
   },
@@ -56,7 +57,7 @@ module.exports = require('./webpack.base')({
     }),
   ],
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('common.js'),
+    new webpack.optimize.CommonsChunkPlugin('common', 'common.[chunkhash].js'),
 
     // OccurrenceOrderPlugin is needed for long-term caching to work properly.
     // See http://mxs.is/googmv
@@ -72,8 +73,27 @@ module.exports = require('./webpack.base')({
       },
     }),
 
+    // Minify and optimize the index.ejs
+    new HtmlWebpackPlugin({
+      template: 'html!./app/index.ejs',
+      filename: path.resolve(process.cwd(), 'build', 'views', 'index.ejs'),
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true,
+      },
+      inject: true,
+    }),
+
     // Extract the CSS into a seperate file.
-    new ExtractTextPlugin('[name].css', {
+    new ExtractTextPlugin('[name].[contenthash].css', {
       allChunks: true,
     }),
 
@@ -92,6 +112,7 @@ module.exports = require('./webpack.base')({
     // Put it in the end to capture all the HtmlWebpackPlugin's assets
     // manipulations and do leak its manipulations to HtmlWebpackPlugin.
     new OfflinePlugin({
+      relativePaths: true, // Use generated relative paths by default
       caches: {
         main: [':rest:'],
 

@@ -73,8 +73,7 @@ export default (req, res, next) => {
         const initialState = JSON.stringify(store.getState());
         const preloadedData = JSON.stringify(data);
 
-        res.render('html', {
-          isProduction: __PRODUCTION__,
+        res.render('index', {
           initialState,
           renderedContent,
           preloadedData,

@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // PostCSS plugins.
 const cssnext = require('postcss-cssnext');
@@ -16,8 +17,8 @@ module.exports = require('./webpack.base')({
 
   // Don't use hashes in dev mode for better performance.
   output: {
-    filename: '[name].js',
-    chunkFilename: '[name].chunk.js',
+    filename: '[name].[chunkhash].js',
+    chunkFilename: '[name].[chunkhash].chunk.js',
     path: path.resolve(process.cwd(), 'build', 'public'),
     publicPath: '/',
   },
@@ -51,8 +52,13 @@ module.exports = require('./webpack.base')({
 
   // Add hot reloading
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('common.js'),
+    new webpack.optimize.CommonsChunkPlugin('common', 'common.[hash].js'),
     new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
+      template: 'html!./app/index.ejs',
+      filename: path.resolve(process.cwd(), 'build', 'views', 'index.ejs'),
+      inject: true,
+    }),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       __CLIENT__: true,
