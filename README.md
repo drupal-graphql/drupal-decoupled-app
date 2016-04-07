@@ -22,7 +22,7 @@ git clone git@github.com:fubhy/drupal-decoupled-app
 Then, you need to install the dependencies.
 
 ``
-npm run install
+npm install
 ``
 
 Now you can run the application.
