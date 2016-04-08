@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "React, Relay & Redux Prototype with Server-Side Rendering.",
   "dependencies": {
-    "babel-polyfill": "^6.3.14",
+    "babel-polyfill": "^6.7.4",
     "babel-relay-plugin": "^0.7.3",
     "compression": "^1.6.1",
     "connect-history-api-fallback": "^1.1.0",
@@ -36,7 +36,7 @@
     "babel-eslint": "^4.1.8",
     "babel-loader": "^6.2.1",
     "babel-plugin-react-transform": "^2.0.0",
-    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-es2015-webpack": "^6.4.0",
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-0": "^6.3.13",
     "babel-relay-plugin": "^0.7.3",
@@ -46,7 +46,7 @@
     "coveralls": "^2.11.6",
     "cross-env": "^1.0.7",
     "css-loader": "^0.23.1",
-    "enzyme": "^1.5.0",
+    "enzyme": "^2.2.0",
     "eslint": "^2.0.0",
     "eslint-config-airbnb": "^6.1.0",
     "eslint-plugin-react": "^4.2.1",
@@ -88,12 +88,12 @@
     "redbox-react": "^1.2.2",
     "rimraf": "^2.5.2",
     "shelljs": "^0.6.0",
-    "sinon": "^1.17.3",
+    "sinon": "^2.0.0-pre",
     "style-loader": "^0.13.0",
     "stylelint": "^4.1.0",
     "stylelint-config-standard": "^3.0.0",
     "url-loader": "^0.5.7",
-    "webpack": "^1.12.11",
+    "webpack": "^2.1.0-beta.4",
     "webpack-dev-middleware": "^1.5.1",
     "webpack-hot-middleware": "^2.9.1"
   },
@@ -104,11 +104,10 @@
   "scripts": {
     "build": "npm run build:prod",
     "build:prod": "npm run build:prod:server && npm run build:prod:client",
-    "build:prod:server": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.server.js --colors",
-    "build:prod:client": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.js --colors",
-    "build:dev": "npm run build:dev:server && npm run build:dev:client",
-    "build:dev:server": "cross-env NODE_ENV=development webpack --config internals/webpack/webpack.dev.server.js --colors",
-    "build:dev:client": "cross-env NODE_ENV=development webpack --config internals/webpack/webpack.dev.js --colors",
+    "build:prod:server": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.server.js --color",
+    "build:prod:client": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.js --color",
+    "build:dev": "npm run build:dev:server",
+    "build:dev:server": "cross-env NODE_ENV=development webpack --config internals/webpack/webpack.dev.server.js --color",
     "build:clean": "rimraf build/*",
     "prebuild:prod": "npm run build:clean",
     "prebuild:dev": "npm run build:clean",
@@ -138,7 +137,7 @@
   "license": "MIT",
   "babel": {
     "presets": [
-      "es2015",
+      "es2015-webpack",
       "react",
       "stage-0"
     ]
@@ -160,17 +159,27 @@
       }
     },
     "rules": {
-      "comma-dangle": [2, "always-multiline"],
-      "indent": [2, 2, {
-        "SwitchCase": 1
-      }],
+      "comma-dangle": [
+        2,
+        "always-multiline"
+      ],
+      "indent": [
+        2,
+        2,
+        {
+          "SwitchCase": 1
+        }
+      ],
       "no-console": 0,
       "react/prop-types": 0,
       "max-len": 0,
       "prefer-template": 0,
       "no-use-before-define": 0,
       "newline-per-chained-call": 0,
-      "arrow-body-style": [2, "as-needed"]
+      "arrow-body-style": [
+        2,
+        "as-needed"
+      ]
     },
     "globals": {
       "__CLIENT__": true,

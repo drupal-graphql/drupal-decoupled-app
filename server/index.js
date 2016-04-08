@@ -1,13 +1,8 @@
 /* eslint consistent-return:0 */
 
-const path = require('path');
 const compression = require('compression');
 const app = require('express')();
 const proxy = require('http-proxy-middleware');
-const render = require(path.resolve(process.cwd(), 'build', 'server')).default;
-
-app.set('views', path.resolve(process.cwd(), 'build', 'views'));
-app.set('view engine', 'ejs');
 
 app.use(compression());
 
@@ -28,9 +23,6 @@ if (process.env.NODE_ENV === 'production') {
 } else {
   require('./server.dev')(app);
 }
-
-// This is where the magic happens.
-app.get('*', render);
 
 // Start your app.
 const port = process.env.PORT || 3000;

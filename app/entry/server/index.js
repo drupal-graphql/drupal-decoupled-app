@@ -14,7 +14,7 @@ import locationStateSelector from 'selectors/locationStateSelector';
  * We grab the state passed in from the server and the req object from Express/Koa
  * and pass it into the Router.run function.
  */
-export default (req, res, next) => {
+export default (req, res, next, template) => {
   // Set up relay.
   const port = process.env.PORT || 3000;
   Relay.injectNetworkLayer(new Relay.DefaultNetworkLayer(`http://localhost:${port}/api`));
@@ -73,11 +73,11 @@ export default (req, res, next) => {
         const initialState = JSON.stringify(store.getState());
         const preloadedData = JSON.stringify(data);
 
-        res.render('index', {
+        res.send(template({
           initialState,
           renderedContent,
           preloadedData,
-        });
+        }));
       }, next);
     } else {
       res.status(404).send('Page not found');

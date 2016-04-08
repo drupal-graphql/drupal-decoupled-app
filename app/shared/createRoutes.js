@@ -3,6 +3,9 @@
 import Relay from 'react-relay';
 import App from 'App';
 
+const errorLoading = (error) =>
+  console.error('Dynamic page loading failed', error);
+
 const childRoutes = () => [{
   path: '/films',
   queries: {
@@ -12,9 +15,9 @@ const childRoutes = () => [{
   },
   getComponent: (location, callback) => {
     if (__CLIENT__) {
-      require.ensure([], (require) => {
-        callback(null, require('App/screens/Films').default);
-      }, 'App/screens/Films');
+      System.import('App/screens/Films')
+        .then((module) => callback(null, module.default))
+        .catch(errorLoading);
     } else {
       callback(null, require('App/screens/Films').default);
     }
@@ -29,9 +32,9 @@ const childRoutes = () => [{
     },
     getComponent: (location, callback) => {
       if (__CLIENT__) {
-        require.ensure([], (require) => {
-          callback(null, require('App/screens/Films/screens/FilmDetails').default);
-        }, 'App/screens/Films/screens/FilmDetails');
+        System.import('App/screens/Films/screens/FilmDetails')
+          .then((module) => callback(null, module.default))
+          .catch(errorLoading);
       } else {
         callback(null, require('App/screens/Films/screens/FilmDetails').default);
       }
@@ -45,9 +48,9 @@ export default (store) => ({
   indexRoute: {
     getComponent: (location, callback) => {
       if (__CLIENT__) {
-        require.ensure([], (require) => {
-          callback(null, require('App/screens/Home').default);
-        }, 'App/screens/Home');
+        System.import('App/screens/Home')
+          .then((module) => callback(null, module.default))
+          .catch(errorLoading);
       } else {
         callback(null, require('App/screens/Home').default);
       }
@@ -57,9 +60,9 @@ export default (store) => ({
     path: '*',
     getComponent: (location, callback) => {
       if (__CLIENT__) {
-        require.ensure([], (require) => {
-          callback(null, require('App/screens/NotFound').default);
-        }, 'App/screens/NotFound');
+        System.import('App/screens/NotFound')
+          .then((module) => callback(null, module.default))
+          .catch(errorLoading);
       } else {
         callback(null, require('App/screens/NotFound').default);
       }
