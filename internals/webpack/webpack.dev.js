@@ -17,7 +17,7 @@ module.exports = require('./webpack.base')({
 
   // Don't use hashes in dev mode for better performance.
   output: {
-    filename: '[name].[hash].js',
+    filename: '[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].chunk.js',
     path: path.resolve(process.cwd(), 'build', 'public'),
     publicPath: '/',
@@ -52,7 +52,7 @@ module.exports = require('./webpack.base')({
 
   // Add hot reloading
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('common'),
+    new webpack.optimize.CommonsChunkPlugin('common', 'common.[hash].js'),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: 'html!./app/index.ejs',

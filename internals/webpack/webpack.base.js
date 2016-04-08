@@ -21,7 +21,7 @@ module.exports = (options) => ({
   plugins: options.plugins,
   postcss: () => options.postcssPlugins,
   resolve: {
-    modules: [
+    modulesDirectories: [
       'screens',
       'components',
       'shared',

@@ -2,11 +2,6 @@ const path = require('path');
 
 module.exports = {
   devtool: 'inline-source-map',
-  isparta: {
-    babel: {
-      presets: ['es2015', 'react', 'stage-0'],
-    },
-  },
   module: {
     // Some libraries don't like being run through babel. If they gripe, put
     // them here.
@@ -59,7 +54,7 @@ module.exports = {
     'react/lib/ReactContext': 'window',
   },
   resolve: {
-    modules: [
+    modulesDirectories: [
       'screens',
       'components',
       'shared',

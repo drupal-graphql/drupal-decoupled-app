@@ -57,7 +57,7 @@ module.exports = require('./webpack.base')({
     }),
   ],
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('common'),
+    new webpack.optimize.CommonsChunkPlugin('common', 'common.[chunkhash].js'),
 
     // OccurrenceOrderPlugin is needed for long-term caching to work properly.
     // See http://mxs.is/googmv
