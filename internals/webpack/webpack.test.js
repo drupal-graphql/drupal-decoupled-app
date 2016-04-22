@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   devtool: 'inline-source-map',
@@ -47,9 +48,15 @@ module.exports = {
     tls: 'empty',
   },
 
+  // Ignore react-addons imports.
+  plugins: [
+    new webpack.IgnorePlugin(/^react-addons$/),
+  ],
+
   // Required for enzyme to work properly.
   externals: {
     jsdom: 'window',
+    'react/addons': true,
     'react/lib/ExecutionEnvironment': true,
     'react/lib/ReactContext': 'window',
   },
