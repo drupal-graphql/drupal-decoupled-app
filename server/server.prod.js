@@ -1,8 +1,5 @@
 const path = require('path');
 const express = require('express');
-const path = require('path');
-const ejs = require('ejs');
-const fs = require('fs');
 const options = require('../internals/webpack/webpack.prod');
 const render = require(path.resolve(process.cwd(), 'build', 'server')).default;
 

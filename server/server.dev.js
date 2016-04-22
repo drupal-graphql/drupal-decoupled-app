@@ -1,12 +1,9 @@
 const path = require('path');
 const ejs = require('ejs');
 const webpack = require('webpack');
-const path = require('path');
-const ejs = require('ejs');
 const devMiddleware = require('webpack-dev-middleware');
 const hotMiddleware = require('webpack-hot-middleware');
 const options = require('../internals/webpack/webpack.dev');
-const render = require(path.resolve(process.cwd(), 'build', 'server')).default;
 
 module.exports = (app) => {
   const compiler = webpack(options);
