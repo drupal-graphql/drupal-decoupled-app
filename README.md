@@ -30,13 +30,13 @@ Now you can run the application.
 ### Development mode
 
 ``
-npm run start
+npm run dev
 ``
 
 ### Production mode
 
 ``
-npm run serve
+npm run start
 ``
 
 ### Linting
