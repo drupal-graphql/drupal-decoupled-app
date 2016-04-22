@@ -53,7 +53,7 @@ npm run test
 
 ## Deploying to Heroku
 
-To be done.
+This application is ready for being deployed on heroku. Simply set up the heroku integration for your fork or use the heroku cli toolbelt to deploy it as an app.
 
 ## Thanks
 
