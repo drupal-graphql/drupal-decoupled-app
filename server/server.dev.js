@@ -1,3 +1,5 @@
+const path = require('path');
+const ejs = require('ejs');
 const webpack = require('webpack');
 const path = require('path');
 const ejs = require('ejs');
@@ -19,16 +21,21 @@ module.exports = (app) => {
   app.use(middleware);
   app.use(hotMiddleware(compiler));
 
-  // The webpack-dev-middleware package uses memory-fs internally to store
-  // build artifacts.
-  const fileSystem = middleware.fileSystem;
-  const templatePath = path.join(compiler.outputPath, '..', 'views', 'index.ejs');
+  // Since the dev middleware uses memory-fs internally to store build
+  // artifacts, we use it instead.
+  const fs = middleware.fileSystem;
+  const template = path.resolve(process.cwd(), 'build', 'views', 'index.ejs');
 
-  const template = (data) => {
-    const templateString = fileSystem.readFileSync(templatePath).toString();
-    return ejs.render(templateString, data);
-  };
+  app.get('*', (req, res) => {
+    const string = fs.readFileSync(template).toString();
+    const data = {
+      initialState: JSON.stringify({}),
+      preloadedData: JSON.stringify([]),
+      renderedContent: '',
+    };
 
-  // This is where the magic happens.
-  app.get('*', (req, res, next) => render(req, res, next, template));
+    res.send(ejs.render(string, data, {
+      rmWhitespace: false,
+    }));
+  });
 };
