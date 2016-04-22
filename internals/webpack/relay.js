@@ -3,7 +3,7 @@ const introspectionQuery = require('graphql/utilities').introspectionQuery;
 const request = require('sync-request');
 
 try {
-  const api = 'http://graphql-swapi.parseapp.com';
+  const api = 'https://graphql-swapi.parseapp.com';
   const response = request('POST', api, {
     qs: {
       query: introspectionQuery,

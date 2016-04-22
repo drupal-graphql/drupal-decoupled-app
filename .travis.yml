@@ -3,7 +3,10 @@ sudo: true
 dist: trusty
 node_js:
   - "5.0"
-script: npm run build
+script:
+  - npm run lint
+  - npm run test
+  - npm run build
 before_install:
   - export CHROME_BIN=/usr/bin/google-chrome
   - export DISPLAY=:99.0

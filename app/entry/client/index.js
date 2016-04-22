@@ -19,8 +19,7 @@ import useScroll from 'scroll-behavior/lib/useScrollToTop';
 import configureStore from 'configureStore';
 
 // Set up relay.
-const port = process.env.PORT || 3000;
-Relay.injectNetworkLayer(new Relay.DefaultNetworkLayer(`http://localhost:${port}/api`));
+Relay.injectNetworkLayer(new Relay.DefaultNetworkLayer('/api'));
 
 const preloadedData = window.__PRELOADED_DATA__;
 IsomorphicRelay.injectPreparedData(preloadedData);

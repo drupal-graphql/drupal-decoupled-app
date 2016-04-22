@@ -15,9 +15,12 @@ import locationStateSelector from 'selectors/locationStateSelector';
  * and pass it into the Router.run function.
  */
 export default (req, res, next) => {
+  // Get the host and port from the request.
+  const protocol = req.protocol;
+  const host = req.get('Host');
+
   // Set up relay.
-  const port = process.env.PORT || 3000;
-  Relay.injectNetworkLayer(new Relay.DefaultNetworkLayer(`http://localhost:${port}/api`));
+  Relay.injectNetworkLayer(new Relay.DefaultNetworkLayer(`${protocol}://${host}/api`));
 
   // Set the current path (req.path) as initial history entry due to this bug:
   // https://github.com/reactjs/react-router-redux/issues/284#issuecomment-184979791

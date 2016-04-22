@@ -7,7 +7,7 @@ const proxy = require('http-proxy-middleware');
 app.use(compression());
 
 // Set up a proxy for API requests.
-const api = 'http://graphql-swapi.parseapp.com';
+const api = 'https://graphql-swapi.parseapp.com';
 app.use(proxy('/api', {
   target: api,
   ws: true,
