@@ -1,4 +1,11 @@
 # Proof of Concept
+
+## NOTE!
+
+This does not yet use Drupal as a backend. Currently, we are using the GraphQL
+SWAPI (StarWars API). We will switch to using a Drupal backend once Relay
+support has been added (shortly!).
+
 ## Decoupled Drupal with Relay & GraphQL
 
 This is a proof of concept of a decoupled React application using Relay &
