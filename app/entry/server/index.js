@@ -5,6 +5,7 @@ import { renderToString } from 'react-dom/server';
 import { Router, match, createMemoryHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { Provider } from 'react-redux';
+import Helmet from 'react-helmet';
 import configureStore from 'configureStore';
 import createRoutes from 'createRoutes';
 import locationStateSelector from 'selectors/locationStateSelector';
@@ -72,14 +73,22 @@ export default (req, res, next) => {
           </Provider>
         );
 
+        // Gather output from react-helmet side-effects.
+        const helmetOutput = Helmet.rewind();
+        const headOrder = ['title', 'base', 'meta', 'link', 'script', 'style'];
+
         const renderedContent = renderToString(Root);
         const initialState = JSON.stringify(store.getState());
         const preloadedData = JSON.stringify(data);
+        const htmlHead = headOrder.map((key) => helmetOutput[key].toString().trim()).join('');
+        const htmlAttributes = helmetOutput.htmlAttributes.toString();
 
         res.render('index', {
           initialState,
           renderedContent,
           preloadedData,
+          htmlHead,
+          htmlAttributes,
         });
       }, next);
     } else {

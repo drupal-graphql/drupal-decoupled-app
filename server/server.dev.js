@@ -29,6 +29,8 @@ module.exports = (app) => {
       initialState: JSON.stringify({}),
       preloadedData: JSON.stringify([]),
       renderedContent: '',
+      htmlAttributes: '',
+      htmlHead: '',
     };
 
     res.send(ejs.render(string, data, {
