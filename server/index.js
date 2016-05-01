@@ -14,7 +14,7 @@ app.use(proxy('/graphql', {
   ws: true,
   changeOrigin: true,
   pathRewrite: {
-    '^/graphql' : '',
+    '^/graphql': '',
   },
 }));
 
