@@ -32,6 +32,13 @@ Then, you need to install the dependencies.
 npm install
 ``
 
+Then, you need to copy the .env.example file to .env and edit the content if
+necessary.
+
+``
+cp .env.example .env
+``
+
 Now you can run the application.
 
 ### Development mode
