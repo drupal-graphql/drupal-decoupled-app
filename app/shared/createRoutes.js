@@ -1,16 +1,22 @@
-/* istanbul ignore next */
+/* eslint-disable global-require */
 
+/**
+ * create routes
+ *
+ * @flow
+ */
 import Relay from 'react-relay';
 import App from 'App';
+import { IndexRoute, Route } from 'react-router';
 
-const childRoutes = () => [{
+const childRoutes = (): Route[] => [{
   path: '/films',
   queries: {
     list: () => Relay.QL`query {
       allFilms
     }`,
   },
-  getComponent: (location, callback) => {
+  getComponent: (location: Object, callback: Function) => {
     if (__CLIENT__) {
       require.ensure([], (require) => {
         callback(null, require('App/screens/Films').default);
@@ -39,11 +45,11 @@ const childRoutes = () => [{
   }],
 }];
 
-export default (store) => ({
+export default (): IndexRoute => ({
   path: '/',
   component: App,
   indexRoute: {
-    getComponent: (location, callback) => {
+    getComponent: (location: Object, callback: Function) => {
       if (__CLIENT__) {
         require.ensure([], (require) => {
           callback(null, require('App/screens/Home').default);
@@ -53,9 +59,9 @@ export default (store) => ({
       }
     },
   },
-  childRoutes: [...childRoutes(store), {
+  childRoutes: [...childRoutes(), {
     path: '*',
-    getComponent: (location, callback) => {
+    getComponent: (location: Object, callback: Function) => {
       if (__CLIENT__) {
         require.ensure([], (require) => {
           callback(null, require('App/screens/NotFound').default);

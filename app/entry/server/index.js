@@ -2,7 +2,7 @@ import React from 'react';
 import Relay from 'react-relay';
 import IsomorphicRouter from 'isomorphic-relay-router';
 import { renderToString } from 'react-dom/server';
-import { match, createMemoryHistory } from 'react-router';
+import { Router, match, createMemoryHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { Provider } from 'react-redux';
 import configureStore from 'configureStore';
@@ -20,7 +20,7 @@ export default (req, res, next) => {
   const host = req.get('Host');
 
   // Set up relay.
-  Relay.injectNetworkLayer(new Relay.DefaultNetworkLayer(`${protocol}://${host}/api`));
+  const networkLayer = new Relay.DefaultNetworkLayer(`${protocol}://${host}/graphql`);
 
   // Set the current path (req.path) as initial history entry due to this bug:
   // https://github.com/reactjs/react-router-redux/issues/284#issuecomment-184979791
@@ -65,10 +65,10 @@ export default (req, res, next) => {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
-      IsomorphicRouter.prepareData(renderProps).then(({ data, props }) => {
+      IsomorphicRouter.prepareData(renderProps, networkLayer).then(({ data, props }) => {
         const Root = (
           <Provider store={store}>
-            <IsomorphicRouter.RouterContext {...props} />
+            <Router {...props} />
           </Provider>
         );
 

@@ -1,0 +1,26 @@
+[ignore]
+<PROJECT_ROOT>/internals/.*
+<PROJECT_ROOT>/build/.*
+<PROJECT_ROOT>/coverage/.*
+<PROJECT_ROOT>/node_modules/.*
+<PROJECT_ROOT>/tmp/.*
+
+[libs]
+# custom definitions
+app/shared/definitions
+
+# module definitions
+node_modules/iflow-immutable/index.js.flow
+node_modules/iflow-redux/index.js.flow
+node_modules/iflow-redux-actions/index.js.flow
+node_modules/iflow-react-router/index.js.flow
+node_modules/iflow-react-widgets/index.js.flow
+
+[options]
+module.system=haste
+module.file_ext=.js
+module.file_ext=.css
+module.system.node.resolve_dirname=screens
+module.system.node.resolve_dirname=components
+module.system.node.resolve_dirname=shared
+suppress_comment= \\(.\\|\n\\)*\\flow-ignore-next-line

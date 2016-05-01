@@ -1,0 +1,46 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "env": {
+    "browser": true,
+    "node": true,
+    "mocha": true,
+    "es6": true
+  },
+  "praserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": [
+    "flow-vars"
+  ],
+  "rules": {
+    "flow-vars/define-flow-type": 1,
+    "flow-vars/use-flow-type": 1,
+    "comma-dangle": [2, "always-multiline"],
+    "indent": [2, 2, { "SwitchCase": 1 }],
+    "no-console": 0,
+    "react/prop-types": 0,
+    "max-len": 0,
+    "prefer-template": 0,
+    "no-use-before-define": 0,
+    "newline-per-chained-call": 0,
+    "arrow-body-style": [2, "as-needed"]
+  },
+  "globals": {
+    "__CLIENT__": true,
+    "__SERVER__": true,
+    "__DEVELOPMENT__": true,
+    "__PRODUCTION__": true
+  },
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "internals/webpack/webpack.dev.js"
+      }
+    }
+  }
+}

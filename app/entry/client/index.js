@@ -1,3 +1,5 @@
+/* eslint-disable global-require */
+
 /**
  * This is the entry file for the application.
  */
@@ -12,24 +14,21 @@ import 'file?name=[name].[ext]!../manifest.json';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Relay from 'react-relay';
-import IsomorphicRelay from 'isomorphic-relay';
 import { browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import useScroll from 'scroll-behavior/lib/useScrollToTop';
 import configureStore from 'configureStore';
 
 // Set up relay.
-Relay.injectNetworkLayer(new Relay.DefaultNetworkLayer('/api'));
-
-const preloadedData = window.__PRELOADED_DATA__;
-IsomorphicRelay.injectPreparedData(preloadedData);
+const environment = new Relay.Environment();
+environment.injectNetworkLayer(new Relay.DefaultNetworkLayer('/graphql'));
 
 // Create redux store with history. This uses the singleton browserHistory
 // provided by react-router. Optionally, this could be changed to leverage a
 // created history.
 //
 // e.g. `const browserHistory = useRouterHistory(createBrowserHistory)();`
-const initialState = window.__INITIAL_STATE__;
+const initialState = window.__INITIAL_STATE__; // eslint-disable-line no-underscore-dangle
 const store = configureStore(initialState, browserHistory);
 
 // Sync history and store, as the react-router-redux reducer is under the
@@ -44,7 +43,7 @@ const history = useScroll(() => syncHistoryWithStore(browserHistory, store, {
 const mountNode = document.getElementById('app');
 
 // Encapsulate rendering for hot-reloading.
-let render = () => require('./render').default(store, history, mountNode);
+let render = () => require('./render').default(environment, store, history, mountNode);
 
 if (module.hot) {
   // Add hot reloading of components and display an overlay for runtime errors.

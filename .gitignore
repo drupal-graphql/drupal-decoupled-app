@@ -3,7 +3,10 @@ coverage
 build
 node_modules
 
+# Environment specific configuration
+.env
+
 # Cruft
 .DS_Store
-npm-debug.log
 .idea
+npm-debug.log

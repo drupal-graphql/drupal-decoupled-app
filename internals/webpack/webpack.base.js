@@ -11,7 +11,7 @@ module.exports = (options) => ({
       exclude: /node_modules/,
       query: {
         // This can't be loaded through .babelrc for some reason.
-        plugins: [path.resolve(process.cwd(), 'internals', 'webpack', 'relay')],
+        plugins: [path.resolve(process.cwd(), 'internals', 'webpack', 'relay'), 'transform-flow-strip-types'],
       },
     }, {
       test: /\.jpe?g$|\.gif$|\.png$/i,

@@ -3,9 +3,10 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // PostCSS plugins.
-const cssnext = require('postcss-cssnext');
-const postcssFocus = require('postcss-focus');
-const postcssReporter = require('postcss-reporter');
+const cssNext = require('postcss-cssnext');
+const postCssFocus = require('postcss-focus');
+const postCssReporter = require('postcss-reporter');
+const envConfig = require('dotenv-safe').config();
 
 module.exports = require('./webpack.base')({
   // Add hot reloading in development.
@@ -41,11 +42,11 @@ module.exports = require('./webpack.base')({
 
   // Process the CSS with PostCSS.
   postcssPlugins: [
-    postcssFocus(), // Add a :focus to every :hover
-    cssnext({ // Allow future CSS features to be used, also auto-prefixes the CSS...
+    postCssFocus(), // Add a :focus to every :hover
+    cssNext({ // Allow future CSS features to be used, also auto-prefixes the CSS...
       browsers: ['last 2 versions', 'IE > 10'], // ...based on this browser list
     }),
-    postcssReporter({ // Posts messages from plugins to the terminal
+    postCssReporter({ // Posts messages from plugins to the terminal
       clearMessages: true,
     }),
   ],
@@ -65,9 +66,9 @@ module.exports = require('./webpack.base')({
       __SERVER__: false,
       __DEVELOPMENT__: true,
       __PRODUCTION__: false,
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
-      },
+      'process.env': JSON.stringify(Object.assign({}, {
+        NODE_ENV: process.env.NODE_ENV || 'development',
+      }, envConfig)),
     }),
   ],
 

@@ -1,0 +1,16 @@
+{
+  "preset": "airbnb",
+  "esnext": true,
+  "validateQuoteMarks": null,
+  "requireTrailingComma": null,
+  "maximumLineLength": null,
+  "maxErrors": null,
+  "requireCamelCaseOrUpperCaseIdentifiers": null,
+  "requireShorthandArrowFunctions": null,
+  "excludeFiles": [
+    "build/**",
+    "coverage/**",
+    "docs/**",
+    "node_modules/**"
+  ]
+}

@@ -1,3 +1,5 @@
+/* eslint-disable global-require */
+
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -5,9 +7,10 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
 
 // PostCSS plugins.
-const cssnext = require('postcss-cssnext');
-const postcssFocus = require('postcss-focus');
-const postcssReporter = require('postcss-reporter');
+const cssNext = require('postcss-cssnext');
+const postCssFocus = require('postcss-focus');
+const postCssReporter = require('postcss-reporter');
+const envConfig = require('dotenv-safe').config();
 
 module.exports = [require('./webpack.base')({
   // In production, we skip all hot-reloading stuff.
@@ -48,11 +51,11 @@ module.exports = [require('./webpack.base')({
 
   // In production, we minify our CSS with cssnano.
   postcssPlugins: [
-    postcssFocus(),
-    cssnext({
+    postCssFocus(),
+    cssNext({
       browsers: ['last 2 versions', 'IE > 10'],
     }),
-    postcssReporter({
+    postCssReporter({
       clearMessages: true,
     }),
   ],
@@ -66,7 +69,7 @@ module.exports = [require('./webpack.base')({
     // Merge all duplicate modules.
     new webpack.optimize.DedupePlugin(),
 
-    // // Minify and optimize the JavaScript.
+    // Minify and optimize the JavaScript.
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false,
@@ -104,22 +107,22 @@ module.exports = [require('./webpack.base')({
       __SERVER__: false,
       __DEVELOPMENT__: false,
       __PRODUCTION__: true,
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'production'),
-      },
+      'process.env': JSON.stringify(Object.assign({}, {
+        NODE_ENV: process.env.NODE_ENV || 'production',
+      }, envConfig)),
     }),
 
     // Put it in the end to capture all the HtmlWebpackPlugin's assets
     // manipulations and do leak its manipulations to HtmlWebpackPlugin.
     new OfflinePlugin({
-      relativePaths: true, // Use generated relative paths by default
+      relativePaths: false, // Use generated relative paths by default
       caches: {
         main: [':rest:'],
 
         // All chunks marked as `additional`, loaded after main section and do
         // not prevent SW to install. Change to `optional` if do not want them
         // to be preloaded at all (cached only when first loaded).
-        additional: ['*.chunk.js'],
+        additional: ['**/*.chunk.js'],
       },
 
       AppCache: false,
@@ -157,11 +160,11 @@ module.exports = [require('./webpack.base')({
 
   // Process the CSS with PostCSS.
   postcssPlugins: [
-    postcssFocus(), // Add a :focus to every :hover
-    cssnext({ // Allow future CSS features to be used, also auto-prefixes the CSS...
+    postCssFocus(), // Add a :focus to every :hover
+    cssNext({ // Allow future CSS features to be used, also auto-prefixes the CSS...
       browsers: ['last 2 versions', 'IE > 10'], // ...based on this browser list
     }),
-    postcssReporter({ // Posts messages from plugins to the terminal
+    postCssReporter({ // Posts messages from plugins to the terminal
       clearMessages: true,
     }),
   ],
@@ -183,9 +186,9 @@ module.exports = [require('./webpack.base')({
       __SERVER__: true,
       __DEVELOPMENT__: false,
       __PRODUCTION__: true,
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'production'),
-      },
+      'process.env': JSON.stringify(Object.assign({}, {
+        NODE_ENV: process.env.NODE_ENV || 'production',
+      }, envConfig)),
     }),
   ],
 

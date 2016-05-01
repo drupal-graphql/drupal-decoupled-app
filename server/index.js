@@ -1,4 +1,5 @@
-/* eslint consistent-return:0 */
+/* eslint-disable global-require */
+/* eslint-disable consistent-return */
 
 const compression = require('compression');
 const app = require('express')();
@@ -7,13 +8,13 @@ const proxy = require('http-proxy-middleware');
 app.use(compression());
 
 // Set up a proxy for API requests.
-const api = 'https://graphql-swapi.parseapp.com';
-app.use(proxy('/api', {
+const api = process.env.GRAPHQL_API;
+app.use(proxy('/graphql', {
   target: api,
   ws: true,
   changeOrigin: true,
   pathRewrite: {
-    '^/api': '/',
+    '^/graphql' : '',
   },
 }));
 

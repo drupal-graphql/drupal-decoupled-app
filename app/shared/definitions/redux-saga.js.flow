@@ -1,0 +1,4 @@
+declare module 'redux-saga' {
+  declare type Saga = <T>(getState?: () => T) => Iterable<any>;
+  declare var exports: any;
+}
