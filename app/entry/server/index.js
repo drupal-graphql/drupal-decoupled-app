@@ -73,11 +73,12 @@ export default (req, res, next) => {
           </Provider>
         );
 
-        // Gather output from react-helmet side-effects.
-        const helmetOutput = Helmet.rewind();
+        // The order in which the html head elements should be rendered.
         const headOrder = ['title', 'base', 'meta', 'link', 'script', 'style'];
 
+        // Render the html as a string and collect side-effects afterwards.
         const renderedContent = renderToString(Root);
+        const helmetOutput = Helmet.rewind();
         const initialState = JSON.stringify(store.getState());
         const preloadedData = JSON.stringify(data);
         const htmlHead = headOrder.map((key) => helmetOutput[key].toString().trim()).join('');

@@ -7,7 +7,7 @@
     "mocha": true,
     "es6": true
   },
-  "praserOptions": {
+  "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
     "ecmaFeatures": {
@@ -15,6 +15,9 @@
     }
   },
   "plugins": [
+    "react",
+    "import",
+    "jsx-a11y",
     "flow-vars"
   ],
   "rules": {
@@ -39,7 +42,7 @@
   "settings": {
     "import/resolver": {
       "webpack": {
-        "config": "internals/webpack/webpack.dev.js"
+        "config": "./internals/webpack/webpack.test.js"
       }
     }
   }

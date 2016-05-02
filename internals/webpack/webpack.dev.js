@@ -1,3 +1,8 @@
+/* eslint-disable global-require */
+
+// Load the environment configuration.
+require('dotenv-safe').config();
+
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -6,7 +11,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const cssNext = require('postcss-cssnext');
 const postCssFocus = require('postcss-focus');
 const postCssReporter = require('postcss-reporter');
-const envConfig = require('dotenv-safe').config();
 
 module.exports = require('./webpack.base')({
   // Add hot reloading in development.
@@ -18,8 +22,8 @@ module.exports = require('./webpack.base')({
 
   // Don't use hashes in dev mode for better performance.
   output: {
-    filename: '[name].[chunkhash].js',
-    chunkFilename: '[name].[chunkhash].chunk.js',
+    filename: '[name].js',
+    chunkFilename: '[name].chunk.js',
     path: path.resolve(process.cwd(), 'build', 'public'),
     publicPath: '/',
   },
@@ -53,22 +57,18 @@ module.exports = require('./webpack.base')({
 
   // Add hot reloading
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('common', 'common.[hash].js'),
-    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: 'html!./app/index.ejs',
       filename: path.resolve(process.cwd(), 'build', 'views', 'index.ejs'),
       inject: true,
     }),
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       __CLIENT__: true,
       __SERVER__: false,
       __DEVELOPMENT__: true,
       __PRODUCTION__: false,
-      'process.env': JSON.stringify(Object.assign({}, {
-        NODE_ENV: process.env.NODE_ENV || 'development',
-      }, envConfig)),
     }),
   ],
 

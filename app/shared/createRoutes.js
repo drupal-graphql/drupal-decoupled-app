@@ -8,6 +8,11 @@
 import Relay from 'react-relay';
 import App from 'App';
 import { IndexRoute, Route } from 'react-router';
+import { injectAsyncReducer } from 'configureStore';
+
+const errorLoading = (error) => console.error('Dynamic page loading failed.', error); // eslint-disable-line no-console
+const loadModule = (callback) => (module) => callback(null, module.default);
+const loadReducer = (store, name) => (module) => injectAsyncReducer(store, name, module.default); // eslint-disable-line no-unused-vars
 
 const childRoutes = (): Route[] => [{
   path: '/films',
@@ -18,14 +23,13 @@ const childRoutes = (): Route[] => [{
   },
   getComponent: (location: Object, callback: Function) => {
     if (__CLIENT__) {
-      require.ensure([], (require) => {
-        callback(null, require('App/screens/Films').default);
-      }, 'App/screens/Films');
+      System.import('App/screens/Films')
+        .then(loadModule(callback))
+        .catch(errorLoading);
     } else {
       callback(null, require('App/screens/Films').default);
     }
   },
-
   childRoutes: [{
     path: '/films/:id',
     queries: {
@@ -33,11 +37,11 @@ const childRoutes = (): Route[] => [{
         film(id: $id)
       }`,
     },
-    getComponent: (location, callback) => {
+    getComponent: (location: Object, callback: Function) => {
       if (__CLIENT__) {
-        require.ensure([], (require) => {
-          callback(null, require('App/screens/Films/screens/FilmDetails').default);
-        }, 'App/screens/Films/screens/FilmDetails');
+        System.import('App/screens/Films/screens/FilmDetails')
+          .then(loadModule(callback))
+          .catch(errorLoading);
       } else {
         callback(null, require('App/screens/Films/screens/FilmDetails').default);
       }
@@ -45,15 +49,15 @@ const childRoutes = (): Route[] => [{
   }],
 }];
 
-export default (): IndexRoute => ({
+export default (store): IndexRoute => ({ // eslint-disable-line no-unused-vars
   path: '/',
   component: App,
   indexRoute: {
     getComponent: (location: Object, callback: Function) => {
       if (__CLIENT__) {
-        require.ensure([], (require) => {
-          callback(null, require('App/screens/Home').default);
-        }, 'App/screens/Home');
+        System.import('App/screens/Home')
+          .then(loadModule(callback))
+          .catch(errorLoading);
       } else {
         callback(null, require('App/screens/Home').default);
       }
@@ -63,9 +67,9 @@ export default (): IndexRoute => ({
     path: '*',
     getComponent: (location: Object, callback: Function) => {
       if (__CLIENT__) {
-        require.ensure([], (require) => {
-          callback(null, require('App/screens/NotFound').default);
-        }, 'App/screens/NotFound');
+        System.import('App/screens/NotFound')
+          .then(loadModule(callback))
+          .catch(errorLoading);
       } else {
         callback(null, require('App/screens/NotFound').default);
       }

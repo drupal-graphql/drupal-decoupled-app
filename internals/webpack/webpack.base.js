@@ -21,13 +21,17 @@ module.exports = (options) => ({
   plugins: options.plugins,
   postcss: () => options.postcssPlugins,
   resolve: {
-    modulesDirectories: [
+    modules: [
       'screens',
       'components',
       'shared',
       'node_modules',
     ],
     extensions: ['', '.js'],
+    packageMains: [
+      'jsnext:main',
+      'main',
+    ],
   },
   devtool: options.devtool,
   target: options.target || 'web', // Make web variables accessible to webpack, e.g. window.

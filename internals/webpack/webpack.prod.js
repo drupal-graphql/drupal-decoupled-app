@@ -1,16 +1,19 @@
 /* eslint-disable global-require */
 
+// Load the environment configuration.
+require('dotenv-safe').config();
+
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
+const WebpackMd5Hash = require('webpack-md5-hash');
 
 // PostCSS plugins.
 const cssNext = require('postcss-cssnext');
 const postCssFocus = require('postcss-focus');
 const postCssReporter = require('postcss-reporter');
-const envConfig = require('dotenv-safe').config();
 
 module.exports = [require('./webpack.base')({
   // In production, we skip all hot-reloading stuff.
@@ -60,11 +63,8 @@ module.exports = [require('./webpack.base')({
     }),
   ],
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('common', 'common.[chunkhash].js'),
-
-    // OccurrenceOrderPlugin is needed for long-term caching to work properly.
-    // See http://mxs.is/googmv
-    new webpack.optimize.OccurrenceOrderPlugin(true),
+    new WebpackMd5Hash(),
+    new webpack.optimize.CommonsChunkPlugin('common'),
 
     // Merge all duplicate modules.
     new webpack.optimize.DedupePlugin(),
@@ -107,15 +107,12 @@ module.exports = [require('./webpack.base')({
       __SERVER__: false,
       __DEVELOPMENT__: false,
       __PRODUCTION__: true,
-      'process.env': JSON.stringify(Object.assign({}, {
-        NODE_ENV: process.env.NODE_ENV || 'production',
-      }, envConfig)),
     }),
 
     // Put it in the end to capture all the HtmlWebpackPlugin's assets
     // manipulations and do leak its manipulations to HtmlWebpackPlugin.
     new OfflinePlugin({
-      relativePaths: false, // Use generated relative paths by default
+      relativePaths: true, // Use generated relative paths by default
       caches: {
         main: [':rest:'],
 
@@ -186,9 +183,6 @@ module.exports = [require('./webpack.base')({
       __SERVER__: true,
       __DEVELOPMENT__: false,
       __PRODUCTION__: true,
-      'process.env': JSON.stringify(Object.assign({}, {
-        NODE_ENV: process.env.NODE_ENV || 'production',
-      }, envConfig)),
     }),
   ],
 
