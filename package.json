@@ -95,7 +95,7 @@
     "karma-safari-launcher": "^0.1.1",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.7.0",
-    "lint-staged": "^0.2.1",
+    "lint-staged": "^0.2.2",
     "mocha": "^2.3.4",
     "null-loader": "^0.1.1",
     "pre-commit": "^1.1.2",
