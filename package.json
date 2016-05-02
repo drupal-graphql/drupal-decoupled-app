@@ -89,7 +89,7 @@
     "isparta-loader": "^2.0.0",
     "jscs": "^2.11.0",
     "karma": "^0.13.22",
-    "karma-chrome-launcher": "^0.2.3",
+    "karma-chrome-launcher": "^1.0.1",
     "karma-coverage": "^0.5.5",
     "karma-firefox-launcher": "^0.1.7",
     "karma-ie-launcher": "^0.2.0",
