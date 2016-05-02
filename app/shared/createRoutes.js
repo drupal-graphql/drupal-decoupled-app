@@ -30,6 +30,7 @@ const childRoutes = (): Route[] => [{
       callback(null, require('App/screens/Films').default);
     }
   },
+
   childRoutes: [{
     path: '/films/:id',
     queries: {
