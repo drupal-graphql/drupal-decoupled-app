@@ -103,7 +103,7 @@
     "null-loader": "^0.1.1",
     "pre-commit": "^1.1.2",
     "react-addons-test-utils": "^15.0.2",
-    "redbox-react": "^1.2.2",
+    "redbox-react": "^1.2.4",
     "sinon": "^2.0.0-pre",
     "stylelint": "^6.2.2",
     "stylelint-config-standard": "^6.0.0",
