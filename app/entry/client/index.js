@@ -16,7 +16,7 @@ import ReactDOM from 'react-dom';
 import Relay from 'react-relay';
 import { browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import withScroll from 'scroll-behavior/lib/withStandardScroll';
+import withScroll from 'scroll-behavior';
 import configureStore from 'configureStore';
 
 // Set up relay.
