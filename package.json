@@ -53,7 +53,7 @@
     "reindex-js": "^0.4.0",
     "reselect": "^2.0.2",
     "rimraf": "^2.5.2",
-    "scroll-behavior": "^0.5.0",
+    "scroll-behavior": "^0.6.0",
     "style-loader": "^0.13.0",
     "sync-request": "^3.0.0",
     "url-loader": "^0.5.7",
