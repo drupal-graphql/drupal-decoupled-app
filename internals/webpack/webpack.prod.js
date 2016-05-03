@@ -49,7 +49,10 @@ module.exports = [require('./webpack.base')({
     // need for ExtractTextPlugin here.
     test: /\.css$/,
     include: /node_modules/,
-    loaders: ['style-loader', 'css-loader'],
+    loader: ExtractTextPlugin.extract(
+      'style-loader',
+      'css-loader'
+    ),
   }],
 
   // In production, we minify our CSS with cssnano.
