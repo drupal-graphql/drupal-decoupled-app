@@ -76,7 +76,7 @@
     "eslint-plugin-jsx-a11y": "^1.0.3",
     "eslint-plugin-react": "^5.0.1",
     "eventsource-polyfill": "^0.9.6",
-    "expect": "^1.18.0",
+    "expect": "^1.19.0",
     "expect-jsx": "^2.5.1",
     "flow-bin": "^0.24.0",
     "iflow-immutable": "^1.0.32",
