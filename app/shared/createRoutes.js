@@ -64,6 +64,7 @@ export default (store): IndexRoute => ({ // eslint-disable-line no-unused-vars
       }
     },
   },
+
   childRoutes: [...childRoutes(), {
     path: '*',
     getComponent: (location: Object, callback: Function) => {
