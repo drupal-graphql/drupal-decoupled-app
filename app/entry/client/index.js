@@ -50,7 +50,7 @@ if (module.hot) {
   const renderApp = render;
   const renderError = (error) => {
     const RedBox = require('redbox-react');
-    ReactDOM.render((<RedBox error={error} />), mountNode);
+    ReactDOM.render(<RedBox error={error} />, mountNode);
   };
 
   render = () => {
