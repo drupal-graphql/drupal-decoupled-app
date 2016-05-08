@@ -102,7 +102,7 @@
     "react-addons-test-utils": "^15.0.2",
     "redbox-react": "^1.2.4",
     "sinon": "^2.0.0-pre",
-    "stylelint": "^6.3.0",
+    "stylelint": "^6.3.2",
     "stylelint-config-standard": "^7.0.0",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.10.0"
