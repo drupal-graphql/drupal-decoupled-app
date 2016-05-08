@@ -70,7 +70,7 @@
     "eslint-import-resolver-webpack": "^0.2.4",
     "eslint-plugin-flow-vars": "^0.4.0",
     "eslint-plugin-import": "^1.6.1",
-    "eslint-plugin-jsx-a11y": "^1.0.3",
+    "eslint-plugin-jsx-a11y": "^1.2.0",
     "eslint-plugin-react": "^5.0.1",
     "eventsource-polyfill": "^0.9.6",
     "expect": "^1.19.0",
