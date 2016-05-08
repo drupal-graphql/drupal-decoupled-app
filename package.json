@@ -1,7 +1,5 @@
 {
-  "name": "drupal-decoupled-app",
-  "version": "1.0.0",
-  "description": "React, Relay & Redux Prototype with Server-Side Rendering.",
+  "private": true,
   "dependencies": {
     "autoprefixer": "^6.3.1",
     "babel-core": "^6.8.0",
@@ -104,8 +102,8 @@
     "react-addons-test-utils": "^15.0.2",
     "redbox-react": "^1.2.4",
     "sinon": "^2.0.0-pre",
-    "stylelint": "^6.2.2",
-    "stylelint-config-standard": "^6.0.0",
+    "stylelint": "^6.3.0",
+    "stylelint-config-standard": "^7.0.0",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.10.0"
   },
