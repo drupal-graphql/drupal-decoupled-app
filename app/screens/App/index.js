@@ -18,7 +18,7 @@ interface IAppProps {
   children: string;
 }
 
-const App = (props: IAppProps) => (
+const App = (props: IAppProps) =>
   <div className={styles.App}>
     <Helmet
       htmlAttributes={{ lang: 'en', amp: undefined }}
@@ -35,7 +35,6 @@ const App = (props: IAppProps) => (
       ]}
     />
     {props.children}
-  </div>
-);
+  </div>;
 
 export default connect(selectLocationState)(App);

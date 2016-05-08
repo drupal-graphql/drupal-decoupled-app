@@ -12,8 +12,7 @@ import { Provider } from 'react-redux';
 // work. I have no clue why.
 import 'createRoutes';
 
-export default ({ store, ...props }) => (
+export default ({ store, ...props }) =>
   <Provider store={store}>
     <Router {...props} />
-  </Provider>
-);
+  </Provider>;
