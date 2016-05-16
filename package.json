@@ -75,7 +75,7 @@
     "eventsource-polyfill": "^0.9.6",
     "expect": "^1.19.0",
     "expect-jsx": "^2.5.1",
-    "flow-bin": "^0.24.1",
+    "flow-bin": "^0.25.0",
     "iflow-immutable": "^1.0.32",
     "iflow-react-redux": "^1.0.15",
     "iflow-react-router": "^1.0.42",
