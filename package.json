@@ -78,7 +78,7 @@
     "flow-bin": "^0.25.0",
     "iflow-immutable": "^1.0.32",
     "iflow-react-redux": "^1.0.15",
-    "iflow-react-router": "^1.0.42",
+    "iflow-react-router": "^1.1.14",
     "iflow-react-widgets": "^1.0.16",
     "iflow-redux": "^1.0.37",
     "iflow-redux-actions": "^1.0.3",
