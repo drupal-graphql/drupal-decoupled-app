@@ -65,7 +65,7 @@
     "cheerio": "^0.20.0",
     "coveralls": "^2.11.9",
     "enzyme": "^2.2.0",
-    "eslint": "^2.8.0",
+    "eslint": "^2.13.1",
     "eslint-config-airbnb": "^9.0.0",
     "eslint-import-resolver-webpack": "^0.2.4",
     "eslint-plugin-flow-vars": "^0.4.0",
