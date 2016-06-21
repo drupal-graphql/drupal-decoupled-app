@@ -2,7 +2,7 @@
   "private": true,
   "dependencies": {
     "autoprefixer": "^6.3.1",
-    "babel-core": "^6.8.0",
+    "babel-core": "^6.10.4",
     "babel-loader": "^6.2.4",
     "babel-plugin-react-transform": "^2.0.2",
     "babel-polyfill": "^6.8.0",
