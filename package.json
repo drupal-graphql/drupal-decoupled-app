@@ -58,7 +58,7 @@
     "webpack-md5-hash": "0.0.5"
   },
   "devDependencies": {
-    "babel-eslint": "^6.0.4",
+    "babel-eslint": "^6.1.0",
     "babel-plugin-transform-flow-strip-types": "^6.8.0",
     "chai": "^3.5.0",
     "chai-enzyme": "^0.4.2",
