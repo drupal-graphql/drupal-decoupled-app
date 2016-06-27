@@ -1,0 +1,3 @@
+declare function describe(what: string, context: () => void): void;
+declare function it(should: string, context: (done: Function) => void): void;
+declare function expect(something: any): any;

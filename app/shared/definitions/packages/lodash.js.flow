@@ -1,0 +1,5 @@
+import lodash from 'lodash';
+
+declare module 'lodash/range' {
+  declare var exports: lodash.range;
+}

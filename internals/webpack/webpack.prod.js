@@ -1,7 +1,16 @@
+/**
+ * @file    production webpack config
+ * @author  Sebastian Siemssen <sebastian@amazeelabs.com>
+ * @date    2016-01-01
+ */
+
 /* eslint-disable global-require */
 
 // Load the environment configuration.
-require('dotenv-safe').config();
+require('dotenv-extended').config({
+  path: '.env.local',
+  defaults: '.env',
+});
 
 const path = require('path');
 const webpack = require('webpack');
@@ -31,29 +40,38 @@ module.exports = [require('./webpack.base')({
   },
 
   // Load the CSS in a style tag in development.
-  loaders: [{
-    // Transform our own .css files with PostCSS and CSS-modules.
-    test: /\.css$/,
-    exclude: /node_modules/,
+  loaders: [
+    {
+      // Transform our own .css files with PostCSS and CSS-modules.
+      test: /\.css$/,
+      exclude: /node_modules/,
 
-    // We use ExtractTextPlugin so we get a seperate CSS file instead of the CSS
-    // being in the JS and injected as a style tag.
-    loader: ExtractTextPlugin.extract(
-      'style-loader',
-      'css-loader?modules&importLoaders=1!postcss-loader'
-    ),
-  }, {
-    // Do not transform vendor's CSS with CSS-modules. The point is that they
-    // remain in global scope. Since we require these CSS files in our JS or
-    // CSS files, they will be a part of our compilation either way. So, no
-    // need for ExtractTextPlugin here.
-    test: /\.css$/,
-    include: /node_modules/,
-    loader: ExtractTextPlugin.extract(
-      'style-loader',
-      'css-loader'
-    ),
-  }],
+      // We use ExtractTextPlugin so we get a seperate CSS file instead of the CSS
+      // being in the JS and injected as a style tag.
+      loader: ExtractTextPlugin.extract(
+        'style-loader',
+        'css-loader?modules&importLoaders=1!postcss-loader'
+      ),
+    },
+    {
+      // Do not transform vendor's CSS with CSS-modules. The point is that they
+      // remain in global scope. Since we require these CSS files in our JS or
+      // CSS files, they will be a part of our compilation either way. So, no
+      // need for ExtractTextPlugin here.
+      test: /\.css$/,
+      include: /node_modules/,
+      loader: ExtractTextPlugin.extract(
+        'style-loader',
+        'css-loader'
+      ),
+    }, {
+      test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+      loader: 'url-loader?limit=10000&mimetype=application/font-woff',
+    }, {
+      test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+      loader: 'file-loader',
+    },
+  ],
 
   // In production, we minify our CSS with cssnano.
   postcssPlugins: [
@@ -128,39 +146,48 @@ module.exports = [require('./webpack.base')({
       AppCache: false,
     }),
   ],
+
+  babelQuery: {
+
+    // Load the babel relay plugin and initialize it with the GraphQL schema
+    // from our server.
+    plugins: [path.resolve(process.cwd(), 'internals', 'webpack', 'relay')],
+  },
 }), require('./webpack.base')({
   // No need for any of the hot-reloading stuff on the server side.
   entry: './entry/server',
 
   // Don't use hashes in dev mode for better performance.
   output: {
-    filename: 'server.js',
+    filename: 'render.js',
     libraryTarget: 'commonjs2',
     path: path.resolve(process.cwd(), 'build'),
     publicPath: '/public',
   },
 
-  loaders: [{
-    // Transform our own .css files with PostCSS and CSS-modules.
-    test: /\.css$/,
-    exclude: /node_modules/,
-    loader: 'css-loader/locals?modules&importLoaders=1!postcss-loader',
-  }, {
-    // Do not transform vendor's CSS with CSS-modules. The point is that they
-    // remain in global scope. Since we require these CSS files in our JS or
-    // CSS files, they will be a part of our compilation either way. So, no
-    // need for ExtractTextPlugin here.
-    test: /\.css$/,
-    include: /node_modules/,
-    loaders: ['css-loader/locals'],
-  }, {
-    test: /\.json$/,
-    loader: 'json-loader',
-  }],
+  loaders: [
+    {
+      // Transform our own .css files with PostCSS and CSS-modules.
+      test: /\.css$/,
+      exclude: /node_modules/,
+      loader: 'css-loader/locals?modules&importLoaders=1!postcss-loader',
+    }, {
+      // Do not transform vendor's CSS with CSS-modules. The point is that they
+      // remain in global scope. Since we require these CSS files in our JS or
+      // CSS files, they will be a part of our compilation either way. So, no
+      // need for ExtractTextPlugin here.
+      test: /\.css$/,
+      include: /node_modules/,
+      loaders: ['css-loader/locals'],
+    }, {
+      test: /\.json$/,
+      loader: 'json-loader',
+    },
+  ],
 
   // Process the CSS with PostCSS.
   postcssPlugins: [
-    postCssFocus(), // Add a :focus to every :hover
+    postCssFocus(), // Add a:focus to every:hover
     cssNext({ // Allow future CSS features to be used, also auto-prefixes the CSS...
       browsers: ['last 2 versions', 'IE > 10'], // ...based on this browser list
     }),
@@ -188,6 +215,13 @@ module.exports = [require('./webpack.base')({
       __PRODUCTION__: true,
     }),
   ],
+
+  babelQuery: {
+
+    // Load the babel relay plugin and initialize it with the GraphQL schema
+    // from our server.
+    plugins: [path.resolve(process.cwd(), 'internals', 'webpack', 'relay')],
+  },
 
   target: 'node',
 })];

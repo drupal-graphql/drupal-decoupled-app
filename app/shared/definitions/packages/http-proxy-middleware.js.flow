@@ -1,0 +1,3 @@
+declare module 'http-proxy-middleware' {
+  declare var exports: any;
+}

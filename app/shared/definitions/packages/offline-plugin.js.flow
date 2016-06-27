@@ -1,0 +1,3 @@
+declare module 'offline-plugin' {
+  declare var exports: any;
+}

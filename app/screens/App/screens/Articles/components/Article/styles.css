@@ -1,0 +1,13 @@
+.Wrapper {
+  margin: auto;
+  max-width: 500px;
+  margin-bottom: 2rem;
+}
+
+.Title {
+  font-size: 1.1rem;
+}
+
+.Body {
+  margin-top: 1rem;
+}

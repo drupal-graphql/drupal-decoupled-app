@@ -1,4 +1,10 @@
 /**
+ * @file    routing and redux setup wrapper
+ * @author  Sebastian Siemssen <sebastian@amazeelabs.com>
+ * @date    2016-01-01
+ */
+
+/**
  * Root component for setting up the redux provider and route container.
  *
  * Needs to be in a separate file to enable hot reloading.
@@ -12,7 +18,8 @@ import { Provider } from 'react-redux';
 // work. I have no clue why.
 import 'createRoutes';
 
-export default ({ store, ...props }) =>
+export default ({ store, ...props }) => (
   <Provider store={store}>
     <Router {...props} />
-  </Provider>;
+  </Provider>
+);

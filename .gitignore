@@ -4,9 +4,9 @@ build
 node_modules
 
 # Environment specific configuration
-.env
+.env.local
 
 # Cruft
 .DS_Store
-.idea
 npm-debug.log
+.idea

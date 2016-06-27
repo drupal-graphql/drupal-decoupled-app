@@ -15,6 +15,7 @@ node_modules/iflow-redux/index.js.flow
 node_modules/iflow-redux-actions/index.js.flow
 node_modules/iflow-react-router/index.js.flow
 node_modules/iflow-react-widgets/index.js.flow
+node_modules/iflow-lodash/index.js.flow
 
 [options]
 module.system=haste
@@ -23,4 +24,7 @@ module.file_ext=.css
 module.system.node.resolve_dirname=screens
 module.system.node.resolve_dirname=components
 module.system.node.resolve_dirname=shared
+module.ignore_non_literal_requires=true
 suppress_comment= \\(.\\|\n\\)*\\flow-ignore-next-line
+munge_underscores=true
+esproposal.class_instance_fields=enable

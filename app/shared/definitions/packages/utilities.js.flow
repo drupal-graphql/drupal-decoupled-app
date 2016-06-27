@@ -1,0 +1,3 @@
+declare module 'graphql/utilities' {
+  declare var exports: any;
+}

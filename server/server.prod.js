@@ -1,9 +1,16 @@
-const path = require('path');
+/**
+ * @file    production node express server
+ * @author  Sebastian Siemssen <sebastian@amazeelabs.com>
+ * @date    2016-01-01
+ */
+
+import path from 'path';
+import express from 'express';
+
 const buildPath = path.resolve(process.cwd(), 'build');
-const express = require('express');
 const render = require(path.join(buildPath, 'server')).default;
 
-module.exports = (app) => {
+export default (app) => {
   app.set('views', path.join(buildPath, 'views'));
   app.set('view engine', 'ejs');
 

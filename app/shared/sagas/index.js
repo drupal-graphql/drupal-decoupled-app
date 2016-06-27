@@ -1,6 +1,8 @@
 /**
  * Export all our sagas here.
+ *
+ * @flow
  */
 
-export default [
-];
+const sagas: any = [];
+export default sagas;

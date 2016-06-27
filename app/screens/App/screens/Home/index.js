@@ -6,7 +6,7 @@ import styles from './styles.css';
 const Home = () =>
   <div className={styles.Wrapper}>
     <Helmet title="Home" />
-    <Link to="/films" className={styles.Link}>List movies</Link>
+    <Link to="/articles" className={styles.Link}>Articles</Link>
   </div>;
 
 export default Home;

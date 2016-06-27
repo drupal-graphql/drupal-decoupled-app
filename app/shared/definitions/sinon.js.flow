@@ -1,0 +1,4 @@
+declare module 'sinon' {
+  declare function spy(): any;
+  declare function stub(): any;
+}

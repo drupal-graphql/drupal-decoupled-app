@@ -1,0 +1,3 @@
+declare module 'html-webpack-plugin' {
+  declare var exports: any;
+}

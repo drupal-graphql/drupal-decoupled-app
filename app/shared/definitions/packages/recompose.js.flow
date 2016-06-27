@@ -1,0 +1,74 @@
+declare module 'recompose/mapProps' {
+  declare function mapProps(props: Object): Object;
+  declare var exports: mapProps;
+}
+
+declare module 'recompose/withProps' {
+  declare function withProps(createProps: (ownerProps: Object) => Object | Object): Object;
+  declare var exports: withProps;
+}
+
+declare module 'recompose/withPropsOnChange' {
+  declare function withPropsOnChange(props: string[] | (props: Object, nextProps: Object) => boolean, createProps: (ownerProps: Object) => Object): any;
+  declare var exports: withPropsOnChange;
+}
+
+declare module 'recompose/defaultProps' {
+  declare function defaultProps(props: Object): Object;
+  declare var exports: defaultProps;
+}
+
+declare module 'recompose/renameProp' {
+  declare function renameProp(oldName: string, newName: string): any;
+  declare var exports: renameProp;
+}
+
+declare module 'recompose/renameProps' {
+  declare function renameProps(nameMap: { [key: string]: string }): any;
+  declare var exports: renameProps;
+}
+
+declare module 'recompose/flattenProp' {
+  declare function flattenProp(propName: string): any;
+  declare var exports: flattenProp;
+}
+
+declare module 'recompose/withState' {
+  declare function withState(stateName: string, stateUpdaterName: string, initialState: Function): any;
+  declare var exports: withState;
+}
+
+declare module 'recompose/compose' {
+  declare function compose(...props: any): any;
+  declare var exports: compose;
+}
+
+declare module 'recompose/lifecycle' {
+  declare function lifecycle(spec: Object): any;
+  declare var exports: lifecycle;
+}
+
+declare module 'recompose/toClass' {
+  declare var toClass: any;
+  declare var exports: toClass;
+}
+
+declare module 'recompose/withReducer' {
+  declare function withReducer(stateName: string, dispatchName: string, reducer: (state: Object, action: Object) => Object, initialState: Object): any;
+  declare var exports: withReducer;
+}
+
+declare module 'recompose/shouldUpdate' {
+  declare function shouldUpdate(test: (props: Object, nextProps: Object) => boolean): any;
+  declare var exports: shouldUpdate;
+}
+
+declare module 'recompose/shallowEqual' {
+  declare function shallowEqual(a: Object, b: Object): boolean;
+  declare var exports: shallowEqual;
+}
+
+declare module 'recompose-relay/createContainer' {
+  declare function createContainer(component: any, fragments: any): any;
+  declare var exports: createContainer;
+}

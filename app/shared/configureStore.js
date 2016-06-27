@@ -11,8 +11,7 @@ import sagaMiddleware from 'redux-saga';
 import sagas from './sagas';
 import createReducer from './reducers';
 
-// flow-ignore-next-line (eslint & jscs bug)
-export default (initialState = {}, history: Object) => {
+export default (initialState: Object = {}, history: Object = {}) => {
   // Create the store with two middlewares:
   // 1. sagaMiddleware: Imports all the asynchronous flows ("sagas") from the
   //    sagas folder and triggers them.

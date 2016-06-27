@@ -1,0 +1,3 @@
+declare module 'webpack-hot-middleware' {
+  declare var exports: any;
+}

@@ -15,39 +15,21 @@ const loadModule = (callback) => (module) => callback(null, module.default);
 const loadReducer = (store, name) => (module) => injectAsyncReducer(store, name, module.default); // eslint-disable-line no-unused-vars
 
 const childRoutes = (): Route[] => [{
-  path: '/films',
+  path: '/articles',
   queries: {
-    list: () => Relay.QL`query {
-      allFilms
+    articles: () => Relay.QL`query {
+      allArticles
     }`,
   },
   getComponent: (location: Object, callback: Function) => {
     if (__CLIENT__) {
-      System.import('App/screens/Films')
+      System.import('App/screens/Articles')
         .then(loadModule(callback))
         .catch(errorLoading);
     } else {
-      callback(null, require('App/screens/Films').default);
+      callback(null, require('App/screens/Articles').default);
     }
   },
-
-  childRoutes: [{
-    path: '/films/:id',
-    queries: {
-      film: () => Relay.QL`query {
-        film(id: $id)
-      }`,
-    },
-    getComponent: (location: Object, callback: Function) => {
-      if (__CLIENT__) {
-        System.import('App/screens/Films/screens/FilmDetails')
-          .then(loadModule(callback))
-          .catch(errorLoading);
-      } else {
-        callback(null, require('App/screens/Films/screens/FilmDetails').default);
-      }
-    },
-  }],
 }];
 
 export default (store): IndexRoute => ({ // eslint-disable-line no-unused-vars

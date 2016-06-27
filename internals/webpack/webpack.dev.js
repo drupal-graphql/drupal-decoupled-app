@@ -1,7 +1,16 @@
+/**
+ * @file    develop webpack config
+ * @author  Sebastian Siemssen <sebastian@amazeelabs.com>
+ * @date    2016-01-01
+ */
+
 /* eslint-disable global-require */
 
 // Load the environment configuration.
-require('dotenv-safe').config();
+require('dotenv-extended').config({
+  path: '.env.local',
+  defaults: '.env',
+});
 
 const path = require('path');
 const webpack = require('webpack');
@@ -42,6 +51,12 @@ module.exports = require('./webpack.base')({
     test: /\.css$/,
     include: /node_modules/,
     loaders: ['style-loader', 'css-loader'],
+  }, {
+    test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+    loader: 'url-loader?limit=10000&mimetype=application/font-woff',
+  }, {
+    test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+    loader: 'file-loader',
   }],
 
   // Process the CSS with PostCSS.
@@ -72,13 +87,14 @@ module.exports = require('./webpack.base')({
     }),
   ],
 
-  // Tell babel that we want to hot-reload.
   babelQuery: {
 
-    // This can't be loaded through .babelrc for some reason.
+    // Load the babel relay plugin and initialize it with the GraphQL schema
+    // from our server.
     plugins: [path.resolve(process.cwd(), 'internals', 'webpack', 'relay')],
   },
 
   // Emit a source map for easier debugging.
-  devtool: 'inline-source-map',
+  // devtool: 'inline-source-map',
+  devtool: 'eval',
 });

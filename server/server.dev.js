@@ -1,12 +1,18 @@
-const path = require('path');
-const ejs = require('ejs');
-const webpack = require('webpack');
-const devMiddleware = require('webpack-dev-middleware');
-const hotMiddleware = require('webpack-hot-middleware');
-const options = require('../internals/webpack/webpack.dev');
+/**
+ * @file    develop node express server
+ * @author  Sebastian Siemssen <sebastian@amazeelabs.com>
+ * @date    2016-01-01
+ */
 
-module.exports = (app) => {
+import path from 'path';
+import ejs from 'ejs';
+import webpack from 'webpack';
+import devMiddleware from 'webpack-dev-middleware';
+import hotMiddleware from 'webpack-hot-middleware';
+
+export default (app, options) => {
   const compiler = webpack(options);
+
   const middleware = devMiddleware(compiler, {
     publicPath: options.output.publicPath,
     noInfo: true,

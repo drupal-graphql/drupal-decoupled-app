@@ -1,0 +1,3 @@
+declare module 'dotenv-extended' {
+  declare var exports: any;
+}

@@ -4,25 +4,16 @@ const path = require('path');
 module.exports = (config) => config.set({
   frameworks: ['mocha'],
   reporters: ['coverage', 'mocha'],
-
-  /* eslint-disable */
-  browsers: process.env.TRAVIS
-    ? ['ChromeTravis']
-    : process.env.APPVEYOR
-      ? ['IE'] : ['Chrome'],
-  /* eslint-enable */
-
+  browsers: process.env.TRAVIS ? ['ChromeTravis'] : ['Chrome'],
   autoWatch: false,
   singleRun: true,
 
-  files: [
-    {
-      pattern: './test-bundler.js',
-      watched: false,
-      served: true,
-      included: true,
-    },
-  ],
+  files: [{
+    pattern: './test-bundler.js',
+    watched: false,
+    served: true,
+    included: true,
+  }],
 
   preprocessors: {
     './test-bundler.js': ['webpack', 'sourcemap'],
@@ -44,9 +35,12 @@ module.exports = (config) => config.set({
 
   coverageReporter: {
     dir: path.join(process.cwd(), 'coverage'),
-    reporters: [
-      { type: 'lcov', subdir: 'lcov' },
-      { type: 'html', subdir: 'html' },
-    ],
+    reporters: [{
+      type: 'lcov',
+      subdir: 'lcov',
+    }, {
+      type: 'html',
+      subdir: 'html',
+    }],
   },
 });

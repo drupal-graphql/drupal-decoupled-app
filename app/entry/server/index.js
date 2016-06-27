@@ -1,3 +1,9 @@
+/**
+ * @file    application entry point for the server
+ * @author  Sebastian Siemssen <sebastian@amazeelabs.com>
+ * @date    2016-01-01
+ */
+
 import React from 'react';
 import Relay from 'react-relay';
 import IsomorphicRouter from 'isomorphic-relay-router';
@@ -10,6 +16,11 @@ import configureStore from 'configureStore';
 import createRoutes from 'createRoutes';
 import locationStateSelector from 'selectors/locationStateSelector';
 
+/*
+ * Export render function to be used in server/config/routes.js
+ * We grab the state passed in from the server and the req object from Express/Koa
+ * and pass it into the Router.run function.
+ */
 export default (req, res, next) => {
   // Get the host and port from the request.
   const protocol = req.protocol;
@@ -62,7 +73,7 @@ export default (req, res, next) => {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
       IsomorphicRouter.prepareData(renderProps, networkLayer).then(({ data, props }) => {
-        const Root = (// eslint-disable-line no-extra-parens
+        const Root = (
           <Provider store={store}>
             <Router {...props} />
           </Provider>

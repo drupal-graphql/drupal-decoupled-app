@@ -4,15 +4,7 @@
   "env": {
     "browser": true,
     "node": true,
-    "mocha": true,
-    "es6": true
-  },
-  "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    }
+    "mocha": true
   },
   "plugins": [
     "react",
@@ -37,7 +29,9 @@
     "__CLIENT__": true,
     "__SERVER__": true,
     "__DEVELOPMENT__": true,
-    "__PRODUCTION__": true
+    "__PRODUCTION__": true,
+    "expect": true,
+    "should": true
   },
   "settings": {
     "import/resolver": {

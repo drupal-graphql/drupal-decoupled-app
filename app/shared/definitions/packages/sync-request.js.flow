@@ -1,0 +1,3 @@
+declare module 'sync-request' {
+  declare var exports: any;
+}

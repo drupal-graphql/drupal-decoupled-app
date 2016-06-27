@@ -1,0 +1,5 @@
+declare module 'enzyme' {
+  declare function mount(component: any): any;
+  declare function shallow(component: any): any;
+  declare function render(component: any): any;
+}

@@ -1,17 +1,28 @@
+/* eslint-disable global-require */
+
+/**
+ * @file    relay webpack config
+ * @author  Sebastian Siemssen <sebastian@amazeelabs.com>
+ * @date    2016-01-01
+ */
+
+const path = require('path');
 const babelRelayPlugin = require('babel-relay-plugin');
-const introspectionQuery = require('graphql/utilities').introspectionQuery;
-const request = require('sync-request');
+const { loopWhile } = require('deasync');
+const { graphql } = require('graphql');
+const { introspectionQuery } = require('graphql/utilities');
+const schemaPath = path.resolve(process.cwd(), 'server', 'schema');
+const mockSchema = require(schemaPath).default;
 
-const api = process.env.GRAPHQL_API;
+// For now, we run the introspection query against our mock API.
+let jsonSchema;
 
-const response = request('POST', api, {
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    query: introspectionQuery,
-  }),
+let wait = true;
+graphql(mockSchema, introspectionQuery).then(({ data }) => {
+  jsonSchema = data;
+  wait = false;
 });
 
-const schema = JSON.parse(response.body.toString('utf-8'));
-module.exports = babelRelayPlugin(schema.data);
+loopWhile(() => wait);
+
+module.exports = babelRelayPlugin(jsonSchema);
