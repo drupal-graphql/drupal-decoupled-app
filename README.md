@@ -2,9 +2,11 @@
 
 ## NOTE!
 
-This does not yet use Drupal as a backend. Currently, we are using the GraphQL
-SWAPI (StarWars API). We will switch to using a Drupal backend once Relay
-support has been added (shortly!).
+This does not yet use Drupal as a backend. Currently, we are using a self-hosted
+GraphQL Mock API running on MongoDB. Therefore, in order to run this
+application, you have to install MongoDB locally.
+
+Once running, you can access GraphiQL at http://localhost/graphql.
 
 ## Decoupled Drupal with Relay & GraphQL
 
