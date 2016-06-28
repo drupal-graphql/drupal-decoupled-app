@@ -6,7 +6,7 @@
 
 /* eslint-disable global-require */
 
-// Needed for redux-saga es6 generator support.
+// Needed for some ES6/7 language features.
 import 'babel-polyfill';
 
 // Load the manifest.json file.
@@ -68,8 +68,8 @@ if (module.hot) {
 // Do the initial rendering.
 render();
 
-if (__PRODUCTION__) {
-  // Install ServiceWorker and AppCache in the end since it's not the most
-  // important operation and if main code fails, we do not want it installed.
+if (__PRODUCTION__ && window.location.hostname !== 'localhost') {
+  // Install ServiceWorker in the end since it's not the most important
+  // operation and if main code fails, we do not want it installed.
   require('offline-plugin/runtime').install();
 }

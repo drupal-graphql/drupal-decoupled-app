@@ -11,7 +11,7 @@ import sagaMiddleware from 'redux-saga';
 import sagas from './sagas';
 import createReducer from './reducers';
 
-export default (initialState: Object = {}, history: Object = {}) => {
+export default (initialState : Object = {}, history : Object = {}) => {
   // Create the store with two middlewares:
   // 1. sagaMiddleware: Imports all the asynchronous flows ("sagas") from the
   //    sagas folder and triggers them.

@@ -11,18 +11,16 @@ const babelRelayPlugin = require('babel-relay-plugin');
 const { loopWhile } = require('deasync');
 const { graphql } = require('graphql');
 const { introspectionQuery } = require('graphql/utilities');
-const schemaPath = path.resolve(process.cwd(), 'server', 'schema');
+
+// During production, we need to load the schema from the build directory.
+const schemaPath = process.env.NODE_ENV === 'development' ?
+  path.resolve(process.cwd(), 'server', 'schema') :
+  path.resolve(process.cwd(), 'build', 'server', 'schema');
 const mockSchema = require(schemaPath).default;
 
 // For now, we run the introspection query against our mock API.
-let jsonSchema;
-
-let wait = true;
 graphql(mockSchema, introspectionQuery).then(({ data }) => {
-  jsonSchema = data;
-  wait = false;
+  module.exports = babelRelayPlugin(data);
 });
 
-loopWhile(() => wait);
-
-module.exports = babelRelayPlugin(jsonSchema);
+loopWhile(() => typeof module.exports === 'undefined');

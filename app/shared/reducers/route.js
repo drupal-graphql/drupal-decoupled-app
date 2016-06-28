@@ -20,7 +20,7 @@ const routeInitialState: Map<string, any> = fromJS({
 /**
 * Merge route into the global application state.
 */
-export default (state: Map = routeInitialState, action: Object) => {
+export default (state : Map = routeInitialState, action: Object) => {
   if (action.type === LOCATION_CHANGE) {
     return state.merge({
       locationBeforeTransitions: action.payload,

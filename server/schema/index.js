@@ -4,6 +4,9 @@
  * @date    2016-06-21
  */
 
+// Needed for some ES6/7 language features.
+import 'babel-polyfill';
+
 import { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 import { connectionArgs, connectionFromPromisedArray, mutationWithClientMutationId } from 'graphql-relay';
 import { getAllArticles, addArticle } from '../model/article';

@@ -118,7 +118,7 @@
     "postinstall": "if test \"$NODE_ENV\" = \"production\"; then npm run build; fi",
     "build": "npm run build:server && npm run build:renderer",
     "build:server": "cross-env NODE_ENV=production babel server --presets es2015,stage-0 --out-dir build/server",
-    "build:renderer": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.js --color -p",
+    "build:renderer": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.js --color --progress -p",
     "prebuild": "npm run clean:build",
     "dev": "cross-env NODE_ENV=development nodemon server --exec babel-node --presets es2015,stage-0 --watch ./server",
     "start": "cross-env NODE_ENV=production node build/server",

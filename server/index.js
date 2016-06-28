@@ -29,7 +29,7 @@ app.use('/graphql', graphql({
 
 // Add middlewares, etc. for the current environment.
 if (process.env.NODE_ENV === 'production') {
-  require('./server.prod')(app);
+  require('./server.prod').default(app);
 } else {
   const devOptions = require('../internals/webpack/webpack.dev');
   require('./server.dev').default(app, devOptions);

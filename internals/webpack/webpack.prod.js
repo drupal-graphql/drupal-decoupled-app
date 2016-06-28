@@ -136,6 +136,7 @@ module.exports = [require('./webpack.base')({
       relativePaths: true, // Use generated relative paths by default
       caches: {
         main: [':rest:'],
+        excludes: ['**/*.ejs'],
 
         // All chunks marked as `additional`, loaded after main section and do
         // not prevent SW to install. Change to `optional` if do not want them
