@@ -1,3 +1,0 @@
-declare module 'redux-immutable' {
-  declare function combineReducers(reducers: Object): Object;
-}

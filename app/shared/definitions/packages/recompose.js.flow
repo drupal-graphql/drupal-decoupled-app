@@ -63,11 +63,6 @@ declare module 'recompose/shouldUpdate' {
   declare var exports: shouldUpdate;
 }
 
-declare module 'recompose/shallowEqual' {
-  declare function shallowEqual(a: Object, b: Object): boolean;
-  declare var exports: shallowEqual;
-}
-
 declare module 'recompose-relay/createContainer' {
   declare function createContainer(component: any, fragments: any): any;
   declare var exports: createContainer;
