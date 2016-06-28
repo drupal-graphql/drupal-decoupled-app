@@ -37,6 +37,6 @@ if (process.env.NODE_ENV === 'production') {
 
 // Start your app.
 app.listen(port, () => {
-  mongoose.connect('mongodb://localhost/popo');
+  mongoose.connect('mongodb://localhost/app');
   console.log(`Server listening at ${port}.`);
 });
