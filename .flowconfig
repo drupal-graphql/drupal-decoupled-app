@@ -7,7 +7,7 @@
 
 [libs]
 # custom definitions
-app/shared/definitions
+app/shared/definitions/packages
 
 # module definitions
 node_modules/iflow-immutable/index.js.flow
@@ -18,9 +18,9 @@ node_modules/iflow-react-widgets/index.js.flow
 node_modules/iflow-lodash/index.js.flow
 
 [options]
-module.system=haste
-module.file_ext=.js
-module.file_ext=.css
+module.name_mapper.extension='css' -> '<PROJECT_ROOT>/app/shared/definitions/css-module.js.flow'
+module.name_mapper.extension='png' -> '<PROJECT_ROOT>/app/shared/definitions/webpack-asset.js.flow'
+module.name_mapper.extension='jpg' -> '<PROJECT_ROOT>/app/shared/definitions/webpack-asset.js.flow'
 module.system.node.resolve_dirname=screens
 module.system.node.resolve_dirname=components
 module.system.node.resolve_dirname=shared

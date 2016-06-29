@@ -1,4 +1,0 @@
-declare module 'react-relay' {
-  declare var QL: any;
-  declare function createContainer(component: any, fragments: any): any;
-}
