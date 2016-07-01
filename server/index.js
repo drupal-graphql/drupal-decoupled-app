@@ -7,6 +7,15 @@
 /* eslint-disable global-require */
 /* eslint-disable consistent-return */
 
+// Load the polyfill so we can use things like Object.values().
+import 'babel-polyfill';
+
+// Load the environment configuration.
+require('dotenv-extended').config({
+  path     : '.env.local',
+  defaults : '.env',
+});
+
 // Fix error "Warning: Possible EventEmitter memory leak detected.".
 require('events').EventEmitter.prototype._maxListeners = 200; // eslint-disable-line no-underscore-dangle
 
@@ -37,6 +46,6 @@ if (process.env.NODE_ENV === 'production') {
 
 // Start your app.
 app.listen(port, () => {
-  mongoose.connect('mongodb://localhost/app');
+  mongoose.connect(process.env.MONGODB_DATABASE);
   console.log(`Server listening at ${port}.`);
 });
