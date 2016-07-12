@@ -84,7 +84,7 @@
     "eventsource-polyfill": "^0.9.6",
     "flow-bin": "^0.27.0",
     "iflow-immutable": "^1.0.32",
-    "iflow-lodash": "^1.1.14",
+    "iflow-lodash": "^1.1.18",
     "iflow-react-redux": "^1.1.14",
     "iflow-react-router": "^1.1.14",
     "iflow-redux": "^1.0.37",
