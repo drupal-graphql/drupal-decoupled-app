@@ -32,7 +32,7 @@
     "html-webpack-plugin": "^2.17.0",
     "immutable": "^3.7.6",
     "imports-loader": "^0.6.5",
-    "isomorphic-relay": "^0.7.0",
+    "isomorphic-relay": "^0.7.1",
     "isomorphic-relay-router": "^0.8.0",
     "json-loader": "^0.5.4",
     "lodash": "^4.12.0",
