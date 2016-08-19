@@ -55,7 +55,7 @@
     "recompose": "^0.20.0",
     "recompose-relay": "^0.3.0",
     "redux": "^3.0.5",
-    "redux-immutable": "^3.0.3",
+    "redux-immutable": "^3.0.8",
     "redux-saga": "^0.10.5",
     "reselect": "^2.0.2",
     "rimraf": "^2.5.2",
