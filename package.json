@@ -15,7 +15,7 @@
     "compression": "^1.6.2",
     "connect-history-api-fallback": "^1.1.0",
     "cross-env": "^1.0.7",
-    "css-loader": "^0.23.1",
+    "css-loader": "^0.24.0",
     "datafetcher": "^1.0.3",
     "deasync": "^0.1.7",
     "dotenv-extended": "^1.0.1",
