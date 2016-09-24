@@ -14,7 +14,7 @@
     "babel-relay-plugin": "^0.9.0",
     "compression": "^1.6.2",
     "connect-history-api-fallback": "^1.1.0",
-    "cross-env": "^1.0.7",
+    "cross-env": "^3.0.0",
     "css-loader": "^0.23.1",
     "datafetcher": "^1.0.3",
     "deasync": "^0.1.7",
