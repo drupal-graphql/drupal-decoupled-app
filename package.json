@@ -10,7 +10,7 @@
     "babel-preset-es2015-webpack": "^6.4.1",
     "babel-preset-react": "^6.5.0",
     "babel-preset-react-optimize": "^1.0.1",
-    "babel-preset-stage-0": "^6.5.0",
+    "babel-preset-stage-0": "^6.16.0",
     "babel-relay-plugin": "^0.9.0",
     "compression": "^1.6.2",
     "connect-history-api-fallback": "^1.1.0",
