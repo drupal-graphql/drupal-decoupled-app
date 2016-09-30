@@ -70,7 +70,7 @@
     "babel-eslint": "^6.0.4",
     "babel-plugin-transform-flow-strip-types": "^6.7.0",
     "chai": "^3.5.0",
-    "chai-enzyme": "^0.5.0",
+    "chai-enzyme": "^0.5.2",
     "cheerio": "^0.20.0",
     "coveralls": "^2.11.9",
     "enzyme": "^2.2.0",
