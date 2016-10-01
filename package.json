@@ -17,7 +17,7 @@
     "cross-env": "^1.0.7",
     "css-loader": "^0.23.1",
     "datafetcher": "^1.0.3",
-    "deasync": "^0.1.7",
+    "deasync": "^0.1.8",
     "dotenv-extended": "^1.0.1",
     "exports-loader": "^0.6.3",
     "express": "^4.14.0",
