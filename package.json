@@ -102,7 +102,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.7.0",
     "lint-staged": "1.0.1",
-    "mocha": "^2.4.5",
+    "mocha": "^3.1.1",
     "nodemon": "^1.9.2",
     "null-loader": "^0.1.1",
     "psi": "^2.0.3",
