@@ -1,7 +1,4 @@
-.Wrapper {
-  text-align: center;
-}
-
-.Link {
-  font-size: 2rem;
+.Home {
+  margin: auto;
+  max-width: 800px;
 }

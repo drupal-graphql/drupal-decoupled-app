@@ -1,0 +1,4 @@
+type Window = { // eslint-disable-line no-unused-vars
+  innerWidth: number,
+  innerHeight: number,
+};

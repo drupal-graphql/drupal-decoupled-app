@@ -6,7 +6,7 @@ This does not yet use Drupal as a backend. Currently, we are using a self-hosted
 GraphQL Mock API running on MongoDB. Therefore, in order to run this
 application, you have to install MongoDB locally.
 
-Once running, you can access GraphiQL at http://localhost/graphql.
+Once running, you can access GraphiQL at http://localhost:3000/graphql.
 
 ## Decoupled Drupal with Relay & GraphQL
 
@@ -34,13 +34,6 @@ Then, you need to install the dependencies.
 npm install
 ``
 
-Then, you need to copy the .env.example file to .env and edit the content if
-necessary.
-
-``
-cp .env.example .env
-``
-
 Now you can run the application.
 
 ### Development mode
@@ -52,7 +45,7 @@ npm run dev
 ### Production mode
 
 ``
-npm run start
+npm run build && npm run start
 ``
 
 ### Linting
@@ -66,10 +59,6 @@ npm run lint
 ``
 npm run test
 ``
-
-## Deploying to Heroku
-
-This application is ready for being deployed on heroku. Simply set up the heroku integration for your fork or use the heroku cli toolbelt to deploy it as an app.
 
 ## Thanks
 

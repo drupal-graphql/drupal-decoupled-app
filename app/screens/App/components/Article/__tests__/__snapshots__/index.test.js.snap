@@ -1,0 +1,1 @@
+exports[`article component renders as expected 1`] = `"<div class=\"Article\" style=\"background-color:inherit;\"><button>Color magic</button><h2 class=\"Header\">Lorem ipsum</h2><p class=\"Body\">Dolor sit amet</p></div>"`;

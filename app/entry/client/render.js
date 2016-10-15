@@ -8,6 +8,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import IsomorphicRouter from 'isomorphic-relay-router';
 import IsomorphicRelay from 'isomorphic-relay';
+
+// import IsomorphicRelay from 'isomorphic-relay';
 import { match } from 'react-router';
 import createRoutes from 'createRoutes';
 import Root from './root';
@@ -18,7 +20,10 @@ export default (environment, store, history, mountNode) => {
 
   IsomorphicRelay.injectPreparedData(environment, preloadedData);
 
-  return match({ history, routes }, (error, redirectLocation, renderProps) => {
+  return match({
+    history,
+    routes,
+  }, (error, redirectLocation, renderProps) => {
     IsomorphicRouter.prepareInitialRender(environment, renderProps).then((props) => {
       ReactDOM.render(<Root store={store} {...props} />, mountNode);
     });

@@ -8,20 +8,20 @@ import React from 'react';
 import Relay from 'react-relay';
 import IsomorphicRouter from 'isomorphic-relay-router';
 import { renderToString } from 'react-dom/server';
-import { Router, match, createMemoryHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
+import { match } from 'react-router';
 import { Provider } from 'react-redux';
-import Helmet from 'react-helmet';
+import { rewind as helmetRewind } from 'react-helmet';
+import BodyClassName from 'react-body-classname';
 import configureStore from 'configureStore';
 import createRoutes from 'createRoutes';
-import locationStateSelector from 'selectors/locationStateSelector';
 
-/*
+/**
  * Export render function to be used in server/config/routes.js
  * We grab the state passed in from the server and the req object from Express/Koa
  * and pass it into the Router.run function.
  */
 export default (req, res, next) => {
+
   // Get the host and port from the request.
   const protocol = req.protocol;
   const host = req.get('Host');
@@ -29,20 +29,10 @@ export default (req, res, next) => {
   // Set up relay.
   const networkLayer = new Relay.DefaultNetworkLayer(`${protocol}://${host}/graphql`);
 
-  // Set the current path (req.path) as initial history entry due to this bug:
-  // https://github.com/reactjs/react-router-redux/issues/284#issuecomment-184979791
-  const memoryHistory = createMemoryHistory(req.path);
-  const store = configureStore({}, memoryHistory);
+  const store = configureStore({});
   const routes = createRoutes(store);
 
-  // Sync history and store, as the react-router-redux reducer is under the
-  // non-default key ("routing"), selectLocationState must be provided for
-  // resolving how to retrieve the "route" in the state
-  syncHistoryWithStore(memoryHistory, store, {
-    selectLocationState: locationStateSelector,
-  });
-
-  /**
+  /*
    * From the react-router docs:
    *
    * This function is to be used for server-side rendering. It matches a set of routes to
@@ -66,7 +56,10 @@ export default (req, res, next) => {
    * If all three parameters are `undefined`, this means that there was no route
    * found matching the given location.
    */
-  match({ routes, location: req.originalUrl }, (error, redirectLocation, renderProps) => {
+  match({
+    routes,
+    location : req.originalUrl,
+  }, (error, redirectLocation, renderProps) => {
     if (error) {
       next(error);
     } else if (redirectLocation) {
@@ -75,7 +68,7 @@ export default (req, res, next) => {
       IsomorphicRouter.prepareData(renderProps, networkLayer).then(({ data, props }) => {
         const Root = (
           <Provider store={store}>
-            <Router {...props} />
+            {IsomorphicRouter.render(props)}
           </Provider>
         );
 
@@ -84,7 +77,8 @@ export default (req, res, next) => {
 
         // Render the html as a string and collect side-effects afterwards.
         const renderedContent = renderToString(Root);
-        const helmetOutput = Helmet.rewind();
+        const helmetOutput = helmetRewind();
+        const bodyClassName = BodyClassName.rewind();
         const initialState = JSON.stringify(store.getState());
         const preloadedData = JSON.stringify(data);
         const htmlHead = headOrder.map((key) => helmetOutput[key].toString().trim()).join('');
@@ -96,6 +90,9 @@ export default (req, res, next) => {
           preloadedData,
           htmlHead,
           htmlAttributes,
+          bodyClassName,
+          revision: __REVISION__,
+          buildDate: __BUILD_DATE__,
         });
       }, next);
     } else {

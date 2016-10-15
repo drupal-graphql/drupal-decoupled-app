@@ -4,60 +4,57 @@
  * @date    2016-06-21
  */
 
-// Needed for some ES6/7 language features.
-import 'babel-polyfill';
+import {
+  GraphQLSchema,
+  GraphQLObjectType,
+} from 'graphql';
 
-import { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
-import { connectionArgs, connectionFromPromisedArray, mutationWithClientMutationId } from 'graphql-relay';
-import { getAllArticles, addArticle } from '../model/article';
-import ArticleType from './types/article';
 import { nodeField } from './node';
-import { articleConnection } from './connections';
 
-const createOrUpdateArticleFields = {
-  inputFields: {
-    title: {
-      title: 'Title',
-      type: new GraphQLNonNull(GraphQLString),
-    },
-    body: {
-      title: 'Body',
-      type: GraphQLString,
-    },
-  },
-  outputFields: {
-    article: {
-      type: ArticleType,
-      resolve: (article) => article,
-    },
-  },
-};
+import {
+  allArticlesField,
+  allArticlesPagerField,
+  allArticlesByCharField,
+  allTagsByCharField,
+  articleByIdField,
+} from './queries/article';
 
-const addArticleMutation = mutationWithClientMutationId({
-  name: 'AddArticle',
-  mutateAndGetPayload: (values) => addArticle(values),
-  ...createOrUpdateArticleFields,
-});
+import {
+  addArticleMutation,
+  deleteArticleMutation,
+} from './mutations/article';
 
 // Set up the root query type.
 const query = new GraphQLObjectType({
-  name: 'Query',
-  description: 'Query root.',
-  fields: () => ({
-    node: nodeField,
-    allArticles: {
-      type: articleConnection,
-      args: connectionArgs,
-      resolve: async (_, args) => connectionFromPromisedArray(getAllArticles(), args),
+  name        : 'Query',
+  description : 'Query root.',
+  fields      : () => ({
+    node        : nodeField,
+    viewer      : {
+      title   : 'Viewer',
+      resolve : () => true,
+      type    : new GraphQLObjectType({
+        name        :'Viewer',
+        description : 'Extra nesting layer for Relay routing.',
+        fields      : {
+          allArticles       : allArticlesField,
+          allArticlesPager  : allArticlesPagerField,
+          allArticlesByChar : allArticlesByCharField,
+          allTagsByChar     : allTagsByCharField,
+        },
+      }),
     },
+    articleById : articleByIdField,
   }),
 });
 
+// Set up the root mutation type.
 const mutation = new GraphQLObjectType({
-  name: 'Mutation',
-  description: 'Mutation root.',
-  fields: () => ({
-    addArticle: addArticleMutation,
+  name        : 'Mutation',
+  description : 'Mutation root.',
+  fields      : () => ({
+    addArticle    : addArticleMutation,
+    deleteArticle : deleteArticleMutation,
   }),
 });
 

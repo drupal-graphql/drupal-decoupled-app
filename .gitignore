@@ -1,7 +1,10 @@
 # Don't check auto-generated stuff into git
-coverage
-build
-node_modules
+/coverage
+/build
+/node_modules
+
+# dlls
+/dlls
 
 # Environment specific configuration
 .env.local

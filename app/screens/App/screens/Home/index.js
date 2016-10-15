@@ -1,12 +1,31 @@
+// @flow
+
 import React from 'react';
-import Helmet from 'react-helmet';
-import { Link } from 'react-router';
-import styles from './styles.css';
+import Relay from 'react-relay';
+import compose from 'recompose/compose';
+import createContainer from 'recompose-relay/createContainer';
+import Home from './component';
 
-const Home = () =>
-  <div className={styles.Wrapper}>
-    <Helmet title="Home" />
-    <Link to="/articles" className={styles.Link}>Articles</Link>
-  </div>;
+const relayContainer = createContainer({
+  fragments : {
+    articleList : () => Relay.QL`
+      fragment on Viewer {
+        allArticles(first: 1000000) {
+          edges {
+            node {
+              id
+              title
+              body
+            }
+          }
+        }
+      }
+    `,
+  },
+});
 
-export default Home;
+export default compose(
+  relayContainer,
+)(({ articleList }) => (
+  <Home articles={articleList.allArticles.edges} />
+));

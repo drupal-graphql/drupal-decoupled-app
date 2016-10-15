@@ -1,18 +1,31 @@
 {
-  "plugins": ["transform-flow-strip-types"],
-  "presets": [
-    "es2015-webpack",
-    "react",
-    "stage-0"
+  "plugins": [
+    "transform-es2015-modules-commonjs",
+    "transform-flow-strip-types"
   ],
   "env": {
+    "development": {
+      "presets": [
+        "es2015",
+        "react",
+        "stage-0"
+      ]
+    },
     "production": {
       "presets": [
-        "es2015-webpack",
+        "es2015",
         "react",
         "stage-0",
         "react-optimize"
       ]
+    },
+    "test": {
+      "plugins": ["transform-es2015-modules-commonjs"],
+      "presets": [
+        "es2015",
+        "react",
+        "stage-0"
+      ]
     }
-  },
+  }
 }

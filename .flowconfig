@@ -1,30 +1,38 @@
 [ignore]
-<PROJECT_ROOT>/internals/.*
-<PROJECT_ROOT>/build/.*
-<PROJECT_ROOT>/coverage/.*
-<PROJECT_ROOT>/node_modules/.*
-<PROJECT_ROOT>/tmp/.*
+<PROJECT_ROOT>/build/*
+<PROJECT_ROOT>/coverage/*
+<PROJECT_ROOT>/tmp/*
+
+# Ignore some paths that contain invalid flow definitions.
+<PROJECT_ROOT>/node_modules/fbjs/*
+<PROJECT_ROOT>/node_modules/react-side-effect/node_modules/*
+<PROJECT_ROOT>/node_modules/findup/*
+<PROJECT_ROOT>/node_modules/react-relay/lib/relayUnstableBatchedUpdates.native.js
 
 [libs]
-# custom definitions
-app/shared/definitions/packages
+# flow-typed and custom type definitions
+flow-typed
 
 # module definitions
-node_modules/iflow-immutable/index.js.flow
-node_modules/iflow-redux/index.js.flow
-node_modules/iflow-redux-actions/index.js.flow
-node_modules/iflow-react-router/index.js.flow
-node_modules/iflow-react-widgets/index.js.flow
-node_modules/iflow-lodash/index.js.flow
+node_modules/immutable/dist/immutable.js.flow
 
 [options]
-module.name_mapper.extension='css' -> '<PROJECT_ROOT>/app/shared/definitions/css-module.js.flow'
-module.name_mapper.extension='png' -> '<PROJECT_ROOT>/app/shared/definitions/webpack-asset.js.flow'
-module.name_mapper.extension='jpg' -> '<PROJECT_ROOT>/app/shared/definitions/webpack-asset.js.flow'
+module.system=haste
+
+module.file_ext=.js
+module.file_ext=.json
+
+module.system.node.resolve_dirname=node_modules
 module.system.node.resolve_dirname=screens
 module.system.node.resolve_dirname=components
 module.system.node.resolve_dirname=shared
+
 module.ignore_non_literal_requires=true
+
 suppress_comment= \\(.\\|\n\\)*\\flow-ignore-next-line
+
+suppress_type=$FlowIssue
+suppress_type=$FlowFixMe
+suppress_type=$FixMe
+
 munge_underscores=true
-esproposal.class_instance_fields=enable

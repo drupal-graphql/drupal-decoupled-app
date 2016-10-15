@@ -25,6 +25,9 @@ import graphql from 'express-graphql';
 import mongoose from 'mongoose';
 import schema from './schema';
 
+// Use promises for mongoose async operations.
+mongoose.Promise = Promise;
+
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -33,19 +36,24 @@ app.use(compression());
 // Set up the GraphQL Mock API.
 app.use('/graphql', graphql({
   schema,
-  graphiql: true,
+  graphiql : true,
 }));
 
 // Add middlewares, etc. for the current environment.
 if (process.env.NODE_ENV === 'production') {
+
   require('./server.prod').default(app);
+
 } else {
+
   const devOptions = require('../internals/webpack/webpack.dev');
   require('./server.dev').default(app, devOptions);
+
 }
 
 // Start your app.
 app.listen(port, () => {
-  mongoose.connect(process.env.MONGODB_DATABASE);
-  console.log(`Server listening at ${port}.`);
+  mongoose.connect(process.env.DATABASE);
+
+  console.log(`Server started, visit http://localhost:${port} now!`);
 });

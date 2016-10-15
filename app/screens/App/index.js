@@ -1,29 +1,16 @@
 /**
- * @file    This component is the skeleton around the actual pages, and should
- *          only contain code that should be seen on all pages. (e.g. navigation
- *          bar)
+ * @file    This component is the skeleton around the actual pages, and should only
+ *          contain code that should be seen on all pages. (e.g. navigation bar)
  * @author  unknown
  * @date    2016-01-01
  * @flow
  */
 
-import './reset.css';
+import './reset.css'; 
+
 import React from 'react';
 import Helmet from 'react-helmet';
-import { connect } from 'react-redux';
-import selectLocationState from 'selectors/locationStateSelector';
 import styles from './styles.css';
-
-/**
- * AppProps
- *
- * @desc  app props
- * @interface
- */
-type AppProps = {
-  params: Object,
-  children: string,
-};
 
 /**
  * meta data
@@ -31,19 +18,24 @@ type AppProps = {
  * @desc  define meta data
  * @type {Array<Object>}
  */
-const metaData : Array<Object> = [{
-  'http-equiv': 'content-type',
-  content: 'text/html; charset=utf-8',
-}, {
-  name: 'charset',
-  content: 'UTF-8',
-}, {
-  name: 'viewport',
-  content: 'width=device-width, initial-scale=1',
-}, {
-  name: 'mobile-web-app-capable',
-  content: 'yes',
-}];
+const metaData : Array<Object> = [
+  {
+    'http-equiv' : 'content-type',
+    content      : 'text/html; charset=utf-8',
+  },
+  {
+    name    : 'charset',
+    content : 'UTF-8',
+  },
+  {
+    name    : 'viewport',
+    content : 'width=device-width, initial-scale=1',
+  },
+  {
+    name    : 'mobile-web-app-capable',
+    content : 'yes',
+  },
+];
 
 /**
  * html attributes
@@ -52,9 +44,10 @@ const metaData : Array<Object> = [{
  * @type {Object}
  */
 const htmlAttributes : Object = {
-  lang: 'en',
-  amp: undefined,
+  lang : 'en',
+  amp  : undefined,
 };
+
 
 /**
  * meta links
@@ -62,24 +55,30 @@ const htmlAttributes : Object = {
  * @desc  array of meta links
  * @type {Array<Object>}
  */
-const metaLinks : Array<Object> = [{
-  rel: 'manifest',
-  href: '/manifest.json',
-}];
+const metaLinks : Array<Object> = [
+  {
+    rel  : 'manifest',
+    href : '/manifest.json',
+  },
+];
+
+// ---------------------------------------------------------------------------------- //
+// COMPONENT
+// ---------------------------------------------------------------------------------- //
 
 /**
  * App
  *
  * @desc    render app component
- * @param   {IAppProps} props   - app properties
+ * @param   props - app properties
  * @returns {React.Element}
  */
-const App = (props: AppProps) : React.Element => (
+const App = (props : any) : React.Element<any> => (
   <div className={styles.App}>
     <Helmet
       htmlAttributes={htmlAttributes}
-      titleTemplate="Drupal Decoupled App - %s"
-      defaultTitle="Drupal Decoupled App"
+      titleTemplate="Decoupled Drupal - %s"
+      defaultTitle="Decoupled Drupal"
       meta={metaData}
       link={metaLinks}
     />
@@ -87,4 +86,4 @@ const App = (props: AppProps) : React.Element => (
   </div>
 );
 
-export default connect(selectLocationState)(App);
+export default App;

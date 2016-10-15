@@ -4,14 +4,13 @@
  *
  * @flow
  */
-
 import { combineReducers } from 'redux-immutable';
-import routeReducer from './route';
+import windowReducer from './window';
 
 /**
  * Creates the main reducer with the asynchronously loaded ones.
  */
-export default (asyncReducers: ?Map<string, any>): Object => combineReducers({
-  route: routeReducer,
+export default (asyncReducers : ?Object) : Object => combineReducers({
+  window : windowReducer,
   ...asyncReducers,
 });

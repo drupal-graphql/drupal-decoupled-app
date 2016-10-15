@@ -1,5 +1,14 @@
 /* stylelint-disable */
 
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -27,8 +36,37 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 
-body {
-	line-height: 1;
+/* reset links */
+a {
+  color: $black;
+  text-decoration: none;
+
+  &:hover {
+    outline: none;
+    color: $red;
+  }
+}
+
+input[type='email'],
+input[type='number'],
+input[type='password'],
+input[type='search'],
+input[type='tel'],
+input[type='text'],
+input[type='url'],
+textarea, select {
+  appearance: none;
+  background-color: transparent;
+  border: 0.1rem solid #d1d1d1;
+  box-shadow: none;
+  font-family: $fontGotham;
+  font-weight: 400;
+  height: 3.8rem;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 ol, ul {
