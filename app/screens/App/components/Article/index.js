@@ -1,6 +1,8 @@
+import Relay from 'react-relay';
 import compose from 'recompose/compose';
 import withState from 'recompose/withState';
 import mapProps from 'recompose/mapProps';
+import createContainer from 'recompose-relay/createContainer';
 import Article from './component';
 
 const randomColor = () => {
@@ -17,7 +19,26 @@ const withRandomColorSetter = mapProps(({ setArticleColor, ...props }) => ({
   setRandomColor : () => setArticleColor(randomColor()),
 }));
 
+const withRelayContainer = createContainer({
+  fragments : {
+    article : () => Relay.QL`
+      fragment on Article {
+        id
+        title
+        body
+      }
+    `,
+  },
+});
+
+const withFlatArticleProps = mapProps(({ article, ...props }) => ({
+  ...props,
+  ...article,
+}));
+
 export default compose(
+  withRelayContainer,
+  withFlatArticleProps,
   withColorState,
   withRandomColorSetter,
 )(Article);
