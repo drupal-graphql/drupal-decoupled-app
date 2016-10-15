@@ -2,23 +2,23 @@
 
 ## NOTE!
 
-This does not yet use Drupal as a backend. Currently, we are using a self-hosted
-GraphQL Mock API running on MongoDB. Therefore, in order to run this
-application, you have to install MongoDB locally.
+This is a proof of concept and does not actually use Drupal as a backend out of the box.
 
-Once running, you can access GraphiQL at http://localhost:3000/graphql.
+We'll continue working on the Drupal integration for GraphQL and provide a full-featured
+demo once the module is fully Relay-compliant out of the box.
 
-## Decoupled Drupal with Relay & GraphQL
+In the meantime, and also as a development practice for the future, you can experiment
+with a "fake" GraphQL schema based on a simple MongoDB model.
 
-This is a proof of concept of a decoupled React application using Relay &
-GraphQL. The application is built on top of a Drupal backend that uses the
-GraphQL module to expose its full content entity hierarchy as a GraphQL schema.
+Once running, you can access GraphiQL at http://localhost:3000/graphql. The app itself
+can be accessed at http://localhost:3000.
 
-## Bonus
+## Prerequisites
 
-On top of these technologies, this proof of concept also uses server-side
-rendering techniques as well as hot-reloading on the client (in development
-mode) for ease of development.
+- Docker (http://docker.com)
+- Docker Compose (http://docs.docker.com/compose)
+- Yarn (http://yarnpkg.com)
+- Node (http://nodejs.org)
 
 ## Usage
 
@@ -31,7 +31,7 @@ git clone git@github.com:fubhy/drupal-decoupled-app
 Then, you need to install the dependencies.
 
 ``
-npm install
+yarn install
 ``
 
 Now you can run the application.
@@ -39,25 +39,25 @@ Now you can run the application.
 ### Development mode
 
 ``
-npm run dev
+yarn run dev
 ``
 
 ### Production mode
 
 ``
-npm run build && npm run start
+yarn run build && yarn run start
 ``
 
 ### Linting
 
 ``
-npm run lint
+yarn run lint
 ``
 
 ### Testing
 
 ``
-npm run test
+yarn run test
 ``
 
 ## Thanks
