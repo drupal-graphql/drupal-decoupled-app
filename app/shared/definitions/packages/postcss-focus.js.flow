@@ -1,3 +1,0 @@
-declare module 'postcss-focus' {
-  declare var exports: any;
-}

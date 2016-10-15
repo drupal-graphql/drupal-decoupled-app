@@ -1,3 +1,0 @@
-declare module 'postcss-reporter' {
-  declare var exports: any;
-}
