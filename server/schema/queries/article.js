@@ -1,7 +1,6 @@
 /**
  * @file    query definitions for articles.
  * @author  Sebastian Siemssen <sebastian@amazeelabs.com>
- * @author  Serkan Ucmak <serkan.ucmak@ringieraxelspringer.ch>
  * @date    2016-06-21
  */
 
