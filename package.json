@@ -92,7 +92,7 @@
     "html-loader": "^0.4.3",
     "identity-obj-proxy": "^3.0.0",
     "jest-cli": "^16.0.1",
-    "lint-staged": "^3.1.0",
+    "lint-staged": "^3.1.1",
     "nodemon": "^1.9.2",
     "null-loader": "^0.1.1",
     "react-addons-test-utils": "^15.3.2",
