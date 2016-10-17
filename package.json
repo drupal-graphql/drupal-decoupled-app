@@ -37,7 +37,7 @@
     "isomorphic-relay": "^0.7.3",
     "isomorphic-relay-router": "^0.8.4",
     "json-loader": "^0.5.4",
-    "mongoose": "^4.6.0",
+    "mongoose": "^4.6.4",
     "offline-plugin": "^3.3.1",
     "postcss-color-function": "^2.0.1",
     "postcss-cssnext": "^2.8.0",
