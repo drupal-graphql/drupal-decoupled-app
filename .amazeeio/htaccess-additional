@@ -1,0 +1,18 @@
+<IfModule mod_headers.c>
+    <If "%{REQUEST_METHOD} = 'OPTIONS'" >
+        Header always set   Access-Control-Allow-Origin        "*"
+        Header always set   Access-Control-Allow-Credentials   "true"
+        Header always set   Access-Control-Allow-Methods       "POST, GET, OPTIONS"
+        Header always set   Access-Control-Allow-Headers       "Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Requested-With,X-Cache-Hash"
+
+        # Tell the client this pre-flight info is valid for 20 days
+        Header always set   Access-Control-Max-Age             "1728000"
+        Header always set   Content-Type                       "text/plain charset=UTF-8"
+        Header always set   Content-Length                     "0"
+        <IfModule mod_rewrite.c>
+            RedirectMatch 204 (.*)$
+        </IfModule>
+
+    </If>
+
+</IfModule>

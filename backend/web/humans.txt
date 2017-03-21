@@ -1,0 +1,38 @@
+Proudly built by
+
+             yyy,
+            @QQQQQQ           ,,yyy
+             WQQQQQp       yQQQQQQQ
+ ,QQQQQQQQQQ   ?QQQQ     #Q#RQQQQQQ                                                      ,,,
+ QQQQQQQQQQQQQ,  @QQ   ,QQL  QQQQQQ                                            ,gQQy  yQQ#`KQp
+ QQQQQQQQ#R@QQQQ, Q>  @Q#   jQQQQQQ                                ,,,,yy#QQ yQQR  QQ]QQQ  ,Q`
+  `R"`         FQQ   QQ#    ]QQQQQQ                       ,yyyQQQQ]QQQ`,QQQ^]QQQ  {R QQQQ,Q#`    ,
+                 "y QQQ     ]QQQQQQ             yQQQ,   ;QQR  @QQQ REL,QQQU @QQQ#R`  QQQQR`    Z`7Qp
+                   QQQM     {QQQQQQ ,#QQQQQQQQQRRQQQQ  ]QQQ   ]QQQ   ,QQQR  ]QQQ     QQQQQ ,yR   {QL
+       ,yQQRRR"""RQQQQRQy,  @QQQQQQgQQQQR .QQQQ  ]QQQm @QQQ   @QQQ   QQQQ    QQQQyQQR `RRRRR.  yQQR
+     {QQQ^       QQQQM   ,yQQQQQQQQ`]QQQ   @QQQ  ]QQQM QQQQ   QQQQ,,QQQQ,     `RR`        ,yQQQQR^
+     @QQQQ,,,,,y#QQQQQRRT`. QQQQQQQ ]QQQ   @QQQ  ]QQQQ QQQQQQQ@QQQQQQERRRR@QQQQQQQQQQQQQQQQQRR`
+      ^RBRRRRER"QQQQQ       QQQQQQQ ]QQQ   @QQQ   QQQQR FRRR^     ^             ``^````^`.
+               {QQQQ        QQQQQQ> ]QQQ   #ER"
+               QQQQQ        QQQQQQm %R^`          yQ         g  'R@QQQQy,
+              ]QQQQQ        QQQQQQ   ,yQQ         QQyy, yQQ   "QQ,  FQQQQQQQ
+              @QQQQQ        QQQQQQ  QLjQQ  ,#WQQ ]QQ.@QQR]QQ   |QQQQ  @QQQQQQQ
+              QQQQQM        RRRT^`  "W QQ {Q  QQ ]QQ @Q QR@Q    @QQQQ  KQQQQQW
+              QQQQQQ                   QQ QQ ,QQ,{QQ##` "ER^    QQQQQQ
+              "QQQQQ                   QQ "@#R`R^              ]QQQQQQ
+                RRQQQ                 ``"R@QQy#               }QQQQQQQQ
+                                                              QQQQQQQQM
+                                                              QQQQQQQ#
+                                                              `%QQQ#R
+
+/* TEAM */
+Job Title: Epic Team Member
+Contact: name[at]amazeelabs.com
+Twitter: @twitterhandle
+Location: Name
+
+/* SITE */
+Standards: HTML5, CSS3
+Components: Drupal 8
+Software: PhpStorm, Atom, Git, Photoshop
+Hosting: AmazeeIO

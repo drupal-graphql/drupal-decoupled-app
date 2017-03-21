@@ -1,0 +1,42 @@
+# Create here the Drupal site you would like
+version: '2'
+services:
+  drupal:
+    # Choose your URL and hostname for this Docker Container
+    # NEEDS to end with '.docker.amazee.io' !
+    # DO NOT remove the '&hostname'
+    hostname: &hostname decoupled.backend.docker.amazee.io
+
+    environment:
+      # If you use https://github.com/drupal-composer/drupal-project or something similar,
+      # the Drupal root is not inside the Repository root, you can define in which folder
+      # the the Drupal Root lives
+      WEBROOT: backend/web
+
+      # If you would like to use blackfire.io, uncomment and add your server credentials:
+      #BLACKFIRE_SERVER_ID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+      #BLACKFIRE_SERVER_TOKEN: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+      # APC Support is by default enabled, but in some cases it can make issues, change to 0 to disable:
+      APC: 1
+
+      # Do not change:
+      VIRTUAL_HOST: *hostname
+
+    volumes:
+      # per default our solr image is shipped with the 'drupal-4.2-solr-3.x' config, which is good
+      # for Drupal 7 and 8 and search_api module. If by any reason you need to change the solr config
+      # put the config files in a folder 'docker/solr' and uncomment this line:
+      #- ./docker/solr:/etc/solr/conf/drupal/conf
+      - ./.amazeeio/nginx.conf:/etc/nginx/site-configs.d/20be-drupal.conf
+
+################################################
+### Do not change anything below here, unless you know what you do
+      - .:/var/www/drupal/public_html
+    image: amazeeio/drupal:php70-solr
+    volumes_from:
+      - container:amazeeio-ssh-agent
+    container_name: *hostname
+    network_mode: bridge
+    ports:
+      - "3306"

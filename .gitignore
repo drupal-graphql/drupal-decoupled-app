@@ -12,12 +12,3 @@
 .yarn
 npm-debug.log
 yarn-error.log
-
-# Generated stuff
-coverage
-dlls
-build
-node_modules
-npm-debug.log
-graphql.schema.json
-graphql.config.json
