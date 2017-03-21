@@ -4,8 +4,6 @@ import React from 'react';
 import { match, createMemoryHistory, RouterContext } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { rewind as helmetRewind } from 'react-helmet';
-// $FlowIssue: Type definition for react-body-classname is incorrect.
-import { rewind as bodyClassNameRewind } from 'react-body-classname';
 // $FlowIssue: Type definitions are incorrect for this one.
 import { ApolloProvider, renderToStringWithData } from 'react-apollo/lib';
 import configureApolloClient from 'state/configureApolloClient';
@@ -32,7 +30,6 @@ const renderWithoutSsr = (
     renderedContent: '',
     htmlAttributes: '',
     htmlHead: '',
-    bodyClassName: '',
   });
 
   next();
@@ -111,7 +108,6 @@ const renderWithSsr = (
         // Render the html as a string and collect side-effects afterwards.
         const apiUri: string = JSON.stringify(env.API);
         const apiVersion: string = env.API_VERSION && JSON.stringify(env.API_VERSION) || '';
-        const bodyClassName: string = bodyClassNameRewind();
         const helmetOutput: Object = helmetRewind();
         const htmlAttributes: string = helmetOutput.htmlAttributes.toString();
         const htmlHead: string = headOrder
@@ -134,7 +130,6 @@ const renderWithSsr = (
           apiVersion,
           renderedContent,
           initialState,
-          bodyClassName,
           htmlHead,
           htmlAttributes,
         });
