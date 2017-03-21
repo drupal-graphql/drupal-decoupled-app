@@ -2,7 +2,6 @@
 
 namespace Drupal\graphql_demo\GraphQL\Field\Route;
 
-use Drupal\graphql\GraphQL\CacheableLeafValue;
 use Drupal\graphql_demo\GraphQL\Field\SelfAwareField;
 use Drupal\graphql_demo\RouteObjectWrapper;
 use Youshido\GraphQL\Execution\ResolveInfo;
@@ -18,7 +17,7 @@ class RouteCanonicalUriField extends SelfAwareField {
     if ($value instanceof RouteObjectWrapper) {
       $entity = $value->getWrappedEntity();
       $path = $entity->toUrl('canonical')->getInternalPath();
-      return new CacheableLeafValue(strpos($path, '/') === 0 ? $path : "/$path", [$value]);
+      return strpos($path, '/') === 0 ? $path : "/$path";
     }
 
     return NULL;

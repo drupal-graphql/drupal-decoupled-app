@@ -2,7 +2,6 @@
 
 namespace Drupal\graphql_demo\GraphQL\Field\Route;
 
-use Drupal\graphql\GraphQL\CacheableLeafValue;
 use Drupal\graphql_demo\GraphQL\Field\SelfAwareField;
 use Drupal\graphql_demo\RouteObjectWrapper;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -19,7 +18,6 @@ class RoutePreferredUriField extends SelfAwareField implements ContainerAwareInt
    */
   public function resolve($value, array $args, ResolveInfo $info) {
     if ($value instanceof RouteObjectWrapper) {
-      $resolvedValue = new CacheableLeafValue(NULL, [$value]);
       $entity = $value->getWrappedEntity();
 
       /** @var \Drupal\Core\Path\\AliasManagerInterface $aliasManager */
@@ -27,9 +25,8 @@ class RoutePreferredUriField extends SelfAwareField implements ContainerAwareInt
       $internalPath = $entity->toUrl('canonical')->getInternalPath();
 
       if ($alias = $aliasManager->getAliasByPath("/$internalPath")) {
-        $resolvedValue->setValue(strpos($alias, '/') === 0 ? $alias : "/$alias");
+        return strpos($alias, '/') === 0 ? $alias : "/$alias";
       }
-      return $resolvedValue;
     }
 
     return NULL;

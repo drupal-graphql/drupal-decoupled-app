@@ -2,7 +2,6 @@
 
 namespace Drupal\graphql_demo\GraphQL\Field\BasicPage;
 
-use Drupal\graphql\GraphQL\CacheableLeafValue;
 use Drupal\node\NodeInterface;
 use Drupal\graphql_demo\GraphQL\Field\SelfAwareField;
 use Youshido\GraphQL\Execution\ResolveInfo;
