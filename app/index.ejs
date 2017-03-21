@@ -1,14 +1,20 @@
 <!doctype html>
-<html<%- htmlAttributes %>>
+<html<%- typeof(htmlAttributes) !== 'undefined' && htmlAttributes ? htmlAttributes : '' %>>
   <head>
-    <%- htmlHead %>
+    <%- typeof(htmlHead) !== 'undefined' && htmlHead ? htmlHead : '' %>
   </head>
-  <body class="<%- bodyClassName %>">
-    <div id="app" data-revision="<%- revision %>" data-build-date="<%- buildDate %>"><%- renderedContent %></div>
-    <script>window.__INITIAL_STATE__ = <%- initialState %>;</script>
-    <script>window.__PRELOADED_DATA__ = <%- preloadedData %>;</script>
-    <% if (typeof webpackDll !== 'undefined' && webpackDll) { %>
-      <script data-dll="true" src="/dependencies.dll.js"></script>
+  <body class="<%- typeof(bodyClassName) !== 'undefined' && bodyClassName ? bodyClassName : '' %>">
+    <div id="app">
+      <%- typeof(renderedContent) !== 'undefined' && renderedContent ? renderedContent : '' %>
+    </div>
+    <% if (typeof(initialState) !== 'undefined' && initialState) { %>
+      <script>window.__INITIAL_STATE__ = <%- initialState %>;</script>
+    <% } %>
+    <% if (typeof(apiUri) !== 'undefined' && apiUri) { %>
+      <script>window.__API__ = <%- apiUri %>;</script>
+    <% } %>
+    <% if (typeof(apiVersion) !== 'undefined' && apiVersion) { %>
+      <script>window.__API_VERSION__ = <%- apiVersion %>;</script>
     <% } %>
   </body>
 </html>

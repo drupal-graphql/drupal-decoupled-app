@@ -1,32 +1,56 @@
-// flow-typed signature: bb030fab7757eed18b0307e415853401
-// flow-typed version: 94e9f7e0a4/redux_v3.x.x/flow_>=v0.23.x
+// flow-typed signature: ba132c96664f1a05288f3eb2272a3c35
+// flow-typed version: c4bbd91cfc/redux_v3.x.x/flow_>=v0.33.x
 
 declare module 'redux' {
-  declare type State = any;
-  declare type Action = Object;
-  declare type AsyncAction = any;
-  declare type Reducer<S, A> = (state: S, action: A) => S;
-  declare type BaseDispatch = (a: Action) => Action;
-  declare type Dispatch = (a: Action | AsyncAction) => any;
-  declare type ActionCreator = (...args: any) => Action | AsyncAction;
-  declare type MiddlewareAPI = { dispatch: Dispatch, getState: () => State };
-  declare type Middleware = (api: MiddlewareAPI) => (next: Dispatch) => Dispatch;
-  declare type Store = {
-    dispatch: Dispatch,
-    getState: () => State,
-    subscribe: (listener: () => void) => () => void,
-    replaceReducer: (reducer: Reducer<any, any>) => void
+
+  /*
+
+    S = State
+    A = Action
+
+  */
+
+  declare type Dispatch<A: { type: $Subtype<string> }> = (action: A) => A;
+
+  declare type MiddlewareAPI<S, A> = {
+    dispatch: Dispatch<A>;
+    getState(): S;
   };
-  declare type StoreCreator = (reducer: Reducer<any, any>, initialState: ?State) => Store;
-  declare type StoreEnhancer = (next: StoreCreator) => StoreCreator;
-  declare type ActionCreatorOrObjectOfACs = ActionCreator | { [key: string]: ActionCreator };
-  declare type Reducers = { [key: string]: Reducer<any, any> };
-  declare class Redux {
-    bindActionCreators<actionCreators: ActionCreatorOrObjectOfACs>(actionCreators: actionCreators, dispatch: Dispatch): actionCreators;
-    combineReducers(reducers: Reducers): Reducer<any, any>;
-    createStore(reducer: Reducer<any, any>, initialState?: State, enhancer?: StoreEnhancer): Store;
-    applyMiddleware(...middlewares: Array<Middleware>): StoreEnhancer;
-    compose(...functions: Array<Function | StoreEnhancer>): Function;
-  }
-  declare var exports: Redux;
+
+  declare type Store<S, A> = {
+    // rewrite MiddlewareAPI members in order to get nicer error messages (intersections produce long messages)
+    dispatch: Dispatch<A>;
+    getState(): S;
+    subscribe(listener: () => void): () => void;
+    replaceReducer(nextReducer: Reducer<S, A>): void
+  };
+
+  declare type Reducer<S, A> = (state: S, action: A) => S;
+
+  declare type Middleware<S, A> =
+    (api: MiddlewareAPI<S, A>) =>
+      (next: Dispatch<A>) => Dispatch<A>;
+
+  declare type StoreCreator<S, A> = {
+    (reducer: Reducer<S, A>, enhancer?: StoreEnhancer<S, A>): Store<S, A>;
+    (reducer: Reducer<S, A>, preloadedState: S, enhancer?: StoreEnhancer<S, A>): Store<S, A>;
+  };
+
+  declare type StoreEnhancer<S, A> = (next: StoreCreator<S, A>) => StoreCreator<S, A>;
+
+  declare function createStore<S, A>(reducer: Reducer<S, A>, enhancer?: StoreEnhancer<S, A>): Store<S, A>;
+  declare function createStore<S, A>(reducer: Reducer<S, A>, preloadedState: S, enhancer?: StoreEnhancer<S, A>): Store<S, A>;
+
+  declare function applyMiddleware<S, A>(...middlewares: Array<Middleware<S, A>>): StoreEnhancer<S, A>;
+
+  declare type ActionCreator<A, B> = (...args: Array<B>) => A;
+  declare type ActionCreators<K, A> = { [key: K]: ActionCreator<A, any> };
+
+  declare function bindActionCreators<A, C: ActionCreator<A, any>>(actionCreator: C, dispatch: Dispatch<A>): C;
+  declare function bindActionCreators<A, K, C: ActionCreators<K, A>>(actionCreators: C, dispatch: Dispatch<A>): C;
+
+  declare function combineReducers<O: Object, A>(reducers: O): Reducer<$ObjMap<O, <S>(r: Reducer<S, any>) => S>, A>;
+
+  declare function compose<S, A>(...fns: Array<StoreEnhancer<S, A>>): Function;
+
 }
