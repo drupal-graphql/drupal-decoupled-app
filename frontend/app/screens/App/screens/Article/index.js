@@ -20,7 +20,7 @@ const Article = ({
 Article.fragments = {
   articleFragment: gql`
     fragment ArticleFragment on Article {
-      title
+      title:entityLabel
     }
   `,
 };

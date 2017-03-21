@@ -20,7 +20,7 @@ const BasicPage = ({
 BasicPage.fragments = {
   basicPageFragment: gql`
     fragment BasicPageFragment on BasicPage {
-      title
+      title:entityLabel
     }
   `,
 };
