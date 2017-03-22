@@ -73,12 +73,6 @@ yarn run dev
 yarn run build && yarn run start
 ```
 
-## Thanks
-
-This project is heavily inspired and branched off of the amazing
-[React boilerplate](https://github.com/mxstbr/react-boilerplate) by
-[Max Stoiber](https://twitter.com/mxstbr)!
-
 ## License
 
 This project is licensed under the MIT license, Copyright (c) 2016 Sebastian Siemssen. For more information see LICENSE.md.
