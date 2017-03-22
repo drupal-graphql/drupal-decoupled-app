@@ -44,8 +44,8 @@ drush en graphql graphql_demo
 Now, you only need to configure the right permission.
 
 ``
-1. Navigate to http://decoupled.backend.docker.amazee.io/admin/people/permissions
-2. Allow anonymous users to execute GraphQL queries.
+Navigate to http://decoupled.backend.docker.amazee.io/admin/people/permissions
+Allow anonymous users to execute GraphQL queries.
 ``
 
 Now you can create some content (basic page or article) and run the frontend application.
