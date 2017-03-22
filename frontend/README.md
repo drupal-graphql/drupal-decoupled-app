@@ -3,7 +3,7 @@
 ## Prerequisites
 
 - AmazeeIO (http://docs.amazee.io)
-- Compose (http://getcomposer.org)
+- Composer (http://getcomposer.org)
 - Yarn (http://yarnpkg.com)
 - Node (http://nodejs.org)
 
