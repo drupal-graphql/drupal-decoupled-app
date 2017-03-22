@@ -1,22 +1,9 @@
-# Proof of Concept
-
-## NOTE!
-
-This is a proof of concept and does not actually use Drupal as a backend out of the box.
-
-We'll continue working on the Drupal integration for GraphQL and provide a full-featured
-demo once the module is fully Relay-compliant out of the box.
-
-In the meantime, and also as a development practice for the future, you can experiment
-with a "fake" GraphQL schema based on a simple MongoDB model.
-
-Once running, you can access GraphiQL at http://localhost:3000/graphql. The app itself
-can be accessed at http://localhost:3000.
+# Proof of Concept for Decoupled Drupal with GraphQL and React
 
 ## Prerequisites
 
-- Docker (http://docker.com)
-- Docker Compose (http://docs.docker.com/compose)
+- AmazeeIO (http://docs.amazee.io)
+- Compose (http://getcomposer.org)
 - Yarn (http://yarnpkg.com)
 - Node (http://nodejs.org)
 
@@ -31,10 +18,48 @@ git clone git@github.com:fubhy/drupal-decoupled-app
 Then, you need to install the dependencies.
 
 ``
-yarn install
+cd backend && composer install
+cd frontend && yarn install
 ``
 
-Now you can run the application.
+Then, you need to boot the backend container.
+
+``
+docker-compose up -d
+docker-compose exec --user drupal drupal bash
+``
+
+Once connected to the container, you can now install Drupal.
+
+``
+drush si -y
+``
+
+We do not provide any exported config yet and simply install the standard profile. Therefore, you need to manually enable the GraphQL module.
+
+``
+drush en graphql graphql_demo
+``
+
+Now, you only need to configure the right permission.
+
+``
+1. Navigate to http://decoupled.backend.docker.amazee.io/admin/people/permissions
+2. Allow anonymous users to execute GraphQL queries.
+``
+
+Now you can create some content (basic page or article) and run the frontend application.
+
+``
+yarn run dev
+``
+
+If you navigate to the path of the node you just created, you should see its title.
+
+``
+http://localhost:3000/node/1
+``
+
 
 ### Development mode
 
@@ -46,18 +71,6 @@ yarn run dev
 
 ``
 yarn run build && yarn run start
-``
-
-### Linting
-
-``
-yarn run lint
-``
-
-### Testing
-
-``
-yarn run test
 ``
 
 ## Thanks
