@@ -1,4 +1,3 @@
-# Proof of Concept
 # Decoupled Drupal with GraphQL and React
 
 ## Prerequisites
