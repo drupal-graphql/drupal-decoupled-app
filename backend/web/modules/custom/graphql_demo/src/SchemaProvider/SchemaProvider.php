@@ -3,6 +3,7 @@
 namespace Drupal\graphql_demo\SchemaProvider;
 
 use Drupal\graphql\SchemaProvider\SchemaProviderBase;
+use Drupal\graphql_demo\GraphQL\Field\Root\AllArticlesField;
 use Drupal\graphql_demo\GraphQL\Field\Root\HelloWorldField;
 use Drupal\graphql_demo\GraphQL\Field\Root\RouteByPathField;
 
@@ -17,6 +18,7 @@ class SchemaProvider extends SchemaProviderBase {
   public function getQuerySchema() {
     return [
       new RouteByPathField(),
+      new AllArticlesField(),
       new HelloWorldField(),
     ];
   }
