@@ -3,14 +3,16 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from 'App';
-import Router from 'App/components/Router';
+import SplatRouter from 'App/screens/SplatRouter';
+import ArticleOverview from 'App/screens/ArticleOverview';
 
 const createRoutes = (
   // store: AmazeeStore<any, any>,
 ): React.Element<any> => (
   <Route component={App} path="/">
-    <IndexRoute component={Router} />
-    <Route path="*" component={Router} />
+    <IndexRoute component={SplatRouter} />
+    <Route path="articles" component={ArticleOverview} />
+    <Route path="*" component={SplatRouter} />
   </Route>
 );
 

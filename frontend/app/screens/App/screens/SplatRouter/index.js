@@ -7,12 +7,12 @@ import BasicPage from 'BasicPage';
 import Article from 'Article';
 import NotFound from 'NotFound';
 
-type RouterProps = {
+type SplatRouterProps = {
   object: any,
   loading: boolean,
 };
 
-const Router = ({
+const SplatRouter = ({
   object,
   loading,
 }: RouterProps): React.Element<any> | null => {
@@ -33,7 +33,7 @@ const Router = ({
 };
 
 const query = gql`
-  query routeQuery($path: String!) {
+  query SplatRouterQuery($path: String!) {
     routeByPath(path: $path) {
       object {
         ...BasicPageFragment
@@ -58,10 +58,10 @@ const withQuery = graphql(query, {
       routeByPath,
       loading,
     },
-  }: any): RouterProps => ({
+  }: any): SplatRouterProps => ({
     object: routeByPath && routeByPath.object,
     loading,
   }),
 });
 
-export default withQuery(Router);
+export default withQuery(SplatRouter);
