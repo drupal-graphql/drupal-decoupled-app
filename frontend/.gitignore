@@ -1,4 +1,5 @@
 # Generated stuff
+.happypack
 coverage
 dlls
 build

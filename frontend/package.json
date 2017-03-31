@@ -6,13 +6,27 @@
   },
   "template": "index.ejs",
   "scripts": {
-    "dev": "react-scripts dev",
     "build": "react-scripts build",
+    "dev": "react-scripts dev",
     "start": "react-scripts start",
+    "test": "react-scripts test",
+    "test:watch": "yarn run test -- --watch",
     "flow": "flow",
     "lint": "react-scripts lint",
-    "test": "react-scripts test",
-    "test:watch": "yarn run test -- --watch"
+    "lintfix": "react-scripts lint -- --fix",
+    "format": "prettier --trailing-comma all --single-quote --write 'app/**/*.js' && react-scripts lint -- --fix",
+    "persist": "persistgraphql app app/shared/queries.json --add_typename --js --extension js",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "linters": {
+      "*.js": [
+        "prettier --trailing-comma all --single-quote --write",
+        "lintfix",
+        "git add"
+      ]
+    },
+    "gitDir": "../"
   },
   "dependencies": {
     "apollo-client": "^0.10.1",
@@ -20,7 +34,6 @@
     "compression": "^1.6.2",
     "ejs": "^2.5.6",
     "express": "^4.15.0",
-    "flow-bin": "^0.40.0",
     "graphql-anywhere": "^2.2.0",
     "graphql-tag": "^1.3.1",
     "history": "^4.0.0",
@@ -29,6 +42,7 @@
     "ramda": "^0.23.0",
     "react": "^15.3.0",
     "react-apollo": "^0.13.2",
+    "react-body-classname": "^1.1.0",
     "react-dom": "^15.3.0",
     "react-helmet": "^4.0.0",
     "react-hot-loader": "^3.0.0-beta",
@@ -42,7 +56,10 @@
     "winston": "^2.3.1"
   },
   "devDependencies": {
-    "@amazee/react-scripts": "0.0.32"
+    "@amazee/react-scripts": "^0.0.42",
+    "flow-bin": "^0.42.0",
+    "lint-staged": "^3.4.0",
+    "prettier": "^0.22.0"
   },
   "engines": {
     "node": "7.0.0"
