@@ -10,6 +10,8 @@ use Youshido\GraphQL\Config\Field\FieldConfig;
 use Youshido\GraphQL\Execution\ResolveInfo;
 use Youshido\GraphQL\Field\InputField;
 use Youshido\GraphQL\Type\ListType\ListType;
+use Youshido\GraphQL\Type\NonNullType;
+use Youshido\GraphQL\Type\Object\ObjectType;
 use Youshido\GraphQL\Type\Scalar\IntType;
 
 class AllArticlesField extends SelfAwareField implements ContainerAwareInterface {
@@ -35,13 +37,15 @@ class AllArticlesField extends SelfAwareField implements ContainerAwareInterface
    */
   public function resolve($value, array $args, ResolveInfo $info) {
     /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager */
-    $entityTypeManager = $this->container->get('entity_type.manger');
+    $entityTypeManager = $this->container->get('entity_type.manager');
     /** @var \Drupal\node\NodeStorageInterface $nodeStorage */
     $nodeStorage = $entityTypeManager->getStorage('node');
 
     $query = $nodeStorage->getQuery()
       ->condition('type', 'article')
       ->condition('status', 1);
+
+    $count = (clone $query)->count()->execute();
 
     if (isset($args['offset']) || isset($args['limit'])) {
       $query->range(
@@ -50,7 +54,15 @@ class AllArticlesField extends SelfAwareField implements ContainerAwareInterface
       );
     }
 
-    return $query->execute();
+    $articles = [];
+    if ($ids = $query->execute()) {
+      $articles = $nodeStorage->loadMultiple($ids);
+    }
+
+    return [
+      'count' => (int) $count,
+      'articles' => $articles,
+    ];
   }
 
   /**
@@ -64,6 +76,16 @@ class AllArticlesField extends SelfAwareField implements ContainerAwareInterface
    * {@inheritdoc}
    */
   public function getType() {
-    return new ListType(new ArticleType());
+    return new ObjectType([
+      'name' => 'ArticleListType',
+      'fields' => [
+        'count' => [
+          'type' => new NonNullType(new IntType()),
+        ],
+        'articles' => [
+          'type' => new NonNullType(new ListType(new ArticleType())),
+        ],
+      ],
+    ]);
   }
 }

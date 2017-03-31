@@ -3,6 +3,7 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import gql from 'graphql-tag';
+import { Link } from 'react-router';
 import { graphql } from 'react-apollo';
 import { filter } from 'graphql-anywhere';
 import ArticleTeaser from 'ArticleTeaser';
@@ -18,26 +19,49 @@ const renderArticleTeasers = (
 );
 
 type ArticleOverviewProps = {
+  loading: boolean,
+  page: number,
+  count: number,
   articles: Array<ArticleTeaserProps>,
 };
 
-const ArticleOverview = ({
-  articles,
-}: ArticleOverviewProps): React.Element<any> => (
+const pageSize = 10;
+const hasPreviousPage = page => page > 0;
+const hasNextPage = (page, count) => page + 1 < count / pageSize;
+const previousPagePath = page =>
+  page - 1 > 0 ? `/articles/${page - 1}` : '/articles';
+const nextPagePath = page => `/articles/${page + 1}`;
+
+const ArticleOverview = (
+  {
+    loading,
+    page,
+    count,
+    articles,
+  }: ArticleOverviewProps,
+): React.Element<any> =>
+  !loading &&
   <div>
     <Helmet title="Article overview" />
     <h1>Article overview</h1>
     <ul>
       {articles.map(renderArticleTeasers)}
     </ul>
-  </div>
-);
+    <div>
+      {hasPreviousPage(page) &&
+        <Link to={previousPagePath(page)}>Previous</Link>}
+      {hasNextPage(page, count) && <Link to={nextPagePath(page)}>Next</Link>}
+    </div>
+  </div>;
 
 const query = gql`
   query ArticleOverviewQuery($offset: Int, $limit: Int) {
-    articles:allArticles(offset: $offset, limit: $limit) {
-      id:entityId
-      ...ArticleTeaserFragment
+    allArticles(offset: $offset, limit: $limit) {
+      count,
+      articles {
+        id:entityId
+        ...ArticleTeaserFragment
+      }
     }
   }
 
@@ -45,20 +69,38 @@ const query = gql`
 `;
 
 const withQuery = graphql(query, {
-  options: (props: any) => ({
+  options: (
+    {
+      params: {
+        page = 0,
+      },
+    },
+  ) => ({
     variables: {
-      offset: props.params.page ? props.params.page * 20 : 0,
-      limit: props.params.page ? props.params.page + 1 * 20 : 20,
+      offset: page * pageSize,
+      limit: pageSize,
     },
   }),
-  props: ({
-    data: {
-      articles,
-      loading,
-    },
-  }: any): ArticleOverviewProps => ({
-    articles,
+  props: (
+    {
+      ownProps: {
+        params: {
+          page = 0,
+        },
+      },
+      data: {
+        allArticles: {
+          articles,
+          count,
+        } = {},
+        loading,
+      },
+    }: any,
+  ): ArticleOverviewProps => ({
     loading,
+    page: parseInt(page, 10),
+    count,
+    articles,
   }),
 });
 

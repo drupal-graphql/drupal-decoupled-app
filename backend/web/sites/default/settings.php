@@ -113,3 +113,4 @@ if (file_exists(__DIR__ . '/local.settings.php')) {
 if (file_exists(__DIR__ . '/local.services.yml')) {
   $settings['container_yamls'][] = __DIR__ . '/local.services.yml';
 }
+$settings['install_profile'] = 'standard';

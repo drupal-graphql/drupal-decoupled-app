@@ -3,6 +3,7 @@
 namespace Drupal\graphql_demo\GraphQL\Type;
 
 use Drupal\graphql\GraphQL\Type\AbstractObjectType;
+use Drupal\graphql_demo\GraphQL\Field\Article\ArticleBodyField;
 use Drupal\graphql_demo\GraphQL\Field\Common\Entity\EntityCanonicalUriField;
 use Drupal\graphql_demo\GraphQL\Field\Common\Entity\EntityIdField;
 use Drupal\graphql_demo\GraphQL\Field\Common\Entity\EntityLabelField;
@@ -27,6 +28,7 @@ class ArticleType extends AbstractObjectType {
     $config->addField(new NodeChangedDateField());
     $config->addField(new NodeCreateDateField());
     $config->addField(new NodeAuthorField());
+    $config->addField(new ArticleBodyField());
   }
 
   /**

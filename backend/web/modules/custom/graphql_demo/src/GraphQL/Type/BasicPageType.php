@@ -3,6 +3,7 @@
 namespace Drupal\graphql_demo\GraphQL\Type;
 
 use Drupal\graphql\GraphQL\Type\AbstractObjectType;
+use Drupal\graphql_demo\GraphQL\Field\BasicPage\ArticleBodyField;
 use Drupal\graphql_demo\GraphQL\Field\BasicPage\BasicPageBodyField;
 use Drupal\graphql_demo\GraphQL\Field\Common\Entity\EntityCanonicalUriField;
 use Drupal\graphql_demo\GraphQL\Field\Common\Entity\EntityIdField;
