@@ -13,7 +13,7 @@
     "test:watch": "yarn run test -- --watch",
     "flow": "flow",
     "lint": "react-scripts lint",
-    "lintfix": "react-scripts lint -- --fix",
+    "lint:fix": "react-scripts lint -- --fix",
     "format": "prettier --trailing-comma all --single-quote --write 'app/**/*.js' && react-scripts lint -- --fix",
     "persist": "persistgraphql app app/shared/queries.json --add_typename --js --extension js",
     "precommit": "lint-staged"
@@ -22,7 +22,7 @@
     "linters": {
       "*.js": [
         "prettier --trailing-comma all --single-quote --write",
-        "lintfix",
+        "lint:fix",
         "git add"
       ]
     },
@@ -57,7 +57,7 @@
     "winston": "^2.3.1"
   },
   "devDependencies": {
-    "@amazee/react-scripts": "^0.0.43",
+    "@amazee/react-scripts": "^0.0.46",
     "flow-bin": "^0.42.0",
     "lint-staged": "^3.4.0",
     "prettier": "^0.22.0"
