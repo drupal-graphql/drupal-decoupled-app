@@ -32,7 +32,7 @@ docker-compose exec --user drupal drupal bash
 Once connected to the container, you can now install Drupal.
 
 ```
-drush si -y
+drush si -y --account-name=admin --account-pass=admin
 ```
 
 We do not provide any exported config yet and simply install the standard profile. Therefore, you need to manually enable the GraphQL module.
@@ -41,12 +41,11 @@ We do not provide any exported config yet and simply install the standard profil
 drush en graphql graphql_demo
 ```
 
-Now, you only need to configure the right permission.
+Now, you only need to configure the right permission:
+- Login with user "admin" and password "admin" on [http://decoupled.backend.docker.amazee.io](http://decoupled.backend.docker.amazee.io/user/login)
+- Navigate to [/admin/people/permissions](http://decoupled.backend.docker.amazee.io/admin/people/permissions)
+- Allow anonymous users to execute GraphQL queries.
 
-```
-Navigate to http://decoupled.backend.docker.amazee.io/admin/people/permissions
-Allow anonymous users to execute GraphQL queries.
-```
 
 Now you can create some content (basic page or article) and run the frontend application.
 
