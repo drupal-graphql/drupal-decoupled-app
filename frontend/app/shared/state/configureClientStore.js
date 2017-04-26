@@ -9,9 +9,5 @@ export default (
   // eslint-disable-next-line no-underscore-dangle
   const initialState = global.__INITIAL_STATE__ || {};
 
-  return configureStore(
-    apolloClient,
-    history,
-    initialState,
-  );
+  return configureStore(apolloClient, history, initialState);
 };

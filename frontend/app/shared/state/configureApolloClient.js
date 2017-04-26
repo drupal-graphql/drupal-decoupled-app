@@ -1,13 +1,21 @@
 // @flow
 
-import { ApolloClient, createNetworkInterface, createBatchingNetworkInterface } from 'apollo-client';
-import { printRequest as doPrintRequest } from 'apollo-client/transport/networkInterface';
-import { getQueryDocumentKey } from 'persistgraphql/lib/src/common';
+import {
+  ApolloClient,
+  IntrospectionFragmentMatcher,
+  createNetworkInterface,
+  createBatchingNetworkInterface,
+} from 'apollo-client';
+import {
+  printRequest as doPrintRequest,
+} from 'apollo-client/transport/networkInterface';
+import { getQueryDocumentKey } from '@amazee/persistgraphql/lib/src/common';
 import queryMap from 'queries.json';
+import introspectionResult from 'introspection.json';
 
 // @TODO Add profiling for individual requests.
 
-const printRequest = (request) => {
+const printRequest = request => {
   if (!Object.hasOwnProperty.call(request, 'query')) {
     return request;
   }
@@ -19,23 +27,23 @@ const printRequest = (request) => {
   };
 };
 
-const addGetRequests = (networkInterface) => {
-  function fetchOverride({
-    request,
-    options,
-  }) {
+const addGetRequests = networkInterface => {
+  function fetchOverride({ request, options }) {
     const uri = this._uri; // eslint-disable-line no-underscore-dangle
     const ownOptions = this._opts; // eslint-disable-line no-underscore-dangle
 
     // Combine all requests into an array and turn them into a GET query.
     const delimiter = uri.indexOf('?') === -1 ? '?' : '&';
     const printedRequest = printRequest(request);
-    const query = Object
-      .keys(printedRequest)
-      .reduce((carry, current) => ([
-        ...carry,
-        [`${current}=${JSON.stringify(printedRequest[current])}`],
-      ]), []).join('&');
+    const query = Object.keys(printedRequest)
+      .reduce(
+        (carry, current) => [
+          ...carry,
+          [`${current}=${JSON.stringify(printedRequest[current])}`],
+        ],
+        [],
+      )
+      .join('&');
 
     return global.fetch(`${uri}${delimiter}${query}`, {
       ...ownOptions,
@@ -57,10 +65,14 @@ const addGetRequests = (networkInterface) => {
     const options = requestsAndOptions.options;
     const query = requestsAndOptions.requests
       .map(printRequest)
-      .reduce((carry, current, index) => ([
-        ...carry,
-        [`${index}=${JSON.stringify(current)}`],
-      ]), []).join('&');
+      .reduce(
+        (carry, current, index) => [
+          ...carry,
+          [`${index}=${JSON.stringify(current)}`],
+        ],
+        [],
+      )
+      .join('&');
 
     return global.fetch(`${uri}${delimiter}${query}`, {
       ...ownOptions,
@@ -79,10 +91,7 @@ const addGetRequests = (networkInterface) => {
   });
 };
 
-const addPersistedQueries = (
-  apiVersion: string,
-  networkInterface: any,
-) => {
+const addPersistedQueries = (apiVersion: string, networkInterface: any) => {
   const doQuery = networkInterface.query.bind(networkInterface);
 
   function queryOverride(request) {
@@ -90,13 +99,9 @@ const addPersistedQueries = (
     const queryKey = getQueryDocumentKey(queryDocument);
 
     if (!queryMap[queryKey]) {
-      // @TODO There is currently an error in the way that fragments are sorted.
-      // We need to remove this again once https://github.com/apollographql/persistgraphql/issues/13
-      // is resolved.
-      //
-      // return Promise.reject(new Error('Could not find query inside query map.'));
-
-      return doQuery(request);
+      return Promise.reject(
+        new Error('Could not find query inside query map.'),
+      );
     }
 
     const serverRequest = {
@@ -114,37 +119,37 @@ const addPersistedQueries = (
   });
 };
 
-const configureApolloClient = (
-  apiUri: string,
-  apiVersion: string,
-) => {
+const configureApolloClient = (apiUri: string, apiVersion: string) => {
   const isProduction = process.env.NODE_ENV === 'production';
   const hasApiVersion = !!apiVersion;
 
   // Use xdebug in development.
-  const requestUri = isProduction ? apiUri : `${apiUri}?XDEBUG_SESSION_START=PHPSTORM`;
+  const requestUri = isProduction
+    ? apiUri
+    : `${apiUri}?XDEBUG_SESSION_START=PHPSTORM`;
 
   // Use batched queries in production.
-  const networkInterface = isProduction ?
-    createBatchingNetworkInterface({
+  const networkInterface = isProduction
+    ? createBatchingNetworkInterface({
       uri: requestUri,
       batchInterval: 100,
-    }) :
-    createNetworkInterface({
+    })
+    : createNetworkInterface({
       uri: requestUri,
     });
 
   // Use persisted queries and GET requests in production.
-  // @TODO Reactivate this once we got persisted queries working properly.
-  // eslint-disable-next-line no-constant-condition
-  const finalNetworkInterface = isProduction && hasApiVersion && false ?
-    addGetRequests(addPersistedQueries(apiVersion, networkInterface)) :
-    networkInterface;
+  const finalNetworkInterface = isProduction && hasApiVersion
+    ? addGetRequests(addPersistedQueries(apiVersion, networkInterface))
+    : networkInterface;
 
   const apolloClient = new ApolloClient({
-    reduxRootSelector: (state) => state.apollo,
+    reduxRootSelector: state => state.apollo,
     networkInterface: finalNetworkInterface,
     ssrMode: __SERVER__,
+    fragmentMatcher: new IntrospectionFragmentMatcher({
+      introspectionQueryResultData: introspectionResult,
+    }),
   });
 
   return apolloClient;

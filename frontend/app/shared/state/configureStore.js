@@ -11,10 +11,7 @@ export const injectAsyncReducer = (
   asyncReducer: Object,
 ): void => {
   store.asyncReducers[name] = asyncReducer; // eslint-disable-line
-  store.replaceReducer(createReducer(
-    store.apolloClient,
-    store.asyncReducers,
-  ));
+  store.replaceReducer(createReducer(store.apolloClient, store.asyncReducers));
 };
 
 const configureStore = (
@@ -27,13 +24,13 @@ const configureStore = (
     apolloClient.middleware(),
   ];
 
-  const enhancers: Array<Function> = [
-    applyMiddleware(...middlewares),
-  ];
+  const enhancers: Array<Function> = [applyMiddleware(...middlewares)];
 
   // @TODO Disable this on production at some point.
-  if (__DEVELOPMENT__ || true) { // eslint-disable-line no-constant-condition
-    const devToolsExtension = __CLIENT__ && global.devToolsExtension ||
+  // eslint-disable-next-line no-constant-condition
+  if (__DEVELOPMENT__ || true) {
+    const devToolsExtension =
+      (__CLIENT__ && global.devToolsExtension) ||
       (() => (noop: any): any => noop);
 
     enhancers.push(devToolsExtension());
@@ -53,7 +50,11 @@ const configureStore = (
   );
 
   // Make reducers hot reloadable.
-  if (module.hot && module.hot.accept && typeof module.hot.accept === 'function') {
+  if (
+    module.hot &&
+    module.hot.accept &&
+    typeof module.hot.accept === 'function'
+  ) {
     module.hot.accept('./reducers', (): void => {
       const nextRootReducer: Object = require('./reducers').default; // eslint-disable-line global-require
       store.replaceReducer(nextRootReducer);

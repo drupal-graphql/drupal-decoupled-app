@@ -8,19 +8,22 @@
   "scripts": {
     "build": "react-scripts build",
     "dev": "react-scripts dev",
+    "lint": "react-scripts lint",
+    "lint:fix": "react-scripts lint --fix",
     "start": "react-scripts start",
     "test": "react-scripts test",
-    "test:watch": "yarn run test -- --watch",
     "flow": "flow",
-    "lint": "react-scripts lint",
-    "lint:fix": "react-scripts lint -- --fix",
-    "format": "prettier --trailing-comma all --single-quote --write 'app/**/*.js' && react-scripts lint -- --fix",
-    "persist": "persistgraphql app app/shared/queries.json --add_typename --js --extension js",
-    "precommit": "lint-staged"
+    "format": "prettier --trailing-comma all --single-quote --write 'app/**/*.js' && yarn run lint -- --fix",
+    "persist": "node bin/update-persistgraphql",
+    "persist:update": "yarn run introspect && cd .. && git add frontend/app/shared/introspection.json",
+    "introspect": "node bin/update-introspection",
+    "introspect:update": "yarn run introspect && cd .. && git add frontend/app/shared/queries.json",
+    "precommit": "lint-staged && yarn run introspect:update && yarn run persist:update",
+    "test:watch": "yarn run test -- --watch"
   },
   "lint-staged": {
     "linters": {
-      "*.js": [
+      "frontend/app/**/*.js": [
         "prettier --trailing-comma all --single-quote --write",
         "lint:fix",
         "git add"
@@ -29,38 +32,38 @@
     "gitDir": "../"
   },
   "dependencies": {
-    "apollo-client": "^0.10.1",
-    "classnames": "^2.2.5",
+    "@amazee/persistgraphql": "^0.3.2",
+    "apollo-client": "^1.0.4",
     "compression": "^1.6.2",
     "ejs": "^2.5.6",
     "express": "^4.15.0",
     "fetch-everywhere": "^1.0.5",
-    "graphql-anywhere": "^2.2.0",
-    "graphql-tag": "^1.3.1",
+    "graphql-anywhere": "^3.0.1",
+    "graphql-tag": "^2.0.0",
     "history": "^4.0.0",
     "offline-plugin": "^4.6.1",
-    "persistgraphql": "^0.3.0",
     "ramda": "^0.23.0",
     "react": "^15.3.0",
-    "react-apollo": "^0.13.2",
-    "react-body-classname": "^1.1.0",
+    "react-apollo": "^1.1.1",
     "react-dom": "^15.3.0",
-    "react-helmet": "^4.0.0",
+    "react-helmet": "^5.0.3",
     "react-hot-loader": "^3.0.0-beta",
     "react-redux": "^5.0.3",
-    "react-router": "^3.0.2",
+    "react-router": "^3",
     "react-router-redux": "^4.0.8",
-    "recompose": "^0.22.0",
+    "recompose": "^0.23.1",
     "redux": "^3.6.0",
-    "reselect": "^2.0.2",
-    "styled-components": "^1.4.4",
+    "reselect": "^3.0.0",
+    "styled-components": "^1.4.5",
     "winston": "^2.3.1"
   },
   "devDependencies": {
-    "@amazee/react-scripts": "^0.0.46",
-    "flow-bin": "^0.42.0",
+    "@amazee/react-scripts": "^0.0.56",
+    "flow-bin": "^0.44.2",
+    "jssha": "^2.2.0",
     "lint-staged": "^3.4.0",
-    "prettier": "^0.22.0"
+    "prettier": "^1.2.2",
+    "sync-request": "^4.0.3"
   },
   "engines": {
     "node": "7.0.0"

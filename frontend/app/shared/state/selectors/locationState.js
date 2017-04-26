@@ -1,4 +1,3 @@
 // @flow
 
-export default (state: Object): Object =>
-  state.route;
+export default (state: Object): Object => state.route;

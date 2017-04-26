@@ -2,9 +2,9 @@
 
 import winston from 'winston';
 
-const logger = new (winston.Logger)({
+const logger = new winston.Logger({
   transports: [
-    new (winston.transports.Console)({
+    new winston.transports.Console({
       timestamp: true,
       colorize: true,
     }),

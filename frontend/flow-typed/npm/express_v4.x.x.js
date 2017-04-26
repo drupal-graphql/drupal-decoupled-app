@@ -1,5 +1,5 @@
-// flow-typed signature: 5800b9dee6b8969ab2b5fa338d02a89f
-// flow-typed version: 473c121609/express_v4.x.x/flow_>=v0.32.x
+// flow-typed signature: c8b45d2a94de3da768988129f8d24b39
+// flow-typed version: 969ba9d733/express_v4.x.x/flow_>=v0.32.x
 
 import type { Server } from 'http';
 
@@ -92,7 +92,7 @@ declare class express$Response extends http$ServerResponse mixins express$Reques
   vary(field: string): this;
 }
 
-declare type express$NextFunction = (err?: ?Error) => mixed;
+declare type express$NextFunction = (err?: ?Error | 'route') => mixed;
 declare type express$Middleware =
   ((req: express$Request, res: express$Response, next: express$NextFunction) => mixed) |
   ((error: ?Error, req: express$Request, res: express$Response, next: express$NextFunction) => mixed);

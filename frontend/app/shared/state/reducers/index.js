@@ -12,12 +12,10 @@ import windowReducer from './window';
 /**
  * Creates the main reducer with the asynchronously loaded ones.
  */
-export default (
-  apolloClient: any,
-  asyncReducers?: Object,
-): Function => combineReducers({
-  apollo: apolloClient.reducer(),
-  route: routeReducer,
-  window: windowReducer,
-  ...asyncReducers,
-});
+export default (apolloClient: any, asyncReducers?: Object): Function =>
+  combineReducers({
+    apollo: apolloClient.reducer(),
+    route: routeReducer,
+    window: windowReducer,
+    ...asyncReducers,
+  });

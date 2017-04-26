@@ -5,7 +5,7 @@
 // path (client side logging) is eliminated on production. Therefore,
 // this will not affect the bundle size in production.
 
-export default (() => {
+export default ((): Object => {
   if (__SERVER__) {
     return require('./server').default; // eslint-disable-line global-require
   }

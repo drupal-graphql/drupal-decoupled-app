@@ -1,25 +1,28 @@
 // @flow
 
-import {
-  RESIZE,
-  SCROLL,
-} from 'state/actions/window';
+import { RESIZE, SCROLL } from 'state/actions/window';
 
 /* eslint-disable max-len */
 
 // Initial window state.
 const initialState: Object = {
-  height: __CLIENT__ && (global.document.body.innerHeight || global.document.documentElement.innerHeight) || 0,
-  width: __CLIENT__ && (global.document.body.innerWidth || global.document.documentElement.innerWidth) || 0,
-  scroll: __CLIENT__ && (global.document.body.scrollTop || global.document.documentElement.scrollTop) || 0,
+  height: (__CLIENT__ &&
+    (global.document.body.innerHeight ||
+      global.document.documentElement.innerHeight)) ||
+    0,
+  width: (__CLIENT__ &&
+    (global.document.body.innerWidth ||
+      global.document.documentElement.innerWidth)) ||
+    0,
+  scroll: (__CLIENT__ &&
+    (global.document.body.scrollTop ||
+      global.document.documentElement.scrollTop)) ||
+    0,
 };
 
 /* eslint-enable max-len */
 
-export default (
-  state: Object = initialState,
-  action: Object,
-): Object => {
+export default (state: Object = initialState, action: Object): Object => {
   switch (action.type) {
     case RESIZE:
       return {

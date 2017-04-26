@@ -1,7 +1,6 @@
 // @flow
 
-export default (state: Object): Object =>
-  state.window;
+export default (state: Object): Object => state.window;
 
 export const selectWindowHeight = (state: Object): number =>
   state.window && state.window.height;

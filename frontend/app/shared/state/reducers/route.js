@@ -7,10 +7,7 @@ const initialState: Object = {
   locationBeforeTransitions: null,
 };
 
-export default (
-  state: Object = initialState,
-  action: Object,
-): Object => {
+export default (state: Object = initialState, action: Object): Object => {
   if (action.type === LOCATION_CHANGE) {
     return {
       locationBeforeTransitions: action.payload,
