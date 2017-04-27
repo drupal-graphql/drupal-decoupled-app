@@ -15,9 +15,9 @@
     "flow": "flow",
     "format": "prettier --trailing-comma all --single-quote --write 'app/**/*.js' && yarn run lint -- --fix",
     "persist": "node bin/update-persistgraphql",
-    "persist:update": "yarn run introspect && cd .. && git add frontend/app/shared/introspection.json",
+    "persist:update": "yarn run persist && cd .. && git add frontend/app/shared/queries.json",
     "introspect": "node bin/update-introspection",
-    "introspect:update": "yarn run introspect && cd .. && git add frontend/app/shared/queries.json",
+    "introspect:update": "yarn run introspect && cd .. && git add frontend/app/shared/introspection.json",
     "precommit": "lint-staged && yarn run introspect:update && yarn run persist:update",
     "test:watch": "yarn run test -- --watch"
   },
