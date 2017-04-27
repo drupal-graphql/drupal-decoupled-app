@@ -3,49 +3,18 @@
 namespace Drupal\graphql_demo\GraphQL\Relay;
 
 use Drupal\graphql_demo\GraphQL\Relay\Field\NodeField;
+use Drupal\graphql\GraphQL\Schema as BaseSchema;
 use Youshido\GraphQL\Config\Schema\SchemaConfig;
-use Youshido\GraphQL\Schema\AbstractSchema;
 use Youshido\GraphQL\Type\NonNullType;
-use Youshido\GraphQL\Type\Object\ObjectType;
 
-class Schema extends AbstractSchema {
-  /**
-   * Constructs a Schema object.
-   *
-   * @param array $query
-   *   An array of query fields.
-   * @param array $mutation
-   *   An array of mutation fields.
-   * @param array $types
-   *   An array of additional types to register.
-   */
-  public function __construct(array $query, array $mutation = NULL, array $types = []) {
-    $config['query'] = new ObjectType([
-      'name' => 'QueryRoot',
-      'fields' => [
-        'node' => new NodeField(),
-      ] + $query,
-    ]);
-
-    if (!empty($mutation)) {
-      $config['mutation'] = new ObjectType([
-        'name' => 'MutationRoot',
-        'fields' => $mutation,
-      ]);
-    }
-
-    if (!empty($types)) {
-      $config['types'] = $types;
-    }
-
-    return parent::__construct($config);
-  }
+class Schema extends BaseSchema {
 
   /**
    * {@inheritdoc}
    */
   public function build(SchemaConfig $config) {
     $query = $config->getQuery();
+    $query->addField(new NodeField());
 
     // Add all fields to a field on the root query object (recursive). This is
     // required to enable adding a recursive reference to the query root for use

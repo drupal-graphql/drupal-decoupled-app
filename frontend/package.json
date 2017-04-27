@@ -15,6 +15,7 @@
     "flow": "flow",
     "format": "prettier --trailing-comma all --single-quote --write 'app/**/*.js' && yarn run lint -- --fix",
     "persist": "node bin/update-persistgraphql",
+    "persist:upload": "node bin/update-persistgraphql decoupled.backend.docker.amazee.io --upload",
     "introspect": "node bin/update-introspection",
     "precommit": "lint-staged",
     "test:watch": "yarn run test -- --watch"

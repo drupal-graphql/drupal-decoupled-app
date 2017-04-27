@@ -4,7 +4,7 @@ parameters:
     schema_class: Drupal\graphql_demo\GraphQL\Relay\Schema
 
 services:
-  graphql.schema_provider:
+  graphql_demo.schema_provider:
     class: Drupal\graphql_demo\SchemaProvider\SchemaProvider
-  graphql.type_resolver:
-    class: Drupal\graphql_demo\TypeResolver\TypeResolver
+    tags:
+      - { name: graphql_schema_provider }

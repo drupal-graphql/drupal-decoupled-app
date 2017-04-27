@@ -1,4 +1,4 @@
-name: graphql_demo GraphQL Demo
+name: GraphQL Demo
 type: module
 description: 'Exposes a custom GraphQL Demo Schema for the Drupal graphql_demo.'
 package: Web Services
