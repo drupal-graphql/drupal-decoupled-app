@@ -1529,7 +1529,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/graphql",
-                "reference": "e21492267db654f264fe458c8aba20164981dea8"
+                "reference": "eca24187ee522a979789d6d59980f00f76addd67"
             },
             "require": {
                 "drupal/core": "~8.0",
@@ -1542,7 +1542,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.x-dev",
-                    "datestamp": "1492708142"
+                    "datestamp": "1493292843"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -1555,10 +1555,6 @@
                     "homepage": "https://www.drupal.org/user/99340"
                 },
                 {
-                    "name": "fgm",
-                    "homepage": "https://www.drupal.org/user/27985"
-                },
-                {
                     "name": "fubhy",
                     "homepage": "https://www.drupal.org/user/761344"
                 },
@@ -1569,6 +1565,10 @@
                 {
                     "name": "ohthehugemanatee",
                     "homepage": "https://www.drupal.org/user/35488"
+                },
+                {
+                    "name": "pmelab",
+                    "homepage": "https://www.drupal.org/user/555322"
                 }
             ],
             "description": "Exposes your Drupal data model through a GraphQL schema.",
@@ -1576,7 +1576,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/graphql"
             },
-            "time": "2017-04-27 08:50:18"
+            "time": "2017-04-27 14:05:46"
         },
         {
             "name": "drush/drush",
