@@ -22,7 +22,6 @@ class BasicPageType extends AbstractObjectType {
    * {@inheritdoc}
    */
   public function build($config) {
-    $config->addField(new GlobalIdField('basic-page'));
     $config->addField(new EntityCanonicalUriField());
     $config->addField(new EntityPreferredUriField());
     $config->addField(new EntityIdField());
@@ -39,7 +38,6 @@ class BasicPageType extends AbstractObjectType {
    */
   public function getInterfaces() {
     return [
-      new NodeInterfaceType(),
       new RouteObjectInterfaceType(),
     ];
   }

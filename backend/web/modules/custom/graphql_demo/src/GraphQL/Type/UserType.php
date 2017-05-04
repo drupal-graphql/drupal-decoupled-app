@@ -14,20 +14,9 @@ class UserType extends AbstractObjectType {
    * {@inheritdoc}
    */
   public function build($config) {
-    $config->addField(new GlobalIdField('user'));
     $config->addField(new EntityIdField());
     $config->addField(new EntityLabelField());
   }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getInterfaces() {
-    return [
-      new NodeInterfaceType(),
-    ];
-  }
-
   /**
    * {@inheritdoc}
    */

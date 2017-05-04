@@ -1,8 +1,3 @@
-parameters:
-  graphql.config:
-    cache: false
-    schema_class: Drupal\graphql_demo\GraphQL\Relay\Schema
-
 services:
   graphql_demo.schema_provider:
     class: Drupal\graphql_demo\SchemaProvider\SchemaProvider
