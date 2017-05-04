@@ -15,7 +15,8 @@
         "drupal/core": "~8.0",
         "drush/drush": "~8.0",
         "drupal/console": "~1.0",
-        "drupal/graphql": "3.x-dev"
+        "drupal/graphql": "3.x-dev",
+        "phpunit/phpunit": "~5.3"
     },
     "conflict": {
         "drupal/drupal": "*"

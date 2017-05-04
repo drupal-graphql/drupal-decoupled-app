@@ -32,4 +32,11 @@ class SchemaProvider implements SchemaProviderInterface {
 
     return $schema;
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getContexts() {
+    return [];
+  }
 }

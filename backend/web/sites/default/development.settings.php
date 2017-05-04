@@ -15,7 +15,7 @@ $config['system.logging']['error_level'] = 'all';
 $config['google_analytics.settings']['account'] = 'UA-XXXXXXXX-YY';
 
 // Expiration of cached pages to 0
-$config['system.performance']['cache']['page']['max_age'] = 0;
+$config['system.performance']['cache']['page']['max_age'] = 1000;
 
 // Aggregate CSS files on
 $config['system.performance']['css']['preprocess'] = 0;
