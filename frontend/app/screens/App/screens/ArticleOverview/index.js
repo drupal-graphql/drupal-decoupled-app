@@ -25,7 +25,7 @@ type ArticleOverviewProps = {
   articles: Array<ArticleTeaserProps>,
 };
 
-const pageSize = 10;
+const pageSize = 5;
 const hasPreviousPage = page => page > 0;
 const hasNextPage = (page, count) => page + 1 < count / pageSize;
 const previousPagePath = page =>

@@ -18,12 +18,12 @@ const Wrapper = styled.div`
 
 const Title = styled.h1`
   font-weight: bold;
-  font-size: 16px;
+  font-size: 24px;
   margin-bottom: 1rem;
 `;
 
 const Body = styled.div`
-  font-size: 12px;
+  font-size: 16px;
 `;
 
 const Article = ({ title, body }: ArticleProps): React.Element<any> => (
@@ -33,7 +33,7 @@ const Article = ({ title, body }: ArticleProps): React.Element<any> => (
     {/* eslint-disable react/no-danger */}
     <Body dangerouslySetInnerHTML={{ __html: body }} />
     {/* eslint-enable react/no-danger */}
-    <Link to="/">Back to overview</Link>
+    <Link to="/articles">Back to overview</Link>
   </Wrapper>
 );
 

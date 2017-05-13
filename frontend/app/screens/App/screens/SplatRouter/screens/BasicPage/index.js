@@ -17,12 +17,12 @@ const Wrapper = styled.div`
 
 const Title = styled.h1`
   font-weight: bold;
-  font-size: 16px;
+  font-size: 24px;
   margin-bottom: 1rem;
 `;
 
 const Body = styled.div`
-  font-size: 12px;
+  font-size: 16px;
 `;
 
 const BasicPage = ({ title, body }: BasicPageProps): React.Element<any> => (

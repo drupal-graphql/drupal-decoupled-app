@@ -1574,7 +1574,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/graphql",
-                "reference": "fdaf98967a186abbbb1de3566151e95ed964d418"
+                "reference": "df9573c85cfbe42fa0afa8e396d92453c8a76577"
             },
             "require": {
                 "drupal/core": "~8.0",
@@ -1592,7 +1592,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.x-dev",
-                    "datestamp": "1494697386"
+                    "datestamp": "1494702785"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -1626,7 +1626,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/graphql"
             },
-            "time": "2017-05-13 17:48:42"
+            "time": "2017-05-13 19:16:56"
         },
         {
             "name": "drush/drush",

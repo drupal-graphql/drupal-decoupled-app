@@ -1,22 +1,28 @@
 // @flow
 
+import 'App/styles';
+
 import React from 'react';
 import Helmet from 'react-helmet';
+import styled from 'styled-components';
 
 type AppProps = {
   children: React.Element<any>,
 };
 
-const App = ({
-  children,
-}: AppProps): React.Element<any> => (
-  <div>
+const Wrapper = styled.div`
+  max-width: 1000px;
+  margin: auto;
+`;
+
+const App = ({ children }: AppProps): React.Element<any> => (
+  <Wrapper>
     <Helmet
       titleTemplate="Decoupled Drupal - %s"
       defaultTitle="Decoupled Drupal"
     />
     {children}
-  </div>
+  </Wrapper>
 );
 
 export default App;

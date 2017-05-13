@@ -23,11 +23,11 @@ const Wrapper = styled.div`
 
 const Title = styled.h2`
   font-weight: bold;
-  font-size: 16px;
+  font-size: 20px;
 `;
 
 const Body = styled.div`
-  font-size: 10px;
+  font-size: 16px;
 `;
 
 const ArticleTeaser = ({ title, url, body }: ArticleTeaserProps): React.Element<any> => (
