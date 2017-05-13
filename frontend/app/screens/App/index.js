@@ -11,8 +11,10 @@ type AppProps = {
 };
 
 const Wrapper = styled.div`
-  max-width: 1000px;
+  max-width: 90rem;
   margin: auto;
+  padding: 1rem;
+  background-color: lightgrey;
 `;
 
 const App = ({ children }: AppProps): React.Element<any> => (

@@ -3,16 +3,8 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router';
-import styled from 'styled-components';
-
-const Title = styled.h1`
-  font-weight: bold;
-  font-size: 24px;
-`;
-
-const Paragraph = styled.div`
-  font-size: 16px;
-`;
+import Title from 'Title';
+import Paragraph from 'Paragraph';
 
 const Home = (): React.Element<any> => (
   <div>

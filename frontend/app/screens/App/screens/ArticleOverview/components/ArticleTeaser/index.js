@@ -4,6 +4,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
+import Body from 'Body';
 
 /* eslint-disable react/no-unused-prop-types */
 export type ArticleTeaserProps = {
@@ -26,19 +27,12 @@ const Title = styled.h2`
   font-size: 20px;
 `;
 
-const Body = styled.div`
-  font-size: 16px;
-`;
-
 const ArticleTeaser = ({ title, url, body }: ArticleTeaserProps): React.Element<any> => (
   <Wrapper>
     <Title>
       <Link to={url && url.alias}>{title}</Link>
     </Title>
-
-    {/* eslint-disable react/no-danger */}
-    <Body dangerouslySetInnerHTML={{ __html: body }} />
-    {/* eslint-enable react/no-danger */}
+    <Body>{body}</Body>
   </Wrapper>
 );
 

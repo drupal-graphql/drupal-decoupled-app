@@ -3,18 +3,20 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router';
+import Title from 'Title';
+import Paragraph from 'Paragraph';
 
 const NotFound = (): React.Element<any> => (
   <div>
     <Helmet title="Page not found" />
     <div>
-      <h1>Page not found</h1>
-      <p>
-        {'These aren\'t the droids you\'re looking for.'}
-      </p>
-      <p>
+      <Title>Page not found</Title>
+      <Paragraph>
+        {"These aren't the droids you're looking for."}
+      </Paragraph>
+      <Paragraph>
         <Link to="/">Back to the front page</Link>
-      </p>
+      </Paragraph>
     </div>
   </div>
 );

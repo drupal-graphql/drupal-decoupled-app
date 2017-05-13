@@ -2,53 +2,52 @@
 
 import React from 'react';
 import Helmet from 'react-helmet';
+import compose from 'recompose/compose';
+import defaultProps from 'recompose/defaultProps';
+import withPropsOnChange from 'recompose/withPropsOnChange';
 import gql from 'graphql-tag';
 import { Link } from 'react-router';
 import { graphql } from 'react-apollo';
 import { filter } from 'graphql-anywhere';
 import ArticleTeaser from 'ArticleTeaser';
+import Title from 'Title';
 import type { ArticleTeaserProps } from 'ArticleTeaser';
-
-const renderArticleTeasers = (
-  props: ArticleTeaserProps,
-): React.Element<any> => (
-  <ArticleTeaser
-    key={props.id}
-    {...filter(ArticleTeaser.fragments.articleTeaserFragment, props)}
-  />
-);
 
 type ArticleOverviewProps = {
   loading: boolean,
   page: number,
   count: number,
   articles: Array<ArticleTeaserProps>,
+  pageSize: number,
+  hasPreviousPage?: boolean,
+  hasNextPage?: boolean,
+  previousPagePath?: string,
+  nextPagePath?: string,
 };
-
-const pageSize = 5;
-const hasPreviousPage = page => page > 0;
-const hasNextPage = (page, count) => page + 1 < count / pageSize;
-const previousPagePath = page =>
-  (page - 1 > 0 ? `/articles/${page - 1}` : '/articles');
-const nextPagePath = page => `/articles/${page + 1}`;
 
 const ArticleOverview = ({
   loading,
-  page,
-  count,
   articles,
+  hasPreviousPage,
+  hasNextPage,
+  previousPagePath,
+  nextPagePath,
 }: ArticleOverviewProps): React.Element<any> =>
   !loading &&
   <div>
     <Helmet title="Article overview" />
-    <h1>Article overview</h1>
+    <Title>Article overview</Title>
     <ul>
-      {articles.map(renderArticleTeasers)}
+      {articles.map(article => (
+        <ArticleTeaser
+          key={article.id}
+          {...filter(ArticleTeaser.fragments.articleTeaserFragment, article)}
+        />
+      ))}
     </ul>
     <div>
-      {hasPreviousPage(page) &&
-        <Link to={previousPagePath(page)}>Previous</Link>}
-      {hasNextPage(page, count) && <Link to={nextPagePath(page)}>Next</Link>}
+      {hasPreviousPage && <Link to={previousPagePath}>Previous</Link>}
+      {hasNextPage && <Link to={nextPagePath}>Next</Link>}
     </div>
   </div>;
 
@@ -67,7 +66,7 @@ const query = gql`
 `;
 
 const withQuery = graphql(query, {
-  options: ({ params: { page = 0 } }) => ({
+  options: ({ pageSize, params: { page = 0 } }) => ({
     variables: {
       offset: page * pageSize,
       limit: pageSize,
@@ -84,4 +83,22 @@ const withQuery = graphql(query, {
   }),
 });
 
-export default withQuery(ArticleOverview);
+const withDefaultProps = defaultProps({
+  pageSize: 5,
+});
+
+const withPagination = withPropsOnChange(
+  ['count', 'page'],
+  (props: ArticleOverviewProps) => ({
+    hasPreviousPage: props.page > 0,
+    hasNextPage: props.page + 1 < props.count / props.pageSize,
+    previousPagePath: props.page - 1 > 0
+      ? `/articles/${props.page - 1}`
+      : '/articles',
+    nextPagePath: `/articles/${props.page + 1}`,
+  }),
+);
+
+export default compose(withDefaultProps, withQuery, withPagination)(
+  ArticleOverview,
+);
