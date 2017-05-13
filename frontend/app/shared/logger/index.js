@@ -15,5 +15,13 @@ export default ((): Object => {
   }
 
   // No logging on client side in production.
-  return () => ({});
+  const noop = () => {};
+
+  return {
+    log: noop,
+    info: noop,
+    debug: noop,
+    warn: noop,
+    error: noop,
+  };
 })();

@@ -103,11 +103,11 @@ const renderWithSsr = (
         );
 
         // Start profiling of the react rendering with apollo.
-        logger.profile('rendering with data dependencies');
+        logger.profile('Rendering with data dependencies');
 
         renderToStringWithData(Root).then(renderedContent => {
           // Stop profiling of the react rendering with apollo.
-          logger.profile('rendering with data dependencies');
+          logger.profile('Rendering with data dependencies');
 
           // The order in which the html head elements should be rendered.
           const headOrder: Array<string> = [
@@ -130,7 +130,7 @@ const renderWithSsr = (
             .join('');
 
           // Start profiling of the initial state extraction.
-          logger.profile('extracting initial state');
+          logger.profile('Extracting initial state');
 
           const initialState: string = JSON.stringify({
             ...store.getState(),
@@ -138,7 +138,7 @@ const renderWithSsr = (
           });
 
           // Stop profiling of the initial state extraction.
-          logger.profile('extracting initial state');
+          logger.profile('Extracting initial state');
 
           res.render('template', {
             apiUri,

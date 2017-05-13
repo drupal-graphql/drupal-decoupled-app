@@ -29,17 +29,15 @@ const pageSize = 10;
 const hasPreviousPage = page => page > 0;
 const hasNextPage = (page, count) => page + 1 < count / pageSize;
 const previousPagePath = page =>
-  page - 1 > 0 ? `/articles/${page - 1}` : '/articles';
+  (page - 1 > 0 ? `/articles/${page - 1}` : '/articles');
 const nextPagePath = page => `/articles/${page + 1}`;
 
-const ArticleOverview = (
-  {
-    loading,
-    page,
-    count,
-    articles,
-  }: ArticleOverviewProps,
-): React.Element<any> =>
+const ArticleOverview = ({
+  loading,
+  page,
+  count,
+  articles,
+}: ArticleOverviewProps): React.Element<any> =>
   !loading &&
   <div>
     <Helmet title="Article overview" />
@@ -56,9 +54,9 @@ const ArticleOverview = (
 
 const query = gql`
   query ArticleOverviewQuery($offset: Int, $limit: Int) {
-    allArticles(offset: $offset, limit: $limit) {
+    nodeQuery(offset: $offset, limit: $limit, type: "article") {
       count,
-      articles {
+      entities {
         id:entityId
         ...ArticleTeaserFragment
       }
@@ -69,38 +67,20 @@ const query = gql`
 `;
 
 const withQuery = graphql(query, {
-  options: (
-    {
-      params: {
-        page = 0,
-      },
-    },
-  ) => ({
+  options: ({ params: { page = 0 } }) => ({
     variables: {
       offset: page * pageSize,
       limit: pageSize,
     },
   }),
-  props: (
-    {
-      ownProps: {
-        params: {
-          page = 0,
-        },
-      },
-      data: {
-        allArticles: {
-          articles,
-          count,
-        } = {},
-        loading,
-      },
-    }: any,
-  ): ArticleOverviewProps => ({
+  props: ({
+    ownProps: { params: { page = 0 } },
+    data: { nodeQuery: { entities, count } = {}, loading },
+  }: any): ArticleOverviewProps => ({
     loading,
     page: parseInt(page, 10),
     count,
-    articles,
+    articles: entities,
   }),
 });
 

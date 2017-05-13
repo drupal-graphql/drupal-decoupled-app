@@ -8,24 +8,22 @@ import Article from 'Article';
 import NotFound from 'NotFound';
 
 type SplatRouterProps = {
-  object: any,
+  entity: any,
   loading: boolean,
 };
 
-const SplatRouter = ({
-  object,
-  loading,
-}: RouterProps): React.Element<any> | null => {
+const SplatRouter = ({ entity, loading }: RouterProps): | React.Element<any>
+  | null => {
   if (loading) {
     return null;
   }
 
-  switch (object && object.__typename) { // eslint-disable-line no-underscore-dangle
-    case 'BasicPage':
-      return <BasicPage {...object} />;
+  switch (entity && entity.__typename) { // eslint-disable-line no-underscore-dangle
+    case 'NodePage':
+      return <BasicPage {...entity} />;
 
-    case 'Article':
-      return <Article {...object} />;
+    case 'NodeArticle':
+      return <Article {...entity} />;
 
     default:
       return <NotFound />;
@@ -34,8 +32,8 @@ const SplatRouter = ({
 
 const query = gql`
   query SplatRouterQuery($path: String!) {
-    routeByPath(path: $path) {
-      object {
+    route(path: $path) {
+      entity {
         ...BasicPageFragment
         ...ArticleFragment
       }
@@ -50,16 +48,11 @@ const withQuery = graphql(query, {
   options: (props: any) => ({
     variables: {
       // Default to the front page when no path suffix was given.
-      path: props.params.splat || '',
+      path: `/${props.params.splat || ''}`,
     },
   }),
-  props: ({
-    data: {
-      routeByPath,
-      loading,
-    },
-  }: any): SplatRouterProps => ({
-    object: routeByPath && routeByPath.object,
+  props: ({ data: { route, loading } }: any): SplatRouterProps => ({
+    entity: route && route.entity,
     loading,
   }),
 });

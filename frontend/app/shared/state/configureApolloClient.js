@@ -13,8 +13,6 @@ import { getQueryDocumentKey } from '@amazee/persistgraphql/lib/src/common';
 import queryMap from 'queries.json';
 import introspectionResult from 'introspection.json';
 
-// @TODO Add profiling for individual requests.
-
 const printRequest = request => {
   if (!Object.hasOwnProperty.call(request, 'query')) {
     return request;

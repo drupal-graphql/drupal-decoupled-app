@@ -26,26 +26,21 @@ const Body = styled.div`
   font-size: 12px;
 `;
 
-const Article = (
-  {
-    title,
-    body,
-  }: ArticleProps,
-): React.Element<any> => (
+const Article = ({ title, body }: ArticleProps): React.Element<any> => (
   <Wrapper>
     <Helmet title={title} />
     <Title>{title}</Title>
     {/* eslint-disable react/no-danger */}
     <Body dangerouslySetInnerHTML={{ __html: body }} />
     {/* eslint-enable react/no-danger */}
-    <Link to="/articles">Back to overview</Link>
+    <Link to="/">Back to overview</Link>
   </Wrapper>
 );
 
 Article.fragments = {
   articleFragment: gql`
-    fragment ArticleFragment on Article {
-      title:entityLabel
+    fragment ArticleFragment on NodeArticle {
+      title
       body
     }
   `,

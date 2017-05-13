@@ -5,11 +5,15 @@ import { Link } from 'react-router';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
 
+/* eslint-disable react/no-unused-prop-types */
 export type ArticleTeaserProps = {
   title: string,
-  path: string,
+  url: {
+    alias: string,
+  },
   body: string,
 };
+/* eslint-enable react/no-unused-prop-types */
 
 const Wrapper = styled.div`
   border: 1px solid Black;
@@ -26,16 +30,10 @@ const Body = styled.div`
   font-size: 10px;
 `;
 
-const ArticleTeaser = (
-  {
-    title,
-    path,
-    body,
-  }: ArticleTeaserProps,
-): React.Element<any> => (
+const ArticleTeaser = ({ title, url, body }: ArticleTeaserProps): React.Element<any> => (
   <Wrapper>
     <Title>
-      <Link to={path}>{title}</Link>
+      <Link to={url && url.alias}>{title}</Link>
     </Title>
 
     {/* eslint-disable react/no-danger */}
@@ -46,9 +44,12 @@ const ArticleTeaser = (
 
 ArticleTeaser.fragments = {
   articleTeaserFragment: gql`
-    fragment ArticleTeaserFragment on Article {
-      title:entityLabel
-      path:preferredUri
+    fragment ArticleTeaserFragment on NodeArticle {
+      url:entityUrl {
+        alias
+      }
+
+      title
       body
     }
   `,

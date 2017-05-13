@@ -8,10 +8,9 @@ import ArticleOverview from 'App/screens/ArticleOverview';
 
 const createRoutes = (): React.Element<any> => (
   <Route component={App} path="/">
-    <IndexRoute component={SplatRouter} />
-    <Route path="articles" component={ArticleOverview}>
+    <IndexRoute component={ArticleOverview}>
       <Route path=":page" component={ArticleOverview} />
-    </Route>
+    </IndexRoute>
     <Route path="*" component={SplatRouter} />
   </Route>
 );

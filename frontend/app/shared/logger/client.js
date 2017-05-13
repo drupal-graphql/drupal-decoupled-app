@@ -14,10 +14,10 @@ type Logger = {
 /* eslint-disable no-console */
 const logger: Logger = {
   log: console.log,
-  info: (...args) => console.log('info', ...args),
-  debug: (...args) => console.log('debug', ...args),
-  warn: (...args) => console.log('warn', ...args),
-  error: (...args) => console.log('error', ...args),
+  info: console.info || console.log,
+  debug: console.debug || console.log,
+  warn: console.warn || console.log,
+  error: console.error || console.log,
 };
 /* eslint-enable no-console */
 
@@ -39,7 +39,7 @@ logger.profile = id => {
     // Set the duration property of the metadata.
     meta.durationMs = now - then;
     // eslint-disable-next-line no-console
-    return console.log('info', msg, meta, callback);
+    return logger.info(msg, meta, callback);
   }
 
   profilers[id] = now;
