@@ -25,6 +25,9 @@
  *
  */
 
+// Always install the config installer profile.
+$settings['install_profile'] = 'config_installer';
+
 ### amazee.io Database connection
 if(getenv('AMAZEEIO_SITENAME')){
   $databases['default']['default'] = array(
@@ -109,6 +112,7 @@ if(getenv('AMAZEEIO_SITE_ENVIRONMENT')){
 if (file_exists(__DIR__ . '/local.settings.php')) {
   include __DIR__ . '/local.settings.php';
 }
+
 // Last: This server specific services file.
 if (file_exists(__DIR__ . '/local.services.yml')) {
   $settings['container_yamls'][] = __DIR__ . '/local.services.yml';

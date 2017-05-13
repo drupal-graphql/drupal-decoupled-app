@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "75f4d3c192f273946c5228b5840a9e91",
+    "content-hash": "705a134ca9520108bec57cda32c8782a",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1088,6 +1088,48 @@
             "time": "2016-11-05T10:46:44+00:00"
         },
         {
+            "name": "drupal/config_installer",
+            "version": "1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/config_installer",
+                "reference": "8.x-1.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/config_installer-8.x-1.4.zip",
+                "reference": null,
+                "shasum": "5371ced3d688f6c932992066fa0d5f44f7d6e7dd"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-profile",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.4",
+                    "datestamp": "1488072484"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "alexpott",
+                    "homepage": "https://www.drupal.org/user/157725"
+                }
+            ],
+            "homepage": "https://www.drupal.org/project/config_installer",
+            "support": {
+                "source": "http://cgit.drupalcode.org/config_installer"
+            }
+        },
+        {
             "name": "drupal/console",
             "version": "1.0.0-rc18",
             "source": {
@@ -1532,7 +1574,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/graphql",
-                "reference": "5e6420739b3d07cd49e8f292f41757b507c0442b"
+                "reference": "e1a8767bb5c1b7010735c108f82166e59a421e8f"
             },
             "require": {
                 "drupal/core": "~8.0",
@@ -1550,7 +1592,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.x-dev",
-                    "datestamp": "1494364985"
+                    "datestamp": "1494459785"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -1584,7 +1626,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/graphql"
             },
-            "time": "2017-05-09 21:53:32"
+            "time": "2017-05-12 02:40:15"
         },
         {
             "name": "drush/drush",

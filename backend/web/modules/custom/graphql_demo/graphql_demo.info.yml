@@ -1,7 +1,0 @@
-name: GraphQL Demo
-type: module
-description: 'Exposes a custom GraphQL Demo Schema for the Drupal graphql_demo.'
-package: Web Services
-core: 8.x
-dependencies:
-  - graphql

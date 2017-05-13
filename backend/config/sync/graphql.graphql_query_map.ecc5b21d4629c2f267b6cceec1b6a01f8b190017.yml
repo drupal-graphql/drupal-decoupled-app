@@ -1,0 +1,8 @@
+uuid: 05973d4d-d147-4091-b88c-a0e6dc0180ca
+langcode: en
+status: true
+dependencies: {  }
+version: ecc5b21d4629c2f267b6cceec1b6a01f8b190017
+queryMap:
+  1: "query ArticleOverviewQuery($offset: Int, $limit: Int) {\n  nodeQuery(offset: $offset, limit: $limit, type: \"article\") {\n    count\n    entities {\n      id: entityId\n      ...ArticleTeaserFragment\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment ArticleTeaserFragment on NodeArticle {\n  url: entityUrl {\n    alias\n    __typename\n  }\n  title\n  body\n  __typename\n}\n"
+  2: "query SplatRouterQuery($path: String!) {\n  route(path: $path) {\n    entity {\n      ...BasicPageFragment\n      ...ArticleFragment\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment ArticleFragment on NodeArticle {\n  title\n  body\n  __typename\n}\n\nfragment BasicPageFragment on NodePage {\n  title\n  body\n  __typename\n}\n"

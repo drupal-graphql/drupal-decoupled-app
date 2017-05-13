@@ -15,6 +15,9 @@ web/sites/*/local.services.yml
 web/sites/*/files
 web/sites/*/private
 
+# Ignore test output
+web/sites/simpletest
+
 # We absolutely don't want to have the .sass-cache in git.
 .sass-cache
 
