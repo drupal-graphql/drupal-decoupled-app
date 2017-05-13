@@ -32,7 +32,7 @@ docker-compose exec --user drupal drupal bash
 Once connected to the container, you can now install Drupal.
 
 ```
-drush si -y --account-name=admin --account-pass=admin
+drush si config_installer -y --account-name=admin --account-pass=admin
 ```
 
 Now you can create some content (basic page or article) and run the frontend application.

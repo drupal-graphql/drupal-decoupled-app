@@ -4,11 +4,11 @@ module:
   block_content: 0
   breakpoint: 0
   ckeditor: 0
+  color: 0
   config: 0
   contextual: 0
   datetime: 0
   dblog: 0
-  dynamic_page_cache: 0
   editor: 0
   field: 0
   field_ui: 0
@@ -32,7 +32,6 @@ module:
   menu_ui: 0
   node: 0
   options: 0
-  page_cache: 0
   path: 0
   quickedit: 0
   shortcut: 0

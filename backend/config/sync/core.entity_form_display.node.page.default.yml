@@ -1,4 +1,4 @@
-uuid: 487bce35-19c8-4f12-9cda-6aba9c5923e1
+uuid: 7af7c519-825b-4a86-b3be-62a45dbf9530
 langcode: en
 status: true
 dependencies:
@@ -8,6 +8,8 @@ dependencies:
   module:
     - path
     - text
+_core:
+  default_config_hash: sWCotip3wyA0CvZUxyo-StTDU8TyTAhx5fcfOiHS6s4
 id: node.page.default
 targetEntityType: node
 bundle: page
@@ -16,12 +18,12 @@ content:
   body:
     type: text_textarea_with_summary
     weight: 31
+    region: content
     settings:
       rows: 9
       summary_rows: 3
       placeholder: ''
     third_party_settings: {  }
-    region: content
   created:
     type: datetime_timestamp
     weight: 10
@@ -59,10 +61,10 @@ content:
   uid:
     type: entity_reference_autocomplete
     weight: 5
+    region: content
     settings:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
-    region: content
     third_party_settings: {  }
 hidden: {  }
