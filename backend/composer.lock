@@ -1098,7 +1098,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/config_installer-8.x-1.4.zip",
-                "reference": null,
+                "reference": "8.x-1.4",
                 "shasum": "5371ced3d688f6c932992066fa0d5f44f7d6e7dd"
             },
             "require": {
@@ -1574,7 +1574,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/graphql",
-                "reference": "e1a8767bb5c1b7010735c108f82166e59a421e8f"
+                "reference": "fdaf98967a186abbbb1de3566151e95ed964d418"
             },
             "require": {
                 "drupal/core": "~8.0",
@@ -1592,7 +1592,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.x-dev",
-                    "datestamp": "1494459785"
+                    "datestamp": "1494697386"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -1626,7 +1626,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/graphql"
             },
-            "time": "2017-05-12 02:40:15"
+            "time": "2017-05-13 17:48:42"
         },
         {
             "name": "drush/drush",
