@@ -2,10 +2,11 @@
 # yarn lockfile v1
 
 
-"@amazee/babel-preset-react@0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@amazee/babel-preset-react/-/babel-preset-react-0.0.8.tgz#0f3049a6f0de7018f56100ecc351b90debcb5b09"
+"@amazee/babel-preset-react@0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@amazee/babel-preset-react/-/babel-preset-react-0.0.9.tgz#2b7e2ac2e38f92b6f673d463a7a01767f9ad723d"
   dependencies:
+    babel-plugin-styled-components "^1.1.4"
     babel-plugin-syntax-dynamic-import "^6.18.0"
     babel-plugin-transform-class-properties "6.16.0"
     babel-plugin-transform-es2015-parameters "6.18.0"
@@ -47,12 +48,13 @@
     whatwg-fetch "^2.0.0"
     yargs "^6.5.0"
 
-"@amazee/react-scripts@^0.0.56":
-  version "0.0.56"
-  resolved "https://registry.yarnpkg.com/@amazee/react-scripts/-/react-scripts-0.0.56.tgz#62bff96905ab690afc1c8a871ed40e1d7021fde4"
+"@amazee/react-scripts@0.0.58":
+  version "0.0.58"
+  resolved "https://registry.yarnpkg.com/@amazee/react-scripts/-/react-scripts-0.0.58.tgz#fb5da0ce7bc74693e46ab714d307ee8cb808fa14"
   dependencies:
-    "@amazee/babel-preset-react" "0.0.8"
+    "@amazee/babel-preset-react" "0.0.9"
     "@amazee/eslint-config-amazee" "0.0.12"
+    add-asset-html-webpack-plugin "^1.0.2"
     babel-core "^6.24.0"
     babel-eslint "7.1.1"
     babel-jest "^19.0.0"
@@ -182,6 +184,12 @@ acorn@^4.0.3, acorn@^4.0.4:
 acorn@^5.0.0, acorn@^5.0.1:
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.0.3.tgz#c460df08491463f028ccb82eab3730bf01087b3d"
+
+add-asset-html-webpack-plugin@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/add-asset-html-webpack-plugin/-/add-asset-html-webpack-plugin-1.0.2.tgz#f22748635fbb27724d54d8f2cd1dedb2bcd18cd0"
+  dependencies:
+    bluebird "^3.3.5"
 
 ajv-keywords@^1.0.0, ajv-keywords@^1.1.1:
   version "1.5.1"
@@ -655,6 +663,12 @@ babel-plugin-istanbul@^4.0.0:
 babel-plugin-jest-hoist@^19.0.0:
   version "19.0.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-jest-hoist/-/babel-plugin-jest-hoist-19.0.0.tgz#4ae2a04ea612a6e73651f3fde52c178991304bea"
+
+babel-plugin-styled-components@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/babel-plugin-styled-components/-/babel-plugin-styled-components-1.1.4.tgz#b0e6d5bb01059bc7ab9118d3d686f6472ee8e91f"
+  dependencies:
+    stylis "2.0.0"
 
 babel-plugin-syntax-async-functions@^6.8.0:
   version "6.13.0"
@@ -1153,7 +1167,7 @@ block-stream@*:
   dependencies:
     inherits "~2.0.0"
 
-bluebird@^3.4.7:
+bluebird@^3.3.5, bluebird@^3.4.7:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.0.tgz#791420d7f551eea2897453a8a77653f96606d67c"
 
@@ -1303,7 +1317,7 @@ buffer@^4.3.0:
     ieee754 "^1.1.4"
     isarray "^1.0.0"
 
-buffer@^5.0.2:
+buffer@^5.0.3:
   version "5.0.6"
   resolved "https://registry.yarnpkg.com/buffer/-/buffer-5.0.6.tgz#2ea669f7eec0b6eda05b08f8b5ff661b28573588"
   dependencies:
@@ -1573,10 +1587,6 @@ colormin@^1.0.5:
     css-color-names "0.0.4"
     has "^1.0.1"
 
-colors@0.5.x:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/colors/-/colors-0.5.1.tgz#7d0023eaeb154e8ee9fce75dcb923d0ed1667774"
-
 colors@1.0.x, colors@>=0.6.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/colors/-/colors-1.0.3.tgz#0433f44d809680fdeb60ed260f1b0c262e82a40b"
@@ -1791,15 +1801,9 @@ crypto-browserify@^3.11.0:
     public-encrypt "^4.0.0"
     randombytes "^2.0.0"
 
-css-color-list@0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/css-color-list/-/css-color-list-0.0.1.tgz#8718e8695ae7a2cc8787be8715f1c008a7f28b15"
-  dependencies:
-    css-color-names "0.0.1"
-
-css-color-names@0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/css-color-names/-/css-color-names-0.0.1.tgz#5d0548fa256456ede4a9a0c2ac7ab19d3eb1ad81"
+css-color-keywords@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/css-color-keywords/-/css-color-keywords-1.0.0.tgz#fea2616dc676b2962686b3af8dbdbe180b244e05"
 
 css-color-names@0.0.4:
   version "0.0.4"
@@ -1847,13 +1851,13 @@ css-selector-tokenizer@^0.7.0:
     fastparse "^1.1.1"
     regexpu-core "^1.0.0"
 
-css-to-react-native@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/css-to-react-native/-/css-to-react-native-1.0.6.tgz#728c7e774e56536558a0ecaa990d9507c43a4ac4"
+css-to-react-native@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/css-to-react-native/-/css-to-react-native-2.0.3.tgz#7d3a11409ac283acef447a13d3bbd09980c68a4f"
   dependencies:
-    css-color-list "0.0.1"
+    css-color-keywords "^1.0.0"
     fbjs "^0.8.5"
-    nearley "^2.7.7"
+    postcss-value-parser "^3.3.0"
 
 css-what@2.1:
   version "2.1.0"
@@ -2136,10 +2140,6 @@ diffie-hellman@^5.0.0:
     bn.js "^4.1.0"
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
-
-discontinuous-range@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/discontinuous-range/-/discontinuous-range-1.0.0.tgz#e38331f0844bba49b9a9cb71c771585aab1bc65a"
 
 doctrine@1.5.0, doctrine@^1.2.2:
   version "1.5.0"
@@ -2860,7 +2860,7 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "^2.0.0"
 
-fbjs@^0.8.1, fbjs@^0.8.5, fbjs@^0.8.7, fbjs@^0.8.9:
+fbjs@^0.8.1, fbjs@^0.8.5, fbjs@^0.8.9:
   version "0.8.12"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.12.tgz#10b5d92f76d45575fd63a217d4ea02bea2f8ed04"
   dependencies:
@@ -5092,14 +5092,6 @@ ncname@1.0.x:
   dependencies:
     xml-char-classes "^1.0.0"
 
-nearley@^2.7.7:
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/nearley/-/nearley-2.8.0.tgz#7f88b503e3b373503f5c7e5b3b52bf134c86145b"
-  dependencies:
-    nomnom "~1.6.2"
-    railroad-diagrams "^1.0.0"
-    randexp "^0.4.2"
-
 negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
@@ -5207,13 +5199,6 @@ node-pre-gyp@^0.6.29:
 node-status-codes@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/node-status-codes/-/node-status-codes-1.0.0.tgz#5ae5541d024645d32a58fcddc9ceecea7ae3ac2f"
-
-nomnom@~1.6.2:
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/nomnom/-/nomnom-1.6.2.tgz#84a66a260174408fc5b77a18f888eccc44fb6971"
-  dependencies:
-    colors "0.5.x"
-    underscore "~1.4.4"
 
 nopt@^4.0.1:
   version "4.0.1"
@@ -6012,20 +5997,9 @@ querystringify@0.0.x:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-0.0.4.tgz#0cf7f84f9463ff0ae51c4c4b142d95be37724d9c"
 
-railroad-diagrams@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/railroad-diagrams/-/railroad-diagrams-1.0.0.tgz#eb7e6267548ddedfb899c1b90e57374559cddb7e"
-
 ramda@^0.23.0:
   version "0.23.0"
   resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.23.0.tgz#ccd13fff73497a93974e3e86327bfd87bd6e8e2b"
-
-randexp@^0.4.2:
-  version "0.4.5"
-  resolved "https://registry.yarnpkg.com/randexp/-/randexp-0.4.5.tgz#ffe3a80c3f666cd71e6b008e477e584c1a32ff3e"
-  dependencies:
-    discontinuous-range "1.0.0"
-    ret "~0.1.10"
 
 randomatic@^1.1.3:
   version "1.1.6"
@@ -6072,6 +6046,16 @@ react-apollo@^1.1.1:
     prop-types "^15.5.8"
   optionalDependencies:
     react-dom "0.14.x || 15.* || ^15.0.0"
+
+react-async-bootstrapper@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-async-bootstrapper/-/react-async-bootstrapper-1.1.1.tgz#130153c064558edf5fae6500db4e2081662fa323"
+  dependencies:
+    react-tree-walker "^2.1.1"
+
+react-async-component@^1.0.0-beta.3:
+  version "1.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/react-async-component/-/react-async-component-1.0.0-beta.3.tgz#72f79feecd47c7345dc15e24eec86d81a0ce320c"
 
 react-deep-force-update@^2.0.1:
   version "2.0.1"
@@ -6161,6 +6145,10 @@ react-side-effect@^1.1.0:
   dependencies:
     exenv "^1.2.1"
     shallowequal "^0.2.2"
+
+react-tree-walker@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/react-tree-walker/-/react-tree-walker-2.1.1.tgz#80ab80a0caa78f029fea39f42306b13b5d51bb8d"
 
 react@^15.3.0:
   version "15.5.4"
@@ -6459,10 +6447,6 @@ restore-cursor@^1.0.1:
     exit-hook "^1.0.0"
     onetime "^1.0.0"
 
-ret@~0.1.10:
-  version "0.1.14"
-  resolved "https://registry.yarnpkg.com/ret/-/ret-0.1.14.tgz#58c636837b12e161f8a380cf081c6a230fd1664e"
-
 right-align@^0.1.1:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/right-align/-/right-align-0.1.3.tgz#61339b722fe6a3515689210d24e14c96148613ef"
@@ -6560,6 +6544,10 @@ send@0.15.1:
     on-finished "~2.3.0"
     range-parser "~1.2.0"
     statuses "~1.3.1"
+
+serialize-javascript@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-1.3.0.tgz#86a4f3752f5c7e47295449b0bbb63d64ba533f05"
 
 serve-index@^1.7.2:
   version "1.8.0"
@@ -6935,22 +6923,32 @@ style-loader@^0.14.0:
   dependencies:
     loader-utils "^1.0.2"
 
-styled-components@^1.4.5:
-  version "1.4.5"
-  resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-1.4.5.tgz#20c52f6355e28c7f20a99c05c6d5108a4858cfba"
+styled-components@^2:
+  version "2.0.0-17"
+  resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-2.0.0-17.tgz#9d49e5b351f2c3e13698ee00d189a3c951735088"
   dependencies:
-    buffer "^5.0.2"
-    css-to-react-native "^1.0.6"
-    fbjs "^0.8.7"
+    buffer "^5.0.3"
+    css-to-react-native "^2.0.3"
+    fbjs "^0.8.9"
+    hoist-non-react-statics "^1.2.0"
     inline-style-prefixer "^2.0.5"
     is-function "^1.0.1"
     is-plain-object "^2.0.1"
     prop-types "^15.5.4"
-    supports-color "^3.1.2"
+    stylis "^2.0.0"
+    supports-color "^3.2.3"
 
 styled-normalize@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/styled-normalize/-/styled-normalize-1.0.0.tgz#815fec924be3430594c7186430ebb2ef5a86652a"
+
+stylis@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/stylis/-/stylis-2.0.0.tgz#6785a6546bd73478799a67d49d67086953b50ad5"
+
+stylis@^2.0.0:
+  version "2.0.10"
+  resolved "https://registry.yarnpkg.com/stylis/-/stylis-2.0.10.tgz#7c86b77369e08b3e7f46d4aebc95e86ba9dec389"
 
 sum-up@^1.0.1:
   version "1.0.3"
@@ -7264,10 +7262,6 @@ uid-number@^0.0.6:
 unc-path-regex@^0.1.0:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/unc-path-regex/-/unc-path-regex-0.1.2.tgz#e73dd3d7b0d7c5ed86fbac6b0ae7d8c6a69d50fa"
-
-underscore@~1.4.4:
-  version "1.4.4"
-  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.4.4.tgz#61a6a32010622afa07963bf325203cf12239d604"
 
 uniq@^1.0.1:
   version "1.0.1"

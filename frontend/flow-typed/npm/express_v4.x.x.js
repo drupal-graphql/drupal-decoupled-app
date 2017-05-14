@@ -1,5 +1,5 @@
-// flow-typed signature: c8b45d2a94de3da768988129f8d24b39
-// flow-typed version: 969ba9d733/express_v4.x.x/flow_>=v0.32.x
+// flow-typed signature: 9231683897fa28932f1aecb9dd7a6e24
+// flow-typed version: e6aa8b0b44/express_v4.x.x/flow_>=v0.32.x
 
 import type { Server } from 'http';
 
@@ -16,7 +16,7 @@ declare class express$RequestResponseBase {
 
 declare class express$Request extends http$IncomingMessage mixins express$RequestResponseBase {
   baseUrl: string;
-  body: mixed;
+  body: any;
   cookies: {[cookie: string]: string};
   fresh: boolean;
   hostname: string;

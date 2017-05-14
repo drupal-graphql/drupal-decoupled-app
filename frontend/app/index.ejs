@@ -2,6 +2,7 @@
 <html<%- typeof(htmlAttributes) !== 'undefined' && htmlAttributes ? htmlAttributes : '' %>>
   <head>
     <%- typeof(htmlHead) !== 'undefined' && htmlHead ? htmlHead : '' %>
+    <%- typeof(renderedCss) !== 'undefined' && renderedCss ? renderedCss : '' %>
   </head>
   <body>
     <div id="app">
@@ -9,6 +10,9 @@
     </div>
     <% if (typeof(initialState) !== 'undefined' && initialState) { %>
       <script>window.__INITIAL_STATE__ = <%- initialState %>;</script>
+    <% } %>
+    <% if (typeof(asyncState) !== 'undefined' && asyncState) { %>
+      <script>window.__ASYNC_STATE__ = <%- asyncState %>;</script>
     <% } %>
     <% if (typeof(apiUri) !== 'undefined' && apiUri) { %>
       <script>window.__API__ = <%- apiUri %>;</script>

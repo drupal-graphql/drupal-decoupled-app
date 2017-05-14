@@ -4,8 +4,15 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { match, createMemoryHistory, RouterContext } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
+import { ServerStyleSheet } from 'styled-components';
 // $FlowIssue: Type definitions are incorrect for this one.
 import { ApolloProvider, renderToStringWithData } from 'react-apollo/lib';
+import {
+  AsyncComponentProvider,
+  createAsyncContext,
+} from 'react-async-component';
+import asyncBootstrapper from 'react-async-bootstrapper';
+import serialize from 'serialize-javascript';
 import configureApolloClient from 'state/configureApolloClient';
 import selectLocationState from 'state/selectors/locationState';
 import configureServerStore from 'state/configureServerStore';
@@ -36,6 +43,74 @@ const renderWithoutSsr = (
   next();
 };
 
+const doRenderWithSrr = (
+  reduxStore: Object,
+  apolloClient: Object,
+  asyncContext: Object,
+  styleSheet: Object,
+) => (env: Object, req: Object, res: Object, next: Function): void => (
+  renderedContent: string,
+) => {
+  // Stop profiling of the react rendering with apollo.
+  logger.profile('Rendering with data dependencies');
+
+  // The order in which the html head elements should be rendered.
+  const headOrder: Array<string> = [
+    'title',
+    'base',
+    'meta',
+    'link',
+    'script',
+    'style',
+  ];
+
+  // Render the html as a string and collect side-effects afterwards.
+  const apiUri: string = JSON.stringify(env.API);
+  const apiVersion: string =
+    (env.API_VERSION && JSON.stringify(env.API_VERSION)) || '';
+
+  const asyncState = serialize(asyncContext.getState());
+
+  const renderedCss: string = styleSheet.getStyleTags();
+  const helmetOutput: Object = Helmet.renderStatic();
+  const htmlAttributes: string = helmetOutput.htmlAttributes.toString();
+  const htmlHead: string = headOrder
+    .map((key: string): string => helmetOutput[key].toString().trim())
+    .join('');
+
+  // Start profiling of the initial state extraction.
+  logger.profile('Extracting initial state');
+
+  const initialState: string = serialize({
+    ...reduxStore.getState(),
+    apollo: apolloClient.getInitialState(),
+  });
+
+  // Stop profiling of the initial state extraction.
+  logger.profile('Extracting initial state');
+
+  // Render the app with the pre-compiled template.
+  res.render(
+    'template',
+    {
+      apiUri,
+      apiVersion,
+      renderedContent,
+      renderedCss,
+      asyncState,
+      initialState,
+      htmlHead,
+      htmlAttributes,
+    },
+    (err, html) => {
+      res.send(html);
+      res.end();
+
+      next();
+    },
+  );
+};
+
 const renderWithSsr = (
   env: Object,
   req: Object,
@@ -48,17 +123,18 @@ const renderWithSsr = (
   // Set the current path (req.path) as initial history entry due to this bug:
   // https://github.com/reactjs/react-router-redux/issues/284#issuecomment-184979791
   const memoryHistory: any = createMemoryHistory(req.path);
-  const store: AmazeeStore<any, any> = configureServerStore(
+  const reduxStore: AmazeeStore<any, any> = configureServerStore(
     apolloClient,
     memoryHistory,
     req,
   );
-  const routes: any = createRoutes(store);
+
+  const routes: any = createRoutes(reduxStore);
 
   // Sync history and store, as the react-router-redux reducer is under the
   // non-default key ("routing"), selectLocationState must be provided for
   // resolving how to retrieve the "route" in the state
-  syncHistoryWithStore(memoryHistory, store, { selectLocationState });
+  syncHistoryWithStore(memoryHistory, reduxStore, { selectLocationState });
 
   /*
    * From the react-router docs:
@@ -96,62 +172,32 @@ const renderWithSsr = (
         res.redirect(302, redirectLocation.pathname + redirectLocation.search);
         next();
       } else if (renderProps) {
-        const Root: React.Element<any> = (
-          <ApolloProvider store={store} client={apolloClient}>
-            <RouterContext {...renderProps} />
-          </ApolloProvider>
+        const asyncContext = createAsyncContext();
+        const styleSheet = new ServerStyleSheet();
+
+        const Root: React.Element<any> = styleSheet.collectStyles(
+          <AsyncComponentProvider asyncContext={asyncContext}>
+            <ApolloProvider store={reduxStore} client={apolloClient}>
+              <RouterContext {...renderProps} />
+            </ApolloProvider>
+          </AsyncComponentProvider>,
         );
 
         // Start profiling of the react rendering with apollo.
         logger.profile('Rendering with data dependencies');
 
-        renderToStringWithData(Root).then(renderedContent => {
-          // Stop profiling of the react rendering with apollo.
-          logger.profile('Rendering with data dependencies');
+        // Renders the app component tree into a string.
+        const renderAppToString = () => renderToStringWithData(Root);
 
-          // The order in which the html head elements should be rendered.
-          const headOrder: Array<string> = [
-            'title',
-            'base',
-            'meta',
-            'link',
-            'script',
-            'style',
-          ];
+        // Renders the application with asynchronous components.
+        const renderInTemplate = doRenderWithSrr(
+          reduxStore,
+          apolloClient,
+          asyncContext,
+          styleSheet,
+        )(env, req, res, next);
 
-          // Render the html as a string and collect side-effects afterwards.
-          const apiUri: string = JSON.stringify(env.API);
-          const apiVersion: string =
-            (env.API_VERSION && JSON.stringify(env.API_VERSION)) || '';
-          const helmetOutput: Object = Helmet.renderStatic();
-          const htmlAttributes: string = helmetOutput.htmlAttributes.toString();
-          const htmlHead: string = headOrder
-            .map((key: string): string => helmetOutput[key].toString().trim())
-            .join('');
-
-          // Start profiling of the initial state extraction.
-          logger.profile('Extracting initial state');
-
-          const initialState: string = JSON.stringify({
-            ...store.getState(),
-            apollo: apolloClient.getInitialState(),
-          });
-
-          // Stop profiling of the initial state extraction.
-          logger.profile('Extracting initial state');
-
-          res.render('template', {
-            apiUri,
-            apiVersion,
-            renderedContent,
-            initialState,
-            htmlHead,
-            htmlAttributes,
-          });
-
-          res.end();
-          next();
-        });
+        asyncBootstrapper(Root).then(renderAppToString).then(renderInTemplate);
       } else {
         res.status(404).send('Page not found');
         next();
