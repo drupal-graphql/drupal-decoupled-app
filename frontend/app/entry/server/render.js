@@ -14,7 +14,7 @@ import {
 import asyncBootstrapper from 'react-async-bootstrapper';
 import serialize from 'serialize-javascript';
 import configureApolloClient from 'state/configureApolloClient';
-import selectLocationState from 'state/selectors/locationState';
+import { selectLocationState } from 'state/selectors/route';
 import configureServerStore from 'state/configureServerStore';
 import createRoutes from 'routing/createRoutes';
 import logger from 'logger';
