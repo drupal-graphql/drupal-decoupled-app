@@ -26,9 +26,7 @@ const configureStore = (
 
   const enhancers: Array<Function> = [applyMiddleware(...middlewares)];
 
-  // @TODO Disable this on production at some point.
-  // eslint-disable-next-line no-constant-condition
-  if (__DEVELOPMENT__ || true) {
+  if (__DEVELOPMENT__) {
     const devToolsExtension =
       (__CLIENT__ && global.devToolsExtension) ||
       (() => (noop: any): any => noop);
