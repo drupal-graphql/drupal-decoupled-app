@@ -191,8 +191,7 @@ const renderWithSsr = (
 
         // Needs to be repeated in case of nested async components
         // with apollo data dependencies.
-        const repeatAsyncBootstrap = (output: string) =>
-          asyncBootstrapper(Root).then(() => output);
+        const repeatAsyncBootstrap = () => asyncBootstrapper(Root);
 
         // Renders the application with asynchronous components.
         const renderInTemplate = doRenderWithSrr(
@@ -202,9 +201,13 @@ const renderWithSsr = (
           styleSheet,
         )(env, req, res, next);
 
+        // TODO: Rendering twice is not ideal but currently the only
+        // way to resolve nested asynchronous components and their
+        // data dependencies.
         asyncBootstrapper(Root)
           .then(renderAppToString)
           .then(repeatAsyncBootstrap)
+          .then(renderAppToString)
           .then(renderInTemplate);
       } else {
         res.status(404).send('Page not found');
