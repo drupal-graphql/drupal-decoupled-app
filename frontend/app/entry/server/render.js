@@ -71,7 +71,9 @@ const doRenderWithSrr = (
 
   const asyncState = serialize(asyncContext.getState());
 
-  const renderedCss: string = styleSheet.getStyleTags();
+  const renderedCss: string = styleSheet
+    .getStyleTags()
+    .replace(/(?:\r\n|\r|\n)/g, '');
   const helmetOutput: Object = Helmet.renderStatic();
   const htmlAttributes: string = helmetOutput.htmlAttributes.toString();
   const htmlHead: string = headOrder
