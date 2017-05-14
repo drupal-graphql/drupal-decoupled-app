@@ -4,8 +4,8 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import App from 'App';
 import Home from 'App/screens/Home';
-import SplatRouter from 'App/screens/SplatRouter';
-import ArticleOverview from 'App/screens/ArticleOverview';
+import SplatRouter from 'App/screens/SplatRouter/component';
+import ArticleOverview from 'App/screens/ArticleOverview/component';
 
 const createRoutes = (): React.Element<any> => (
   <Route component={App} path="/">

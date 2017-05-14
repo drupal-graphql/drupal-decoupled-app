@@ -5,9 +5,11 @@ import 'App/styles';
 import React from 'react';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
+import LoadingIndicator from 'LoadingIndicator';
 
 type AppProps = {
   children: React.Element<any>,
+  router: Object,
 };
 
 const Wrapper = styled.div`
@@ -17,12 +19,13 @@ const Wrapper = styled.div`
   background-color: lightgrey;
 `;
 
-const App = ({ children }: AppProps): React.Element<any> => (
+const App = ({ children, router }: AppProps): React.Element<any> => (
   <Wrapper>
     <Helmet
       titleTemplate="Decoupled Drupal - %s"
       defaultTitle="Decoupled Drupal"
     />
+    {router && router.loading && <LoadingIndicator />}
     {children}
   </Wrapper>
 );

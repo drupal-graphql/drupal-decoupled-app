@@ -7,7 +7,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import asyncBootstrapper from 'react-async-bootstrapper';
 import configureApolloClient from 'state/configureApolloClient';
 import configureClientStore from 'state/configureClientStore';
-import selectLocationState from 'state/selectors/locationState';
+import { selectLocationState } from 'state/selectors/route';
 import createRoutes from 'routing/createRoutes';
 import Root from './root';
 

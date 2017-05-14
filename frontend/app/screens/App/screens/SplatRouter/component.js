@@ -14,7 +14,7 @@ type SplatRouterProps = {
   loading: boolean,
 };
 
-const SplatRouter = ({ entity, loading }: RouterProps): | React.Element<any>
+const SplatRouter = ({ entity, loading }: SplatRouterProps): | React.Element<any>
   | null => {
   if (loading) {
     return null;

@@ -5,6 +5,7 @@ import { Router } from 'react-router';
 import { ApolloProvider } from 'react-apollo';
 import { AppContainer } from 'react-hot-loader';
 import { AsyncComponentProvider } from 'react-async-component';
+import renderRoutesWithData from 'routing/renderRoutesWithData';
 
 type RootProps = {
   store: AmazeeStore<any, any>,
@@ -20,7 +21,7 @@ const Root = ({ store, routes, history, client }: RootProps): React.Element<any>
   <AppContainer>
     <AsyncComponentProvider rehydrateState={rehydrateState}>
       <ApolloProvider client={client} store={store}>
-        <Router history={history}>
+        <Router history={history} render={renderRoutesWithData(client, store)}>
           {routes}
         </Router>
       </ApolloProvider>
