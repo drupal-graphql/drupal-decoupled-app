@@ -189,6 +189,11 @@ const renderWithSsr = (
         // Renders the app component tree into a string.
         const renderAppToString = () => renderToStringWithData(Root);
 
+        // Needs to be repeated in case of nested async components
+        // with apollo data dependencies.
+        const repeatAsyncBootstrap = (output: string) =>
+          asyncBootstrapper(Root).then(() => output);
+
         // Renders the application with asynchronous components.
         const renderInTemplate = doRenderWithSrr(
           reduxStore,
@@ -197,7 +202,10 @@ const renderWithSsr = (
           styleSheet,
         )(env, req, res, next);
 
-        asyncBootstrapper(Root).then(renderAppToString).then(renderInTemplate);
+        asyncBootstrapper(Root)
+          .then(renderAppToString)
+          .then(repeatAsyncBootstrap)
+          .then(renderInTemplate);
       } else {
         res.status(404).send('Page not found');
         next();
