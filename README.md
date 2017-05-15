@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- AmazeeIO (http://docs.amazee.io)
+- amazee.io local Docker development environment (https://docs.amazee.io/local_docker_development/local_docker_development.html)
 - Composer (http://getcomposer.org)
 - Yarn (http://yarnpkg.com)
 - Node (http://nodejs.org)
