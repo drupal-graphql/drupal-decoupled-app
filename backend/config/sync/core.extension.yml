@@ -18,12 +18,16 @@ module:
   graphql_block: 0
   graphql_boolean: 0
   graphql_content: 0
+  graphql_content_mutation: 0
   graphql_core: 0
   graphql_entity_reference: 0
   graphql_file: 0
   graphql_image: 0
   graphql_link: 0
   graphql_menu: 0
+  graphql_mutation: 0
+  graphql_query_map_entity: 0
+  graphql_testing: 0
   graphql_views: 0
   help: 0
   history: 0
@@ -35,6 +39,7 @@ module:
   path: 0
   quickedit: 0
   shortcut: 0
+  simpletest: 0
   system: 0
   taxonomy: 0
   text: 0

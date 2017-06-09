@@ -53,7 +53,7 @@ const ArticleOverview = ({
 
 const query = gql`
   query ArticleOverviewQuery($offset: Int, $limit: Int) {
-    nodeQuery(offset: $offset, limit: $limit, type: "article") {
+    nodeQuery(offset: $offset, limit: $limit, filter: { type: "article" }) {
       count,
       entities {
         id:entityId
