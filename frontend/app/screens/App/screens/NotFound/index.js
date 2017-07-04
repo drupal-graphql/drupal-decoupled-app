@@ -1,9 +1,8 @@
 // @flow
 
-import { asyncComponent } from 'react-async-component';
+import Loadable from 'react-loadable';
 
-const AsyncNotFound = asyncComponent({
-  resolve: () => System.import('./component'),
+export default Loadable({
+  loader: () => import('./component'),
+  loading: () => null,
 });
-
-export default AsyncNotFound;

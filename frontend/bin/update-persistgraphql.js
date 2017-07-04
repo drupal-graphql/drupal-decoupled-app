@@ -1,12 +1,16 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
 const path = require('path');
+const appPath = path.resolve(process.cwd(), 'app');
+
+const fs = require('fs');
 const sha = require('jssha');
-const ExtractGQL = require('@amazee/persistgraphql/lib/src/ExtractGQL').ExtractGQL;
-const addTypenameTransformer = require('@amazee/persistgraphql/lib/src/queryTransformers').addTypenameTransformer;
-const inputFilePath = path.resolve(process.cwd(), 'app');
-const outputFilePath = path.resolve(process.cwd(), 'app', 'shared', 'queries.json');
+const ExtractGQL = require('persistgraphql/lib/src/ExtractGQL')
+  .ExtractGQL;
+const addTypenameTransformer = require('persistgraphql/lib/src/queryTransformers')
+  .addTypenameTransformer;
+const inputFilePath = appPath;
+const outputFilePath = path.resolve(appPath, 'shared', 'queries.json');
 const queryTransformers = [addTypenameTransformer];
 
 const extractor = new ExtractGQL({
@@ -14,14 +18,9 @@ const extractor = new ExtractGQL({
   inputFilePath,
   outputFilePath,
   inJsCode: true,
-  extension: 'js'
+  extension: 'js',
 });
 
-const args = process.argv.slice(2);
-const host = args[0];
-const upload = args.indexOf('--upload') !== -1;
-
-// @TODO Find a way to generate the Drupal config yaml from this.
 extractor.processInputPath(extractor.inputFilePath).then(outputMap => {
   extractor
     .writeOutputMap(outputMap, extractor.outputFilePath)
@@ -29,7 +28,9 @@ extractor.processInputPath(extractor.inputFilePath).then(outputMap => {
       console.log(`Wrote output file to ${extractor.outputFilePath}.`);
     })
     .catch(error => {
-      console.log(`Unable to process path ${extractor.outputFilePath}. Error message: `);
+      console.log(
+        `Unable to process path ${extractor.outputFilePath}. Error message: `
+      );
       console.log(error.message);
       process.exit(1);
     })
@@ -39,23 +40,28 @@ extractor.processInputPath(extractor.inputFilePath).then(outputMap => {
       shaObject.update(output);
       const hash = shaObject.getHash('HEX');
 
-      // Write the API version hash to the .env.defaults file.
-      const envDefaultsFile = path.resolve(process.cwd(), '.env.defaults');
-      const envDefaults = fs.readFileSync(envDefaultsFile).toString();
-      fs.writeFileSync(envDefaultsFile, envDefaults.replace(/API_VERSION=".*"/g, `API_VERSION="${hash}"`));
-      
-      if (upload) {
-        const exec = require('child_process').exec;
-        const cmd = `cat ${extractor.outputFilePath} | docker exec --user drupal -i ${host} bash -c 'drupal graphql:persist --identifier ${hash}'`;
+      // Move the file to its final destination.
+      const finalFilePath = path.resolve(
+        appPath,
+        'shared',
+        'queries',
+        `${hash}.json`
+      );
 
-        exec(cmd, (error, stdout, stderr) => {
-          console.log(stdout);
+      fs.renameSync(extractor.outputFilePath, finalFilePath);
 
-          if (error != null) {
-            process.exit(1);
-          }
-        });
-      }
+      // Write the api version and query map import.
+      const apiFile = path.resolve(appPath, 'shared', 'api.js');
+      const apiFileContent = `// @flow
+
+export const apiVersion = '${hash}';
+
+export {
+  default as queryMap,
+} from 'queries/${hash}.json';
+`;
+
+      fs.writeFileSync(apiFile, apiFileContent);
     })
     .catch(error => {
       console.log(`Error while updating environment file. Error message: `);

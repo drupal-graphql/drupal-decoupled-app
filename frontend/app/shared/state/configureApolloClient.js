@@ -6,12 +6,8 @@ import {
   createNetworkInterface,
   createBatchingNetworkInterface,
 } from 'apollo-client';
-import {
-  printRequest as doPrintRequest,
-} from 'apollo-client/transport/networkInterface';
-import { getQueryDocumentKey } from '@amazee/persistgraphql/lib/src/common';
-import queryMap from 'queries.json';
-import introspectionResult from 'introspection.json';
+import { printRequest as doPrintRequest } from 'apollo-client/transport/networkInterface';
+import { getQueryDocumentKey } from 'persistgraphql/lib/src/common';
 
 const printRequest = request => {
   if (!Object.hasOwnProperty.call(request, 'query')) {
@@ -89,7 +85,11 @@ const addGetRequests = networkInterface => {
   });
 };
 
-const addPersistedQueries = (apiVersion: string, networkInterface: any) => {
+const addPersistedQueries = (
+  apiVersion: string,
+  queryMap: Object,
+  networkInterface: any,
+) => {
   const doQuery = networkInterface.query.bind(networkInterface);
 
   function queryOverride(request) {
@@ -117,14 +117,17 @@ const addPersistedQueries = (apiVersion: string, networkInterface: any) => {
   });
 };
 
-const configureApolloClient = (apiUri: string, apiVersion: string) => {
+const configureApolloClient = (
+  apiUri: string,
+  apiVersion: string,
+  queryMap: Object,
+  introspectionData: Object,
+) => {
   const isProduction = process.env.NODE_ENV === 'production';
   const hasApiVersion = !!apiVersion;
 
   // Use xdebug in development.
-  const requestUri = isProduction
-    ? apiUri
-    : `${apiUri}?XDEBUG_SESSION_START=PHPSTORM`;
+  const requestUri = `${apiUri}?XDEBUG_SESSION_START=PHPSTORM`;
 
   // Use batched queries in production.
   const networkInterface = isProduction
@@ -137,16 +140,19 @@ const configureApolloClient = (apiUri: string, apiVersion: string) => {
     });
 
   // Use persisted queries and GET requests in production.
-  const finalNetworkInterface = isProduction && hasApiVersion
-    ? addGetRequests(addPersistedQueries(apiVersion, networkInterface))
-    : networkInterface;
+  const finalNetworkInterface =
+    isProduction && hasApiVersion
+      ? addGetRequests(
+          addPersistedQueries(apiVersion, queryMap, networkInterface),
+        )
+      : networkInterface;
 
   const apolloClient = new ApolloClient({
     reduxRootSelector: state => state.apollo,
     networkInterface: finalNetworkInterface,
     ssrMode: __SERVER__,
     fragmentMatcher: new IntrospectionFragmentMatcher({
-      introspectionQueryResultData: introspectionResult,
+      introspectionQueryResultData: introspectionData,
     }),
   });
 

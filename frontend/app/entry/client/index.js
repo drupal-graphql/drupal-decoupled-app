@@ -4,21 +4,24 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import asyncBootstrapper from 'react-async-bootstrapper';
 import configureApolloClient from 'state/configureApolloClient';
 import configureClientStore from 'state/configureClientStore';
 import { selectLocationState } from 'state/selectors/route';
+import { apiVersion, queryMap } from 'api';
+import introspectionData from 'introspection.json';
 import createRoutes from 'routing/createRoutes';
 import Root from './root';
 
 /* eslint-disable no-underscore-dangle,no-undef */
 const apiUri = global.__API__ || process.env.API;
-// The api version is an optional environment variable.
-const apiVersion = global.__API_VERSION__ || process.env.API_VERSION;
-/* eslint-enable no-underscore-dangle,no-undef */
 
 // Configure the apollo client with persisted queries.
-const apolloClient = configureApolloClient(apiUri, apiVersion);
+const apolloClient = configureApolloClient(
+  apiUri,
+  apiVersion,
+  queryMap,
+  introspectionData,
+);
 
 // Create redux store with history. This uses the singleton browserHistory
 // provided by react-router. Optionally, this could be changed to leverage a
@@ -58,18 +61,9 @@ if (
 ) {
   module.hot.accept('./root', (): void => {
     // eslint-disable-next-line global-require
-    const ReloadedRoot = require('./root').default;
-
-    asyncBootstrapper(ReloadedRoot).then(() => {
-      // Do the initial rendering.
-      render(ReloadedRoot);
-    });
+    render(require('./root').default);
   });
 }
 
-// We run the bootstrapper again, which in this context will ensure that all
-// components specified by the rehydrateState will be resolved prior to render.
-asyncBootstrapper(Root).then(() => {
-  // Do the initial rendering.
-  render(Root);
-});
+// Do the initial rendering.
+render(Root);

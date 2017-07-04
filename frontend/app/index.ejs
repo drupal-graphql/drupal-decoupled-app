@@ -11,14 +11,8 @@
     <% if (typeof(initialState) !== 'undefined' && initialState) { %>
       <script>window.__INITIAL_STATE__ = <%- initialState %>;</script>
     <% } %>
-    <% if (typeof(asyncState) !== 'undefined' && asyncState) { %>
-      <script>window.__ASYNC_STATE__ = <%- asyncState %>;</script>
-    <% } %>
     <% if (typeof(apiUri) !== 'undefined' && apiUri) { %>
       <script>window.__API__ = <%- apiUri %>;</script>
-    <% } %>
-    <% if (typeof(apiVersion) !== 'undefined' && apiVersion) { %>
-      <script>window.__API_VERSION__ = <%- apiVersion %>;</script>
     <% } %>
   </body>
 </html>

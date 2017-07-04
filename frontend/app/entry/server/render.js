@@ -5,18 +5,14 @@ import Helmet from 'react-helmet';
 import { match, createMemoryHistory, RouterContext } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { ServerStyleSheet } from 'styled-components';
-// $FlowIssue: Type definitions are incorrect for this one.
-import { ApolloProvider, renderToStringWithData } from 'react-apollo/lib';
-import {
-  AsyncComponentProvider,
-  createAsyncContext,
-} from 'react-async-component';
-import asyncBootstrapper from 'react-async-bootstrapper';
+import { ApolloProvider, renderToStringWithData } from 'react-apollo';
 import serialize from 'serialize-javascript';
 import configureApolloClient from 'state/configureApolloClient';
 import { selectLocationState } from 'state/selectors/route';
 import configureServerStore from 'state/configureServerStore';
 import createRoutes from 'routing/createRoutes';
+import { apiVersion, queryMap } from 'api';
+import introspectionData from 'introspection.json';
 import logger from 'logger';
 
 const renderWithoutSsr = (
@@ -26,19 +22,9 @@ const renderWithoutSsr = (
   next: Function,
 ): void => {
   const apiUri: string = JSON.stringify(env.API);
-  const apiVersion: string =
-    (env.API_VERSION && JSON.stringify(env.API_VERSION)) || '';
-  const initialState: string = JSON.stringify({});
 
   // Let the client render the site (e.g. when debugging).
-  res.render('template', {
-    apiUri,
-    apiVersion,
-    initialState,
-    renderedContent: '',
-    htmlAttributes: '',
-    htmlHead: '',
-  });
+  res.render('template', { apiUri });
 
   next();
 };
@@ -46,7 +32,6 @@ const renderWithoutSsr = (
 const doRenderWithSrr = (
   reduxStore: Object,
   apolloClient: Object,
-  asyncContext: Object,
   styleSheet: Object,
 ) => (env: Object, req: Object, res: Object, next: Function): void => (
   renderedContent: string,
@@ -64,13 +49,7 @@ const doRenderWithSrr = (
     'style',
   ];
 
-  // Render the html as a string and collect side-effects afterwards.
-  const apiUri: string = JSON.stringify(env.API);
-  const apiVersion: string =
-    (env.API_VERSION && JSON.stringify(env.API_VERSION)) || '';
-
-  const asyncState = serialize(asyncContext.getState());
-
+  // Collect side-effects after rendering the app as a string.
   const renderedCss: string = styleSheet
     .getStyleTags()
     .replace(/(?:\r\n|\r|\n)/g, '');
@@ -95,11 +74,9 @@ const doRenderWithSrr = (
   res.render(
     'template',
     {
-      apiUri,
-      apiVersion,
+      apiUri: JSON.stringify(env.API),
       renderedContent,
       renderedCss,
-      asyncState,
       initialState,
       htmlHead,
       htmlAttributes,
@@ -119,8 +96,15 @@ const renderWithSsr = (
   res: Object,
   next: Function,
 ): void => {
+  const apiUri = env.API;
+
   // Configure the apollo client with persisted queries.
-  const apolloClient: any = configureApolloClient(env.API, env.API_VERSION);
+  const apolloClient = configureApolloClient(
+    apiUri,
+    apiVersion,
+    queryMap,
+    introspectionData,
+  );
 
   // Set the current path (req.path) as initial history entry due to this bug:
   // https://github.com/reactjs/react-router-redux/issues/284#issuecomment-184979791
@@ -174,43 +158,26 @@ const renderWithSsr = (
         res.redirect(302, redirectLocation.pathname + redirectLocation.search);
         next();
       } else if (renderProps) {
-        const asyncContext = createAsyncContext();
         const styleSheet = new ServerStyleSheet();
 
         const Root: React.Element<any> = styleSheet.collectStyles(
-          <AsyncComponentProvider asyncContext={asyncContext}>
-            <ApolloProvider store={reduxStore} client={apolloClient}>
-              <RouterContext {...renderProps} />
-            </ApolloProvider>
-          </AsyncComponentProvider>,
+          <ApolloProvider store={reduxStore} client={apolloClient}>
+            <RouterContext {...renderProps} />
+          </ApolloProvider>,
         );
 
         // Start profiling of the react rendering with apollo.
         logger.profile('Rendering with data dependencies');
 
-        // Renders the app component tree into a string.
-        const renderAppToString = () => renderToStringWithData(Root);
-
-        // Needs to be repeated in case of nested async components
-        // with apollo data dependencies.
-        const repeatAsyncBootstrap = () => asyncBootstrapper(Root);
-
-        // Renders the application with asynchronous components.
-        const renderInTemplate = doRenderWithSrr(
-          reduxStore,
-          apolloClient,
-          asyncContext,
-          styleSheet,
-        )(env, req, res, next);
-
-        // TODO: Rendering twice is not ideal but currently the only
-        // way to resolve nested asynchronous components and their
-        // data dependencies.
-        asyncBootstrapper(Root)
-          .then(renderAppToString)
-          .then(repeatAsyncBootstrap)
-          .then(renderAppToString)
-          .then(renderInTemplate);
+        // Render the app after loading the graphql data.
+        renderToStringWithData(Root).then(
+          doRenderWithSrr(reduxStore, apolloClient, styleSheet)(
+            env,
+            req,
+            res,
+            next,
+          ),
+        );
       } else {
         res.status(404).send('Page not found');
         next();

@@ -1,9 +1,8 @@
 // @flow
 
-import { asyncComponent } from 'react-async-component';
+import Loadable from 'react-loadable';
 
-const AsyncSplatRouter = asyncComponent({
-  resolve: () => System.import('./component'),
+export default Loadable({
+  loader: () => import('./component'),
+  loading: () => null,
 });
-
-export default AsyncSplatRouter;
