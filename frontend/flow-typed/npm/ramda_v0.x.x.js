@@ -1,5 +1,5 @@
-// flow-typed signature: dfe9e7dd59fee10f50e3604dd5cab0f8
-// flow-typed version: a9e64f6272/ramda_v0.x.x/flow_>=v0.34.x
+// flow-typed signature: 5aadf9f28a59c4403c4f0d1cbb80c416
+// flow-typed version: c9ee287fa6/ramda_v0.x.x/flow_>=v0.34.x
 
 /* eslint-disable no-unused-vars, no-redeclare */
 
@@ -152,7 +152,9 @@ declare module ramda {
   declare var propIs: CurriedFunction3<any,string,Object,boolean>;
   declare function type(x: ?any): string;
   declare function isArrayLike(x: any): boolean;
-  declare function isNil(x: ?any): boolean;
+
+  declare function isNil(x: void|null): true;
+  declare function isNil(x: mixed): false;
 
   // *List
   declare function adjust<T>(fn:(a: T) => T, ...rest: Array<void>): (index: number, ...rest: Array<void>) => (src: Array<T>) => Array<T>;
@@ -365,9 +367,9 @@ declare module ramda {
   declare function reduceRight<A, B>(fn: (acc: A, elem: B) => A, init: A, ...rest: Array<void>): (xs: Array<B>) => A;
   declare function reduceRight<A, B>(fn: (acc: A, elem: B) => A, init: A, xs: Array<B>): A;
 
-  declare function scan<A, B>(fn: (acc: A, elem: B) => A, ...rest: Array<void>): ((init: A, xs: Array<B>) => A) & ((init: A, ...rest: Array<void>) => (xs: Array<B>) => A);
-  declare function scan<A, B>(fn: (acc: A, elem: B) => A, init: A, ...rest: Array<void>): (xs: Array<B>) => A;
-  declare function scan<A, B>(fn: (acc: A, elem: B) => A, init: A, xs: Array<B>): A;
+  declare function scan<A, B>(fn: (acc: A, elem: B) => A, ...rest: Array<void>): ((init: A, xs: Array<B>) => Array<A>) & ((init: A, ...rest: Array<void>) => (xs: Array<B>) => Array<A>);
+  declare function scan<A, B>(fn: (acc: A, elem: B) => A, init: A, ...rest: Array<void>): (xs: Array<B>) => Array<A>;
+  declare function scan<A, B>(fn: (acc: A, elem: B) => A, init: A, xs: Array<B>): Array<A>;
 
   declare function splitAt<V,T:Array<V>|string>(i: number, xs: T): [T,T];
   declare function splitAt<V,T:Array<V>|string>(i: number): (xs: T) => [T,T];
@@ -560,8 +562,19 @@ declare module ramda {
 
   // TODO over
 
-  declare function path<V,A:?NestedObject<V>>(p: Array<string>, ...rest: Array<void>): (o: A) => ?V;
-  declare function path<V,A:?NestedObject<V>>(p: Array<string>, o: A): ?V;
+  declare function path<V>(p: Array<mixed>, ...rest: Array<void>): (o: NestedObject<V>) => V;
+  declare function path<V>(p: Array<mixed>, ...rest: Array<void>): (o: null|void) => void;
+  declare function path<V>(p: Array<mixed>, ...rest: Array<void>): (o: mixed) => ?V;
+  declare function path<V,A:NestedObject<V>>(p: Array<mixed>, o: A): V;
+  declare function path<V,A:null|void>(p: Array<mixed>, o: A): void;
+  declare function path<V,A:mixed>(p: Array<mixed>, o: A): ?V;
+
+  declare function path<V>(p: Array<string>, ...rest: Array<void>): (o: NestedObject<V>) => V;
+  declare function path<V>(p: Array<string>, ...rest: Array<void>): (o: null|void) => void;
+  declare function path<V>(p: Array<string>, ...rest: Array<void>): (o: mixed) => ?V;
+  declare function path<V,A:NestedObject<V>>(p: Array<string>, o: A): V;
+  declare function path<V,A:null|void>(p: Array<string>, o: A): void;
+  declare function path<V,A:mixed>(p: Array<string>, o: A): ?V;
 
   declare function pathOr<T,V,A:NestedObject<V>>(or: T, ...rest: Array<void>):
   ((p: Array<string>, ...rest: Array<void>) => (o: ?A) => V|T)
@@ -617,8 +630,8 @@ declare module ramda {
   // *Function
   declare var __: *;
 
-  declare var T: (_: any) => boolean;
-  declare var F: (_: any) => boolean;
+  declare var T: (_: any) => true;
+  declare var F: (_: any) => false;
 
   declare function addIndex<A,B>(iterFn:(fn:(x:A) => B, xs: Array<A>) => Array<B>): (fn: (x: A, idx: number, xs: Array<A>) => B, xs: Array<A>) => Array<B>;
 
@@ -723,8 +736,8 @@ declare module ramda {
   declare function defaultTo<T,V>(d: T, ...rest: Array<void>): (x: ?V) => V|T;
   declare function defaultTo<T,V>(d: T, x: ?V): V|T;
 
-  declare function either(x: (...args: Array<any>) => boolean, ...rest: Array<void>): (y: (...args: Array<any>) => boolean) => (...args: Array<any>) => boolean;
-  declare function either(x: (...args: Array<any>) => boolean, y: (...args: Array<any>) => boolean): (...args: Array<any>) => boolean;
+  declare function either(x: (...args: Array<any>) => *, ...rest: Array<void>): (y: (...args: Array<any>) => *) => (...args: Array<any>) => *;
+  declare function either(x: (...args: Array<any>) => *, y: (...args: Array<any>) => *): (...args: Array<any>) => *;
 
   declare function ifElse<A,B,C>(cond:(...args: Array<A>) => boolean, ...rest: Array<void>):
   ((f1: (...args: Array<A>) => B, ...rest: Array<void>) => (f2: (...args: Array<A>) => C) => (...args: Array<A>) => B|C)
