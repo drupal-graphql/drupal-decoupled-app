@@ -9,7 +9,7 @@ import introspectionData from 'introspection.json';
 import Root from './root';
 
 /* eslint-disable no-underscore-dangle,no-undef */
-const apiUri = global.__API__ || process.env.API;
+const apiUri = global.__API__;
 
 // Configure the apollo client with persisted queries.
 const apolloClient = configureApolloClient(

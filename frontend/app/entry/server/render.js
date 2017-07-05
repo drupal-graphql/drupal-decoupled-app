@@ -21,6 +21,8 @@ const doRender = (
   apolloClient: Object,
   styleSheet: Object,
 ) => (req: Object, res: Object): void => (renderedContent: string) => {
+  const apiUri = JSON.stringify(req.app.get('env').API);
+
   // Stop profiling of the react rendering with apollo.
   logger.profile('Rendering with data dependencies');
 
@@ -47,7 +49,7 @@ const doRender = (
   // Start profiling of the initial state extraction.
   logger.profile('Extracting initial state');
 
-  const state: string = serialize({
+  const initialState: string = serialize({
     ...reduxStore.getState(),
     apollo: apolloClient.getInitialState(),
   });
@@ -70,7 +72,8 @@ const doRender = (
   </head>
   <body>
     <div id="app">${renderedContent}</div>
-    <script>window.__INITIAL_STATE__ = ${state};</script>
+    <script>window.__INITIAL_STATE__ = ${initialState};</script>
+    <script>window.__API__ = ${apiUri};</script>
     ${js}
   </body>
 </html>
@@ -113,5 +116,6 @@ export default (clientStats: Object) => (
     apolloClient,
     styleSheet,
   );
+
   renderToStringWithData(Root).then(doRenderFinal(req, res, next));
 };
