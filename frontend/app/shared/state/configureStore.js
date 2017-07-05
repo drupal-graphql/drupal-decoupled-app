@@ -1,7 +1,6 @@
 // @flow
 
 import { createStore, applyMiddleware, compose } from 'redux';
-import { routerMiddleware } from 'react-router-redux';
 import type { Store } from 'redux';
 import createReducer from './reducers';
 
@@ -16,13 +15,9 @@ export const injectAsyncReducer = (
 
 const configureStore = (
   apolloClient: any,
-  history: any,
   initialState?: any = {},
 ): AmazeeStore<any, any> => {
-  const middlewares: Array<Function> = [
-    routerMiddleware(history),
-    apolloClient.middleware(),
-  ];
+  const middlewares: Array<Function> = [apolloClient.middleware()];
 
   const enhancers: Array<Function> = [applyMiddleware(...middlewares)];
 

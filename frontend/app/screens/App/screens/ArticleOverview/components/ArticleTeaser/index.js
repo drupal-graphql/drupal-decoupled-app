@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
 import Body from 'Body';
@@ -27,22 +27,28 @@ const Title = styled.h2`
   font-size: 20px;
 `;
 
-const ArticleTeaser = ({ title, url, body }: ArticleTeaserProps): React.Element<any> => (
-  <Wrapper>
+const ArticleTeaser = ({
+  title,
+  url,
+  body,
+}: ArticleTeaserProps): React.Element<any> =>
+  (<Wrapper>
     <Title>
-      <Link to={url && url.alias}>{title}</Link>
+      <Link to={url && url.alias}>
+        {title}
+      </Link>
     </Title>
-    <Body>{body}</Body>
-  </Wrapper>
-);
+    <Body>
+      {body}
+    </Body>
+  </Wrapper>);
 
 ArticleTeaser.fragments = {
   articleTeaserFragment: gql`
     fragment ArticleTeaserFragment on NodeArticle {
-      url:entityUrl {
+      url: entityUrl {
         alias
       }
-
       title
       body
     }

@@ -6,7 +6,6 @@
  */
 
 import { combineReducers } from 'redux';
-import routeReducer from './route';
 import windowReducer from './window';
 
 /**
@@ -15,7 +14,6 @@ import windowReducer from './window';
 export default (apolloClient: any, asyncReducers?: Object): Function =>
   combineReducers({
     apollo: apolloClient.reducer(),
-    route: routeReducer,
     window: windowReducer,
     ...asyncReducers,
   });

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Helmet from 'react-helmet';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Title from 'Title';
 import Body from 'Body';
@@ -17,13 +17,16 @@ const Wrapper = styled.div`
   margin: 1rem 0;
 `;
 
-const Article = ({ title, body }: ArticleProps): React.Element<any> => (
-  <Wrapper>
+const Article = ({ title, body }: ArticleProps): React.Element<any> =>
+  (<Wrapper>
     <Helmet title={title} />
-    <Title>{title}</Title>
-    <Body>{body}</Body>
+    <Title>
+      {title}
+    </Title>
+    <Body>
+      {body}
+    </Body>
     <Link to="/articles">Back to overview</Link>
-  </Wrapper>
-);
+  </Wrapper>);
 
 export default Article;

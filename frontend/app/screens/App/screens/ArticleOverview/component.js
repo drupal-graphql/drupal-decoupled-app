@@ -6,7 +6,7 @@ import compose from 'recompose/compose';
 import defaultProps from 'recompose/defaultProps';
 import withPropsOnChange from 'recompose/withPropsOnChange';
 import gql from 'graphql-tag';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 import { filter } from 'graphql-anywhere';
 import ArticleTeaser from 'ArticleTeaser';
@@ -38,12 +38,12 @@ const ArticleOverview = ({
     <Helmet title="Article overview" />
     <Title>Article overview</Title>
     <ul>
-      {articles.map(article => (
-        <ArticleTeaser
+      {articles.map(article =>
+        (<ArticleTeaser
           key={article.id}
           {...filter(ArticleTeaser.fragments.articleTeaserFragment, article)}
-        />
-      ))}
+        />),
+      )}
     </ul>
     <div>
       {hasPreviousPage && <Link to={previousPagePath}>Previous</Link>}
@@ -66,14 +66,14 @@ const query = gql`
 `;
 
 const withQuery = graphql(query, {
-  options: ({ pageSize, params: { page = 0 } }) => ({
+  options: ({ pageSize, match: { params: { page = 0 } } }) => ({
     variables: {
       offset: page * pageSize,
       limit: pageSize,
     },
   }),
   props: ({
-    ownProps: { params: { page = 0 } },
+    ownProps: { match: { params: { page = 0 } } },
     data: { nodeQuery: { entities, count } = {}, loading },
   }: any): ArticleOverviewProps => ({
     loading,
@@ -92,9 +92,8 @@ const withPagination = withPropsOnChange(
   (props: ArticleOverviewProps) => ({
     hasPreviousPage: props.page > 0,
     hasNextPage: props.page + 1 < props.count / props.pageSize,
-    previousPagePath: props.page - 1 > 0
-      ? `/articles/${props.page - 1}`
-      : '/articles',
+    previousPagePath:
+      props.page - 1 > 0 ? `/articles/${props.page - 1}` : '/articles',
     nextPagePath: `/articles/${props.page + 1}`,
   }),
 );

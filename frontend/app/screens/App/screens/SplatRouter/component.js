@@ -14,8 +14,10 @@ type SplatRouterProps = {
   loading: boolean,
 };
 
-const SplatRouter = ({ entity, loading }: SplatRouterProps): | React.Element<any>
-  | null => {
+const SplatRouter = ({
+  entity,
+  loading,
+}: SplatRouterProps): React.Element<any> | null => {
   if (loading) {
     return null;
   }
@@ -50,7 +52,7 @@ const withQuery = graphql(query, {
   options: (props: any) => ({
     variables: {
       // Default to the front page when no path suffix was given.
-      path: `/${props.params.splat || ''}`,
+      path: props.match.url,
     },
   }),
   props: ({ data: { route, loading } }: any): SplatRouterProps => ({

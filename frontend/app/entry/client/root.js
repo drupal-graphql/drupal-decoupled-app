@@ -1,29 +1,22 @@
 // @flow
 
 import React from 'react';
-import { Router } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
 import { AppContainer } from 'react-hot-loader';
-import renderRoutesWithData from 'routing/renderRoutesWithData';
+import App from 'App';
 
 type RootProps = {
   store: AmazeeStore<any, any>,
-  routes: React.Element<any>,
-  history: any,
   client: any,
 };
 
-const Root = ({
-  store,
-  routes,
-  history,
-  client,
-}: RootProps): React.Element<any> =>
+const Root = ({ store, client }: RootProps): React.Element<any> =>
   (<AppContainer>
     <ApolloProvider client={client} store={store}>
-      <Router history={history} render={renderRoutesWithData(client, store)}>
-        {routes}
-      </Router>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </ApolloProvider>
   </AppContainer>);
 

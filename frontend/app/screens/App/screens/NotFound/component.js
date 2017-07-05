@@ -2,12 +2,12 @@
 
 import React from 'react';
 import Helmet from 'react-helmet';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import Title from 'Title';
 import Paragraph from 'Paragraph';
 
-const NotFound = (): React.Element<any> => (
-  <div>
+const NotFound = (): React.Element<any> =>
+  (<div>
     <Helmet title="Page not found" />
     <div>
       <Title>Page not found</Title>
@@ -18,7 +18,6 @@ const NotFound = (): React.Element<any> => (
         <Link to="/">Back to the front page</Link>
       </Paragraph>
     </div>
-  </div>
-);
+  </div>);
 
 export default NotFound;
