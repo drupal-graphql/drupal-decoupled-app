@@ -2,6 +2,7 @@
 
 import React from 'react';
 import universal from 'react-universal-component';
+import type { HomeProps } from './component';
 
 const Component = universal(
   () => import(/* webpackChunkName: 'Home' */ './component'),
@@ -12,4 +13,4 @@ const Component = universal(
   },
 );
 
-export default props => <Component {...props} />;
+export default (props: HomeProps) => <Component {...props} />;

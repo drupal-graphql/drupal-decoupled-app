@@ -2,6 +2,7 @@
 
 import React from 'react';
 import universal from 'react-universal-component';
+import type { BasicPageProps } from './component';
 
 const Component = universal(
   () => import(/* webpackChunkName: 'BasicPage' */ './component'),
@@ -12,4 +13,4 @@ const Component = universal(
   },
 );
 
-export default props => <Component {...props} />;
+export default (props: BasicPageProps) => <Component {...props} />;

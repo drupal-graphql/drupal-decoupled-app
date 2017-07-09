@@ -9,10 +9,14 @@ import compression from 'compression';
 import createRender from './render';
 
 // Express middleware for server side rendering.
-const createServerSideRenderer = ({ clientStats }) => {
+const createServerSideRenderer = ({ clientStats }: Object) => {
   const render = createRender(clientStats);
 
-  return (req: Object, res: Object, next: Function): void => {
+  return (
+    req: express$Request,
+    res: express$Response,
+    next: express$NextFunction,
+  ): void => {
     // Do not use this middleware for anything that looks like a static file.
     if (req.url.match(/\./)) {
       next();
@@ -30,8 +34,8 @@ export default (() => {
 
   // In production, however, we want to get a chance to manipulate the
   // express server.
-  return app => {
-    const paths = app.get('paths');
+  return (app: express$Application) => {
+    const paths: Object = app.get('paths');
 
     app.use(compression());
 

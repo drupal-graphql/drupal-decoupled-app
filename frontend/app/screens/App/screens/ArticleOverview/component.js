@@ -13,11 +13,15 @@ import ArticleTeaser from 'ArticleTeaser';
 import Title from 'Title';
 import type { ArticleTeaserProps } from 'ArticleTeaser';
 
-type ArticleOverviewProps = {
+type ArticleOverviewItem = ArticleTeaserProps & {
+  id: number,
+};
+
+export type ArticleOverviewProps = {
   loading: boolean,
   page: number,
   count: number,
-  articles: Array<ArticleTeaserProps>,
+  articles: Array<ArticleOverviewItem>,
   pageSize: number,
   hasPreviousPage?: boolean,
   hasNextPage?: boolean,
@@ -32,28 +36,29 @@ const ArticleOverview = ({
   hasNextPage,
   previousPagePath,
   nextPagePath,
-}: ArticleOverviewProps): React.Element<any> =>
-  !loading &&
-  <div>
-    <Helmet title="Article overview" />
-    <Title>Article overview</Title>
-    <ul>
-      {articles.map(article =>
-        (<ArticleTeaser
-          key={article.id}
-          {...filter(ArticleTeaser.fragments.articleTeaserFragment, article)}
-        />),
-      )}
-    </ul>
+}: ArticleOverviewProps): React.Element<any> | null =>
+  (!loading &&
     <div>
-      {hasPreviousPage && <Link to={previousPagePath}>Previous</Link>}
-      {hasNextPage && <Link to={nextPagePath}>Next</Link>}
-    </div>
-  </div>;
+      <Helmet title="Article overview" />
+      <Title>Article overview</Title>
+      <ul>
+        {articles.map(article =>
+          (<ArticleTeaser
+            key={article.id}
+            {...filter(ArticleTeaser.fragments.articleTeaserFragment, article)}
+          />),
+        )}
+      </ul>
+      <div>
+        {hasPreviousPage && <Link to={previousPagePath}>Previous</Link>}
+        {hasNextPage && <Link to={nextPagePath}>Next</Link>}
+      </div>
+    </div>) ||
+  null;
 
 const query = gql`
   query ArticleOverviewQuery($offset: Int, $limit: Int) {
-    nodeQuery(offset: $offset, limit: $limit, filter: { type: "article" }) {
+    nodeQuery(offset: $offset, limit: $limit, filter: {type: "article" }) {
       count,
       entities {
         id:entityId
@@ -75,7 +80,7 @@ const withQuery = graphql(query, {
   props: ({
     ownProps: { match: { params: { page = 0 } } },
     data: { nodeQuery: { entities, count } = {}, loading },
-  }: any): ArticleOverviewProps => ({
+  }) => ({
     loading,
     page: parseInt(page, 10),
     count,

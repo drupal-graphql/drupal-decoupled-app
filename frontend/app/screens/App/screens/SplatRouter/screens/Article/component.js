@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import Title from 'Title';
 import Body from 'Body';
 
-type ArticleProps = {
+export type ArticleProps = {
   title: string,
   body: string,
 };

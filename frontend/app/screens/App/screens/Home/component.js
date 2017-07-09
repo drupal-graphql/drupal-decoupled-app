@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import Title from 'Title';
 import Paragraph from 'Paragraph';
 
+export type HomeProps = {};
+
 const Home = (): React.Element<any> =>
   (<div>
     <Helmet title="Welcome" />

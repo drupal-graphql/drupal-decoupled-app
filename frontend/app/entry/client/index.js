@@ -2,6 +2,13 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+// The babel-polyfill needs to come after react and react-dom in order to not break IE 11
+// Refs:
+// https://stackoverflow.com/questions/40897966/objects-are-not-valid-as-a-react-child-in-internet-explorer-11-for-react-15-4-1#comment69150679_40928047
+// https://github.com/facebook/react/issues/8379
+import 'babel-polyfill';
+
 import configureApolloClient from 'state/configureApolloClient';
 import configureClientStore from 'state/configureClientStore';
 import { apiVersion, queryMap } from 'api';

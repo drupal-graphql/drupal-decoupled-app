@@ -2,6 +2,7 @@
 
 import React from 'react';
 import universal from 'react-universal-component';
+import type { ArticleOverviewProps } from './component';
 
 const Component = universal(
   () => import(/* webpackChunkName: 'ArticleOverview' */ './component'),
@@ -12,4 +13,4 @@ const Component = universal(
   },
 );
 
-export default props => <Component {...props} />;
+export default (props: ArticleOverviewProps) => <Component {...props} />;

@@ -20,8 +20,12 @@ const doRender = (
   reduxStore: Object,
   apolloClient: Object,
   styleSheet: Object,
-) => (req: Object, res: Object): void => (renderedContent: string) => {
-  const apiUri = JSON.stringify(req.app.get('env').API);
+) => (req: express$Request, res: express$Response) => (
+  renderedContent: string,
+) => {
+  const env: Object = req.app.get('env');
+  const paths: Object = req.app.get('paths');
+  const apiUri = JSON.stringify(env.API);
 
   // Stop profiling of the react rendering with apollo.
   logger.profile('Rendering with data dependencies');
@@ -41,8 +45,8 @@ const doRender = (
     .getStyleTags()
     .replace(/(?:\r\n|\r|\n)/g, '');
   const helmetOutput: Object = Helmet.renderStatic();
-  const attributes: string = helmetOutput.htmlAttributes.toString();
-  const head: string = headOrder
+  const htmlAttributes: string = helmetOutput.htmlAttributes.toString();
+  const htmlHead: string = headOrder
     .map((key: string): string => helmetOutput[key].toString().trim())
     .join('');
 
@@ -61,13 +65,13 @@ const doRender = (
     chunkNames: flushChunkNames(),
     before: ['bootstrap'],
     after: ['main'],
-    outputPath: req.app.get('paths').appBuild,
+    outputPath: paths.appBuild,
   });
 
   res.send(`<!doctype html>
-<html ${attributes}>
+<html ${htmlAttributes}>
   <head>
-    ${head}
+    ${htmlHead}
     ${styles}
   </head>
   <body>
@@ -80,12 +84,91 @@ const doRender = (
   `);
 };
 
+type SsrError = Error & {
+  queryErrors?: Array<Error>,
+};
+
+const extractErrorMessages = (error: SsrError): Array<string> => {
+  const errors = (error.queryErrors || [])
+    .reduce((carry, current) => [...carry, current.message.toString()], [
+      error.message.toString(),
+    ]);
+
+  return errors;
+};
+
+const doRenderError = (clientStats: Object) => (
+  req: express$Request,
+  res: express$Response,
+) => (error: Error): void => {
+  const env: Object = req.app.get('env');
+  const paths: Object = req.app.get('paths');
+  const apiUri = JSON.stringify(env.API);
+
+  const { js } = flushChunks(clientStats, {
+    chunkNames: flushChunkNames(),
+    before: ['bootstrap'],
+    after: ['main'],
+    outputPath: paths.appBuild,
+  });
+
+  const messages = extractErrorMessages(error);
+
+  res.status(505).send(`<!doctype html>
+<html>
+  <head>
+    <title>Error</title>
+    <style>
+      #error {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        font-family: Arial, Helvetica, sans-serif; 
+        font-size: 13px;
+        border: 1px solid;
+        padding: 15px 10px;
+        color: #D8000C;
+        background-color: #FFBABA;
+        overflow: auto;
+      }
+
+      #error h2 {
+        font-size: 13px;
+        padding: 0;
+        margin: 0;
+      }
+
+      #error ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      #error li {
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="error">
+      <h2>Server side rendering failed</h2>
+      <ul><li>${messages.join('</li><li>')}</li></code>
+    </div>
+    <div id="app"></div>
+    <script>window.__API__ = ${apiUri};</script>
+    ${js}
+  </body>
+</html>`);
+};
+
 export default (clientStats: Object) => (
-  req: Object,
-  res: Object,
-  next: Function,
+  req: express$Request,
+  res: express$Response,
 ): void => {
-  const apiUri = req.app.get('env').API;
+  const env: Object = req.app.get('env');
+  const apiUri = env.API;
 
   // Configure the apollo client with persisted queries.
   const apolloClient = configureApolloClient(
@@ -117,5 +200,10 @@ export default (clientStats: Object) => (
     styleSheet,
   );
 
-  renderToStringWithData(Root).then(doRenderFinal(req, res, next));
+  // Renders the app component tree into a string.
+  const doRenderErrorFinal = doRenderError(clientStats);
+
+  renderToStringWithData(Root)
+    .then(doRenderFinal(req, res))
+    .catch(doRenderErrorFinal(req, res));
 };

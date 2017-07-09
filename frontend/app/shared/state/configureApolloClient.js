@@ -123,7 +123,7 @@ const configureApolloClient = (
   queryMap: Object,
   introspectionData: Object,
 ) => {
-  const isProduction = __PRODUCTION__;
+  const isProduction = __PRODUCTION__ || true;
   const hasApiVersion = !!apiVersion;
 
   // Use xdebug in development.
