@@ -2,10 +2,11 @@
 # yarn lockfile v1
 
 
-"@amazee/babel-preset-react@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@amazee/babel-preset-react/-/babel-preset-react-2.0.1.tgz#a67182036b0734987a55c531236a4a496d9ef13d"
+"@amazee/babel-preset-react@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@amazee/babel-preset-react/-/babel-preset-react-2.0.2.tgz#c6f79707bc5b806735f13483ef5f493e5742e18f"
   dependencies:
+    babel-plugin-dual-import "^1.1.0"
     babel-plugin-dynamic-import-node "^1.0.2"
     babel-plugin-styled-components "^1.1.5"
     babel-plugin-syntax-dynamic-import "^6.18.0"
@@ -26,11 +27,11 @@
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@amazee/eslint-config-amazee/-/eslint-config-amazee-2.0.0.tgz#8751810ad37dac464fdab145f1f472b090200657"
 
-"@amazee/react-scripts@^2.0.7":
-  version "2.0.7"
-  resolved "https://registry.yarnpkg.com/@amazee/react-scripts/-/react-scripts-2.0.7.tgz#845b5f31d54a3ba4264aa0951011d5b1969728f2"
+"@amazee/react-scripts@^2.0.8":
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/@amazee/react-scripts/-/react-scripts-2.0.8.tgz#f101e632e3e8533fa7b031fe3592192005510e22"
   dependencies:
-    "@amazee/babel-preset-react" "^2.0.1"
+    "@amazee/babel-preset-react" "^2.0.2"
     "@amazee/eslint-config-amazee" "^2.0.0"
     babel-core "^6.25.0"
     babel-eslint "^7.2.3"
@@ -48,12 +49,12 @@
     eslint-config-airbnb "^15.0.2"
     eslint-import-resolver-webpack "^0.8.3"
     eslint-plugin-flowtype "^2.34.1"
-    eslint-plugin-import "^2.6.1"
+    eslint-plugin-import "^2.7.0"
     eslint-plugin-jsx-a11y "^5.0.3"
     eslint-plugin-react "^7.1.0"
     eventsource-polyfill "^0.9.6"
     express "^4.15.3"
-    extract-css-chunks-webpack-plugin "^1.0.15"
+    extract-css-chunks-webpack-plugin "^2.0.3"
     file-loader "^0.11.2"
     filesize "^3.5.10"
     fs-extra "^3.0.1"
@@ -64,7 +65,7 @@
     image-webpack-loader "^3.3.1"
     jest "^20.0.4"
     json-loader "^0.5.4"
-    lint-staged "^4.0.0"
+    lint-staged "^4.0.1"
     node-noop "^1.0.0"
     promise "^8.0.0"
     raw-loader "^0.5.1"
@@ -76,7 +77,7 @@
     strip-ansi "^4.0.0"
     webpack "^2.6.0"
     webpack-dev-middleware "^1.11.0"
-    webpack-hot-middleware "^2.18.1"
+    webpack-hot-middleware "^2.18.2"
     webpack-hot-server-middleware "^0.1.0"
     webpack-md5-hash "^0.0.5"
   optionalDependencies:
@@ -633,6 +634,10 @@ babel-plugin-check-es2015-constants@^6.22.0:
   resolved "https://registry.yarnpkg.com/babel-plugin-check-es2015-constants/-/babel-plugin-check-es2015-constants-6.22.0.tgz#35157b101426fd2ffd3da3f75c7d1e91835bbf8a"
   dependencies:
     babel-runtime "^6.22.0"
+
+babel-plugin-dual-import@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-dual-import/-/babel-plugin-dual-import-1.1.0.tgz#00c5966d00ffa031a5147a613d763eb1ec400c3b"
 
 babel-plugin-dynamic-import-node@^1.0.2:
   version "1.0.2"
@@ -1926,13 +1931,13 @@ dateformat@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-2.0.0.tgz#2743e3abb5c3fc2462e527dca445e04e9f4dee17"
 
-debug@2.6.7, debug@^2.1.1, debug@^2.6.0:
+debug@2.6.7, debug@^2.1.1, debug@^2.2.0, debug@^2.6.0:
   version "2.6.7"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.7.tgz#92bad1f6d05bbb6bba22cca88bcd0ec894c2861e"
   dependencies:
     ms "2.0.0"
 
-debug@^2.2.0, debug@^2.6.3, debug@^2.6.6, debug@^2.6.8:
+debug@^2.6.3, debug@^2.6.6, debug@^2.6.8:
   version "2.6.8"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.8.tgz#e731531ca2ede27d188222427da17821d68ff4fc"
   dependencies:
@@ -2432,7 +2437,7 @@ eslint-plugin-flowtype@^2.34.1:
   dependencies:
     lodash "^4.15.0"
 
-eslint-plugin-import@^2.6.1:
+eslint-plugin-import@^2.7.0:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-2.7.0.tgz#21de33380b9efb55f5ef6d2e210ec0e07e7fa69f"
   dependencies:
@@ -2712,9 +2717,9 @@ extglob@^0.3.1:
   dependencies:
     is-extglob "^1.0.0"
 
-extract-css-chunks-webpack-plugin@^1.0.15:
-  version "1.0.15"
-  resolved "https://registry.yarnpkg.com/extract-css-chunks-webpack-plugin/-/extract-css-chunks-webpack-plugin-1.0.15.tgz#5fd6a3c2f68b7be651e136e0959718eddb8f6dd2"
+extract-css-chunks-webpack-plugin@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/extract-css-chunks-webpack-plugin/-/extract-css-chunks-webpack-plugin-2.0.3.tgz#98d07b765166443a72467f3c837ad676ac29f8fa"
   dependencies:
     ajv "^4.11.2"
     async "^2.1.2"
@@ -4415,7 +4420,7 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-lint-staged@^4.0.0, lint-staged@^4.0.1:
+lint-staged@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-4.0.1.tgz#05365469898439dbade8a455893cf11e24d12b0f"
   dependencies:
@@ -7309,7 +7314,7 @@ webpack-flush-chunks@^1.1.10:
   version "1.1.10"
   resolved "https://registry.yarnpkg.com/webpack-flush-chunks/-/webpack-flush-chunks-1.1.10.tgz#1cffb28a0e36187b046c4ca3160bac0d3ad1d2bc"
 
-webpack-hot-middleware@^2.18.1:
+webpack-hot-middleware@^2.18.2:
   version "2.18.2"
   resolved "https://registry.yarnpkg.com/webpack-hot-middleware/-/webpack-hot-middleware-2.18.2.tgz#84dee643f037c3d59c9de142548430371aa8d3b2"
   dependencies:
