@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import Html from 'Html';
 import styles from './styles.css';
 
-export type ArticleProps = {
+type ArticleProps = {
   title: string,
   body: string,
 };

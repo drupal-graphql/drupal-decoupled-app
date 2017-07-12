@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 import Html from 'Html';
 import styles from './styles.css';
 
-export type BasicPageProps = {
+type BasicPageProps = {
   title: string,
   body: string,
 };
