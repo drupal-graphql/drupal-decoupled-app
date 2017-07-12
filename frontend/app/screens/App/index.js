@@ -6,8 +6,8 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { Switch, Route } from 'react-router';
 import Home from 'App/screens/Home';
-import SplatRouter from 'App/screens/SplatRouter/component';
-import ArticleOverview from 'App/screens/ArticleOverview/component';
+import SplatRouter from 'App/screens/SplatRouter';
+import ArticleOverview from 'App/screens/ArticleOverview';
 import styles from './styles.css';
 
 const App = (): React.Element<any> =>
