@@ -3,30 +3,24 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import Title from 'Title';
-import Body from 'Body';
+import Html from 'Html';
+import styles from './styles.css';
 
 export type ArticleProps = {
   title: string,
   body: string,
 };
 
-const Wrapper = styled.div`
-  background-color: Red;
-  margin: 1rem 0;
-`;
-
 const Article = ({ title, body }: ArticleProps): React.Element<any> =>
-  (<Wrapper>
+  (<div className={styles.Wrapper}>
     <Helmet title={title} />
-    <Title>
+    <h1>
       {title}
-    </Title>
-    <Body>
+    </h1>
+    <Html>
       {body}
-    </Body>
+    </Html>
     <Link to="/articles">Back to overview</Link>
-  </Wrapper>);
+  </div>);
 
 export default Article;

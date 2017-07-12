@@ -3,7 +3,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import { StaticRouter } from 'react-router';
-import { ServerStyleSheet } from 'styled-components';
 import { flushChunkNames } from 'react-universal-component/server';
 import flushChunks from 'webpack-flush-chunks';
 import { ApolloProvider, renderToStringWithData } from 'react-apollo';
@@ -19,7 +18,6 @@ const doRender = (
   clientStats: Object,
   reduxStore: Object,
   apolloClient: Object,
-  styleSheet: Object,
 ) => (req: express$Request, res: express$Response) => (
   renderedContent: string,
 ) => {
@@ -41,9 +39,6 @@ const doRender = (
   ];
 
   // Collect side-effects after rendering the app as a string.
-  const styles: string = styleSheet
-    .getStyleTags()
-    .replace(/(?:\r\n|\r|\n)/g, '');
   const helmetOutput: Object = Helmet.renderStatic();
   const htmlAttributes: string = helmetOutput.htmlAttributes.toString();
   const htmlHead: string = headOrder
@@ -61,7 +56,7 @@ const doRender = (
   // Stop profiling of the initial state extraction.
   logger.profile('Extracting initial state');
 
-  const { js } = flushChunks(clientStats, {
+  const { js, styles, cssHash } = flushChunks(clientStats, {
     chunkNames: flushChunkNames(),
     before: ['bootstrap'],
     after: ['main'],
@@ -76,8 +71,9 @@ const doRender = (
   </head>
   <body>
     <div id="app">${renderedContent}</div>
-    <script>window.__INITIAL_STATE__ = ${initialState};</script>
-    <script>window.__API__ = ${apiUri};</script>
+    <script type="text/javascript">window.__INITIAL_STATE__ = ${initialState};</script>
+    <script type="text/javascript">window.__API__ = ${apiUri};</script>
+    ${cssHash}
     ${js}
   </body>
 </html>
@@ -179,26 +175,20 @@ export default (clientStats: Object) => (
   );
 
   const reduxStore: AmazeeStore<any, any> = configureServerStore(apolloClient);
-  const styleSheet = new ServerStyleSheet();
 
-  const Root: React.Element<any> = styleSheet.collectStyles(
+  const Root: React.Element<any> = (
     <ApolloProvider store={reduxStore} client={apolloClient}>
       <StaticRouter location={req.url} context={{}}>
         <App />
       </StaticRouter>
-    </ApolloProvider>,
+    </ApolloProvider>
   );
 
   // Start profiling of the react rendering with apollo.
   logger.profile('Rendering with data dependencies');
 
   // Render the app after loading the graphql data.
-  const doRenderFinal = doRender(
-    clientStats,
-    reduxStore,
-    apolloClient,
-    styleSheet,
-  );
+  const doRenderFinal = doRender(clientStats, reduxStore, apolloClient);
 
   // Renders the app component tree into a string.
   const doRenderErrorFinal = doRenderError(clientStats);

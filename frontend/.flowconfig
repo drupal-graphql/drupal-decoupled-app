@@ -1,7 +1,6 @@
 [include]
 
 [ignore]
-.*/node_modules/styled-components/.*
 .*/node_modules/graphql/.*
 .*/node_modules/eslint-plugin-jsx-a11y/.*
 

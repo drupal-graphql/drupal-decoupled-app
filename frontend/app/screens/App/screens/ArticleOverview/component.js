@@ -10,14 +10,14 @@ import { Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 import { filter } from 'graphql-anywhere';
 import ArticleTeaser from 'ArticleTeaser';
-import Title from 'Title';
 import type { ArticleTeaserProps } from 'ArticleTeaser';
+import styles from './styles.css';
 
 type ArticleOverviewItem = ArticleTeaserProps & {
   id: number,
 };
 
-export type ArticleOverviewProps = {
+type ArticleOverviewProps = {
   loading: boolean,
   page: number,
   count: number,
@@ -38,9 +38,9 @@ const ArticleOverview = ({
   nextPagePath,
 }: ArticleOverviewProps): React.Element<any> | null =>
   (!loading &&
-    <div>
+    <div className={styles.Wrapper}>
       <Helmet title="Article overview" />
-      <Title>Article overview</Title>
+      <h1>Article overview</h1>
       <ul>
         {articles.map(article =>
           (<ArticleTeaser

@@ -1,24 +1,17 @@
 // @flow
 
-import 'App/styles';
+import 'App/normalize.css';
 
 import React from 'react';
 import Helmet from 'react-helmet';
-import styled from 'styled-components';
 import { Switch, Route } from 'react-router';
 import Home from 'App/screens/Home';
 import SplatRouter from 'App/screens/SplatRouter/component';
 import ArticleOverview from 'App/screens/ArticleOverview/component';
-
-const Wrapper = styled.div`
-  max-width: 90rem;
-  margin: auto;
-  padding: 1rem;
-  background-color: lightgrey;
-`;
+import styles from './styles.css';
 
 const App = (): React.Element<any> =>
-  (<Wrapper>
+  (<div className={styles.Wrapper}>
     <Helmet
       titleTemplate="Decoupled Drupal - %s"
       defaultTitle="Decoupled Drupal"
@@ -28,6 +21,6 @@ const App = (): React.Element<any> =>
       <Route exact path="/articles/:page?/" component={ArticleOverview} />
       <Route exact path="*" component={SplatRouter} />
     </Switch>
-  </Wrapper>);
+  </div>);
 
 export default App;

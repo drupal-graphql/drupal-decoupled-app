@@ -3,8 +3,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import gql from 'graphql-tag';
-import styled from 'styled-components';
-import Body from 'Body';
+import Html from 'Html';
 
 /* eslint-disable react/no-unused-prop-types */
 export type ArticleTeaserProps = {
@@ -16,32 +15,21 @@ export type ArticleTeaserProps = {
 };
 /* eslint-enable react/no-unused-prop-types */
 
-const Wrapper = styled.div`
-  border: 1px solid Black;
-  padding: 1rem;
-  margin: 1rem 0;
-`;
-
-const Title = styled.h2`
-  font-weight: bold;
-  font-size: 20px;
-`;
-
 const ArticleTeaser = ({
   title,
   url,
   body,
 }: ArticleTeaserProps): React.Element<any> =>
-  (<Wrapper>
-    <Title>
+  (<div>
+    <h2>
       <Link to={url && url.alias}>
         {title}
       </Link>
-    </Title>
-    <Body>
+    </h2>
+    <Html>
       {body}
-    </Body>
-  </Wrapper>);
+    </Html>
+  </div>);
 
 ArticleTeaser.fragments = {
   articleTeaserFragment: gql`

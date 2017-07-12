@@ -3,19 +3,16 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
-import Title from 'Title';
-import Paragraph from 'Paragraph';
-
-export type HomeProps = {};
+import styles from './styles.css';
 
 const Home = (): React.Element<any> =>
-  (<div>
+  (<div className={styles.Wrapper}>
     <Helmet title="Welcome" />
-    <Title>Welcome!</Title>
-    <Paragraph>
+    <h1>Welcome!</h1>
+    <p>
       This is a simple demo application for Decoupled Drupal using React and
       GraphQL.
-    </Paragraph>
+    </p>
     <Link to="/articles">Continue to the article overview.</Link>
   </div>);
 

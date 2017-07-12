@@ -26,9 +26,9 @@
     "gitDir": "../"
   },
   "dependencies": {
-    "apollo-client": "^1.7.0",
+    "apollo-client": "^1.8.0",
     "babel-polyfill": "^6.23.0",
-    "compression": "^1.6.2",
+    "compression": "^1.7.0",
     "express": "^4.15.3",
     "fetch-everywhere": "^1.0.5",
     "graphql-anywhere": "^3.1.0",
@@ -44,17 +44,15 @@
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "react-universal-component": "^1.4.1",
-    "recompose": "^0.23.5",
+    "recompose": "^0.24.0",
     "redux": "^3.7.1",
     "reselect": "^3.0.1",
     "serialize-javascript": "^1.3.0",
-    "styled-components": "^2.1.1",
-    "styled-normalize": "^2.0.1",
     "webpack-flush-chunks": "^1.1.10",
     "winston": "^2.3.1"
   },
   "devDependencies": {
-    "@amazee/react-scripts": "^2.0.8",
+    "@amazee/react-scripts": "^2.0.12",
     "flow-bin": "^0.49.1",
     "jssha": "^2.3.1",
     "lint-staged": "^4.0.1",

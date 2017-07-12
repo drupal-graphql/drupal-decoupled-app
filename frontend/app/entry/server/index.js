@@ -21,7 +21,7 @@ const createServerSideRenderer = ({ clientStats }: Object) => {
     if (req.url.match(/\./)) {
       next();
     } else {
-      render(req, res, next); // eslint-disable-line global-require
+      render(req, res); // eslint-disable-line global-require
     }
   };
 };

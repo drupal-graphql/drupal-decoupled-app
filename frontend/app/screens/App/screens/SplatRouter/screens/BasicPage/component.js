@@ -2,29 +2,23 @@
 
 import React from 'react';
 import Helmet from 'react-helmet';
-import styled from 'styled-components';
-import Title from 'Title';
-import Body from 'Body';
+import Html from 'Html';
+import styles from './styles.css';
 
 export type BasicPageProps = {
   title: string,
   body: string,
 };
 
-const Wrapper = styled.div`
-  background-color: Red;
-  margin: 1rem 0;
-`;
-
 const BasicPage = ({ title, body }: BasicPageProps): React.Element<any> =>
-  (<Wrapper>
+  (<div className={styles.Wraper}>
     <Helmet title={title} />
-    <Title>
+    <h1>
       {title}
-    </Title>
-    <Body>
+    </h1>
+    <Html>
       {body}
-    </Body>
-  </Wrapper>);
+    </Html>
+  </div>);
 
 export default BasicPage;
