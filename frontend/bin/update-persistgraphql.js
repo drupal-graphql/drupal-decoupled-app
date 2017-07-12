@@ -45,7 +45,7 @@ extractor.processInputPath(extractor.inputFilePath).then(outputMap => {
         appPath,
         'shared',
         'queries',
-        `${hash}.json`
+        `${hash}.json`,
       );
 
       fs.renameSync(extractor.outputFilePath, finalFilePath);

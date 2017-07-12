@@ -6,15 +6,22 @@ const path = require('path');
 const appPath = path.resolve(process.cwd(), 'app');
 
 const add = file =>
-  childProcess.execSync(`git add ${file}`, {
+  childProcess.spawnSync('git', ['add', file], {
     cwd: path.resolve(process.cwd(), '..'),
   });
 
-console.log(`Generating introspection file.`);
-childProcess.execSync(`yarn run introspect`);
+const exitOnError = (output) => {
+  if (output.error) {
+    console.error(output.error);
+    process.exit(1);
+  }
+};
 
-console.log(`Generating query map.`);
-childProcess.execSync(`yarn run persist`);
+console.log('Generating introspection file.');
+exitOnError(childProcess.spawnSync('yarn', ['run', 'introspect']));
+
+console.log('Generating query map.');
+exitOnError(childProcess.spawnSync('yarn', ['run', 'persist']));
 
 // Read the version from the api config file.
 const apiFile = path.resolve(appPath, 'shared', 'api.js');
