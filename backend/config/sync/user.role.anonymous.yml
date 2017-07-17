@@ -13,6 +13,7 @@ permissions:
   - 'access content'
   - 'access site-wide contact form'
   - 'execute graphql requests'
+  - 'execute persisted graphql requests'
   - 'search content'
   - 'use graphql explorer'
   - 'use text format restricted_html'

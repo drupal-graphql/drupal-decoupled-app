@@ -1,0 +1,46 @@
+types:
+  node:
+    exposed: true
+    bundles:
+      article:
+        exposed: true
+        view_mode: node.default
+      page:
+        exposed: true
+        view_mode: node.default
+  block_content:
+    exposed: false
+    bundles:
+      basic:
+        exposed: false
+        view_mode: __none__
+  file:
+    exposed: false
+    bundles:
+      file:
+        exposed: false
+        view_mode: '0'
+  shortcut:
+    exposed: false
+    bundles:
+      default:
+        exposed: false
+        view_mode: '0'
+  taxonomy_term:
+    exposed: false
+    bundles:
+      tags:
+        exposed: false
+        view_mode: '0'
+  user:
+    exposed: false
+    bundles:
+      user:
+        exposed: false
+        view_mode: '0'
+  menu_link_content:
+    exposed: false
+    bundles:
+      menu_link_content:
+        exposed: false
+        view_mode: '0'
