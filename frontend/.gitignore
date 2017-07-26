@@ -1,6 +1,7 @@
 # Generated stuff
 .happypack
 coverage
+styleguide
 dlls
 build
 node_modules
