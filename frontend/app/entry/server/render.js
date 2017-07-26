@@ -177,11 +177,11 @@ export default (clientStats: Object) => (
   const reduxStore: AmazeeStore<any, any> = configureServerStore(apolloClient);
 
   const Root: React.Element<any> = (
-    <ApolloProvider store={reduxStore} client={apolloClient}>
-      <StaticRouter location={req.url} context={{}}>
+    <StaticRouter location={req.url} context={{}}>
+      <ApolloProvider store={reduxStore} client={apolloClient}>
         <App />
-      </StaticRouter>
-    </ApolloProvider>
+      </ApolloProvider>
+    </StaticRouter>
   );
 
   // Start profiling of the react rendering with apollo.

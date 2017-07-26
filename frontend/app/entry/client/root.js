@@ -13,11 +13,11 @@ type RootProps = {
 
 const Root = ({ store, client }: RootProps): React.Element<any> =>
   (<AppContainer>
-    <ApolloProvider client={client} store={store}>
-      <BrowserRouter>
+    <BrowserRouter>
+      <ApolloProvider client={client} store={store}>
         <App />
-      </BrowserRouter>
-    </ApolloProvider>
+      </ApolloProvider>
+    </BrowserRouter>
   </AppContainer>);
 
 export default Root;

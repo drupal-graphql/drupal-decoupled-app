@@ -5,9 +5,9 @@ import 'App/normalize.css';
 import React from 'react';
 import Helmet from 'react-helmet';
 import { Switch, Route } from 'react-router';
-import Home from 'App/screens/Home';
-import SplatRouter from 'App/screens/SplatRouter';
-import ArticleOverview from 'App/screens/ArticleOverview';
+import Home from 'Home';
+import SplatRouter from 'SplatRouter';
+import ArticleOverview from 'ArticleOverview';
 import styles from './styles.css';
 
 const App = (): React.Element<any> =>
