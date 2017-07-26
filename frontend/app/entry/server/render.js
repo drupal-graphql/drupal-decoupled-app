@@ -1,15 +1,17 @@
 // @flow
 
 import React from 'react';
+import { renderToString } from 'react-dom/server';
 import Helmet from 'react-helmet';
 import { StaticRouter } from 'react-router';
 import { flushChunkNames } from 'react-universal-component/server';
 import flushChunks from 'webpack-flush-chunks';
-import { ApolloProvider, renderToStringWithData } from 'react-apollo';
+import { ApolloProvider } from 'react-apollo';
 import serialize from 'serialize-javascript';
 import configureApolloClient from 'state/configureApolloClient';
 import configureServerStore from 'state/configureServerStore';
 import { apiVersion, queryMap } from 'api';
+import preloadTree from 'utils/preloadTree';
 import introspectionData from 'introspection.json';
 import logger from 'logger';
 import App from 'App';
@@ -193,7 +195,8 @@ export default (clientStats: Object) => (
   // Renders the app component tree into a string.
   const doRenderErrorFinal = doRenderError(clientStats);
 
-  renderToStringWithData(Root)
+  preloadTree(Root)
+    .then(() => renderToString(Root))
     .then(doRenderFinal(req, res))
     .catch(doRenderErrorFinal(req, res));
 };

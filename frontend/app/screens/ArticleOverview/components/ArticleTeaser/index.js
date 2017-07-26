@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'AsyncLink';
 import gql from 'graphql-tag';
 import Html from 'Html';
 
