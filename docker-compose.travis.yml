@@ -1,0 +1,29 @@
+# amazee.io docker-compose.travis.yml
+# This docker-compose file is specifically for travis and is not intended to be used locally
+version: '2'
+services:
+  drupal:
+    hostname: &hostname localhost
+
+    environment:
+      # If you use https://github.com/drupal-composer/drupal-project or something similar,
+      # the Drupal root is not inside the Repository root, you can define in which folder
+      # the the Drupal Root lives
+      WEBROOT: backend/web
+
+      # If you would like to use blackfire.io, uncomment and add your server credentials:
+      #BLACKFIRE_SERVER_ID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+      #BLACKFIRE_SERVER_TOKEN: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+      # APC Support is by default enabled, but in some cases it can make issues, change to 0 to disable:
+      APC: 1
+      VIRTUAL_HOST: *hostname
+    image: amazeeio/drupal:php70-solr
+    volumes:
+      - .:/var/www/drupal/public_html
+      # caching the composer cache, so during an "composer install" it uses cached versions
+      - ~/.composer:/var/www/drupal/.composer
+    container_name: *hostname
+    network_mode: bridge
+    ports:
+      - "3306"
