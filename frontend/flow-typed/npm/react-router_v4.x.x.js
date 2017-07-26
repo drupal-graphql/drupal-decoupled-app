@@ -1,5 +1,5 @@
-// flow-typed signature: adb142abf7ee0f170d31ca569b5e94a7
-// flow-typed version: 02d9734356/react-router_v4.x.x/flow_>=v0.38.x
+// flow-typed signature: b701192ca557cf27adf1b295517299fd
+// flow-typed version: b43dff3e0e/react-router_v4.x.x/flow_>=v0.30.x
 
 declare module 'react-router' {
   // NOTE: many of these are re-exported by react-router-dom and

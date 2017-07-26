@@ -13,7 +13,9 @@
     "format": "yarn run prettier -- 'app/**/*.js' && yarn run lint:fix",
     "persist": "node bin/update-persistgraphql",
     "introspect": "node bin/update-introspection",
-    "precommit": "lint-staged && node bin/precommit"
+    "precommit": "lint-staged && node bin/precommit",
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "storybook:build": "build-storybook -c .storybook -o styleguide"
   },
   "lint-staged": {
     "linters": {
@@ -26,7 +28,7 @@
     "gitDir": "../"
   },
   "dependencies": {
-    "apollo-client": "^1.8.0",
+    "apollo-client": "^1.9.0-1",
     "babel-polyfill": "^6.23.0",
     "compression": "^1.7.0",
     "express": "^4.15.3",
@@ -34,29 +36,35 @@
     "graphql-anywhere": "^3.1.0",
     "graphql-tag": "^2.4.2",
     "persistgraphql": "^0.3.2",
+    "prop-types": "^15.5.10",
     "ramda": "^0.24.1",
     "react": "^15.6.1",
-    "react-apollo": "^1.4.3",
+    "react-apollo": "^1.4.8",
     "react-dom": "^15.6.1",
     "react-helmet": "^5.1.3",
     "react-hot-loader": "next",
     "react-redux": "^5.0.5",
-    "react-router": "^4.1.1",
-    "react-router-dom": "^4.1.1",
+    "react-router": "^4.1.2",
+    "react-router-dom": "^4.1.2",
+    "react-tree-walker": "^2.1.2",
     "react-universal-component": "^1.4.1",
     "recompose": "^0.24.0",
-    "redux": "^3.7.1",
+    "redux": "^3.7.2",
     "reselect": "^3.0.1",
-    "serialize-javascript": "^1.3.0",
+    "serialize-javascript": "^1.4.0",
     "webpack-flush-chunks": "^1.1.10",
     "winston": "^2.3.1"
   },
   "devDependencies": {
-    "@amazee/react-scripts": "^2.0.12",
-    "flow-bin": "^0.49.1",
+    "@amazee/react-scripts": "^2.0.21",
+    "@storybook/addon-actions": "^3.1.6",
+    "@storybook/addon-links": "^3.1.6",
+    "@storybook/addon-storyshots": "^3.1.7",
+    "@storybook/react": "^3.1.7",
+    "flow-bin": "^0.51.0",
     "jssha": "^2.3.1",
-    "lint-staged": "^4.0.1",
-    "prettier": "^1.5.2",
+    "lint-staged": "^4.0.2",
+    "prettier": "^1.5.3",
     "sync-request": "^4.1.0"
   },
   "engines": {

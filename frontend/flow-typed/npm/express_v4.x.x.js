@@ -1,5 +1,5 @@
-// flow-typed signature: 49fdcc00eb0cf9d3f0cc15f76f9a63fb
-// flow-typed version: 42a4202af0/express_v4.x.x/flow_>=v0.32.x
+// flow-typed signature: 95e07d9e1396c50fdb19cec28b4ab656
+// flow-typed version: e01dc56513/express_v4.x.x/flow_>=v0.32.x
 
 import type { Server } from 'http';
 import type { Socket } from 'net';
@@ -160,7 +160,7 @@ declare class express$Application extends express$Router mixins events$EventEmit
   listen(handle: Object, callback?: (err?: ?Error) => mixed): Server;
   disable(name: string): void;
   disabled(name: string): boolean;
-  enable(name: string): void;
+  enable(name: string): express$Application;
   enabled(name: string): boolean;
   engine(name: string, callback: Function): void;
   /**
