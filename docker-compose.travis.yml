@@ -9,7 +9,7 @@ services:
       # If you use https://github.com/drupal-composer/drupal-project or something similar,
       # the Drupal root is not inside the Repository root, you can define in which folder
       # the the Drupal Root lives
-      WEBROOT: backend/web
+      WEBROOT: web
 
       # If you would like to use blackfire.io, uncomment and add your server credentials:
       #BLACKFIRE_SERVER_ID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
