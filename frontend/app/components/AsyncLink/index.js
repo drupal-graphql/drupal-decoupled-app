@@ -1,6 +1,5 @@
 // @flow
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -20,32 +19,25 @@ export default class AsyncLink extends Link {
     }).isRequired,
   };
 
-  render() {
-    const { router: { history } } = this.context;
-    const { to, replace, children, ...props } = this.props;
-    const href = history.createHref(
-      typeof to === 'string' ? { pathname: to } : to,
+  handleClickOriginal = this.handleClick;
+
+  handleClick = event => {
+    event.preventDefault();
+    event.persist();
+    // eslint-disable-next-line no-param-reassign
+    event.defaultPrevented = false;
+
+    const href = this.context.router.history.createHref(
+      typeof this.props.to === 'string'
+        ? { pathname: this.props.to }
+        : this.props.to,
     );
 
-    const onClick = event => {
-      event.preventDefault();
-      event.persist();
-
-      // eslint-disable-next-line no-param-reassign
-      event.defaultPrevented = false;
-
-      const handleClick = () => {
-        // $FlowIgnore
-        this.handleClick(event);
-      };
-
-      this.context.preloader.preload(href).then(handleClick).catch(handleClick);
-    };
-
-    return (
-      <a {...props} onClick={onClick} href={href}>
-        {children}
-      </a>
-    );
-  }
+    this.context.preloader
+      .preload(href)
+      .then(
+        () => this.handleClickOriginal(event),
+        () => this.handleClickOriginal(event),
+      );
+  };
 }

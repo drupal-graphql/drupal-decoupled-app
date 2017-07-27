@@ -46,10 +46,12 @@ export default class Preloader extends Component {
     };
 
     return preloadTree(rootElement, rootContext)
-      .then(() =>
-        // If the app was redirected during preloading, we need to
-        // also preload the next route.
-         routerContext.url && this.preload(routerContext.url))
+      .then(
+        () =>
+          // If the app was redirected during preloading, we need to
+          // also preload the next route.
+          routerContext.url && this.preload(routerContext.url),
+      )
       .then(() => {
         this.setState({ loading: false });
       });

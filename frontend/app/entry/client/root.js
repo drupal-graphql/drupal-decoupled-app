@@ -15,11 +15,11 @@ type RootProps = {
 const Root = ({ store, client }: RootProps): React.Element<any> =>
   (<AppContainer>
     <BrowserRouter>
-      <Preloader>
-        <ApolloProvider client={client} store={store}>
+      <ApolloProvider client={client} store={store}>
+        <Preloader context={{ client }}>
           <App />
-        </ApolloProvider>
-      </Preloader>
+        </Preloader>
+      </ApolloProvider>
     </BrowserRouter>
   </AppContainer>);
 
