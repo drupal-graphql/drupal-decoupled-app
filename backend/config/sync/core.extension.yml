@@ -16,7 +16,6 @@ module:
   filter: 0
   graphql: 0
   graphql_block: 0
-  graphql_boolean: 0
   graphql_breadcrumbs: 0
   graphql_content: 0
   graphql_content_mutation: 0
