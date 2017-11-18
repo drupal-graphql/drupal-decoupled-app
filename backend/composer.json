@@ -17,7 +17,6 @@
         "drupal/core": "~8.0",
         "drupal/graphql": "3.x-dev",
         "drush/drush": "~8.0",
-        "webflo/drupal-finder": "^0.2.1",
         "webmozart/path-util": "^2.3"
     },
     "require-dev": {
