@@ -18,7 +18,7 @@ const Article = ({ title, body }: ArticleProps): React.Element<any> =>
       {title}
     </h1>
     <Html>
-      {body}
+      {body && body.text}
     </Html>
     <Link to="/articles">Back to overview</Link>
   </div>);

@@ -27,7 +27,7 @@ const ArticleTeaser = ({
       </Link>
     </h2>
     <Html>
-      {body}
+      {body && body.summary}
     </Html>
   </div>);
 
@@ -38,7 +38,9 @@ ArticleTeaser.fragments = {
         alias
       }
       title
-      body
+      body {
+        summary: summaryProcessed
+      }
     }
   `,
 };

@@ -17,7 +17,7 @@ const BasicPage = ({ title, body }: BasicPageProps): React.Element<any> =>
       {title}
     </h1>
     <Html>
-      {body}
+      {body && body.text}
     </Html>
   </div>);
 

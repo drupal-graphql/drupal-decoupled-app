@@ -37,9 +37,11 @@ const SplatRouter = ({
 const query = gql`
   query SplatRouterQuery($path: String!) {
     route(path: $path) {
-      entity {
-        ...BasicPageFragment
-        ...ArticleFragment
+      ... on EntityCanonicalUrl {
+        entity {
+          ...BasicPageFragment
+          ...ArticleFragment
+        }
       }
     }
   }
