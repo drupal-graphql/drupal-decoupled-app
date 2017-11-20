@@ -1579,7 +1579,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/graphql",
-                "reference": "451e577c4d81899572b471a4a76a1ee66107b2f4"
+                "reference": "160a7bfd92bf28f4f09a9fa6b7303a00677e2dad"
             },
             "require": {
                 "drupal/core": "~8.0",
@@ -1591,8 +1591,8 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.0-beta1+22-dev",
-                    "datestamp": "1511086984",
+                    "version": "8.x-3.0-beta1+23-dev",
+                    "datestamp": "1511088484",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -1618,7 +1618,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/graphql"
             },
-            "time": "2017-11-19T10:43:48+00:00"
+            "time": "2017-11-19T12:18:58+00:00"
         },
         {
             "name": "drush/drush",

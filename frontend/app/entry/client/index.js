@@ -33,7 +33,7 @@ const mountNode = global.document.getElementById('app');
 
 // Encapsulate rendering for hot-reloading.
 const render: Function = (Component): void => {
-  ReactDOM.render(
+  ReactDOM.hydrate(
     <Component store={reduxStore} client={apolloClient} />,
     mountNode,
   );
