@@ -8,14 +8,13 @@ import Preloader from 'Preloader';
 import App from 'App';
 
 type RootProps = {
-  store: AmazeeStore<any, any>,
   client: any,
 };
 
-const Root = ({ store, client }: RootProps): React.Element<any> =>
+const Root = ({ client }: RootProps): React.Element<any> =>
   (<AppContainer>
     <BrowserRouter>
-      <ApolloProvider client={client} store={store}>
+      <ApolloProvider client={client}>
         <Preloader context={{ client }}>
           <App />
         </Preloader>

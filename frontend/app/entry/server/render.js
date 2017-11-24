@@ -8,8 +8,7 @@ import { flushChunkNames } from 'react-universal-component/server';
 import flushChunks from 'webpack-flush-chunks';
 import { ApolloProvider } from 'react-apollo';
 import serialize from 'serialize-javascript';
-import configureApolloClient from 'state/configureApolloClient';
-import configureServerStore from 'state/configureServerStore';
+import configureApolloClient from 'utils/configureApolloClient';
 import { apiVersion, queryMap } from 'api';
 import preloadTree from 'utils/preloadTree';
 import introspectionData from 'introspection.json';
@@ -18,7 +17,6 @@ import App from 'App';
 
 const doRender = (
   clientStats: Object,
-  reduxStore: Object,
   apolloClient: Object,
 ) => (req: express$Request, res: express$Response) => (
   renderedContent: string,
@@ -50,10 +48,7 @@ const doRender = (
   // Start profiling of the initial state extraction.
   logger.profile('Extracting initial state');
 
-  const initialState: string = serialize({
-    ...reduxStore.getState(),
-    apollo: apolloClient.getInitialState(),
-  });
+  const initialData: string = serialize(apolloClient.cache.extract());
 
   // Stop profiling of the initial state extraction.
   logger.profile('Extracting initial state');
@@ -73,7 +68,7 @@ const doRender = (
   </head>
   <body>
     <div id="app">${renderedContent}</div>
-    <script type="text/javascript">window.__INITIAL_STATE__ = ${initialState};</script>
+    <script type="text/javascript">window.__DATA__ = ${initialData};</script>
     <script type="text/javascript">window.__API__ = ${apiUri};</script>
     ${cssHash}
     ${js}
@@ -176,11 +171,9 @@ export default (clientStats: Object) => (
     introspectionData,
   );
 
-  const reduxStore: AmazeeStore<any, any> = configureServerStore(apolloClient);
-
   const Root: React.Element<any> = (
     <StaticRouter location={req.url} context={{}}>
-      <ApolloProvider store={reduxStore} client={apolloClient}>
+      <ApolloProvider client={apolloClient}>
         <App />
       </ApolloProvider>
     </StaticRouter>
@@ -190,7 +183,7 @@ export default (clientStats: Object) => (
   logger.profile('Rendering with data dependencies');
 
   // Render the app after loading the graphql data.
-  const doRenderFinal = doRender(clientStats, reduxStore, apolloClient);
+  const doRenderFinal = doRender(clientStats, apolloClient);
 
   // Renders the app component tree into a string.
   const doRenderErrorFinal = doRenderError(clientStats);
