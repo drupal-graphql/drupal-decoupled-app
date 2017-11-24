@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "705a134ca9520108bec57cda32c8782a",
+    "content-hash": "cdcf5fae554fd230a597f34b670b8f35",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1618,7 +1618,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/graphql"
             },
-            "time": "2017-11-19T12:18:58+00:00"
+            "time": "2017-11-19 12:18:58"
         },
         {
             "name": "drush/drush",
