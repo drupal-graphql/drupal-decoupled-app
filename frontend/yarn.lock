@@ -6091,6 +6091,18 @@ react-hot-loader@next:
     redbox-react "^1.3.6"
     source-map "^0.6.1"
 
+react-preload-apollo@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/react-preload-apollo/-/react-preload-apollo-0.0.1.tgz#dbc764bfa6e7bc50c43ed89a7cd9a1358b03cc3e"
+
+react-preload-core@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/react-preload-core/-/react-preload-core-0.0.3.tgz#62f1848853280d9ae50ea42d42bdc6fbaa84bfbe"
+
+react-preload-universal-component@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/react-preload-universal-component/-/react-preload-universal-component-0.0.2.tgz#c0d40ab7bdd996566ea7b2bb4bffce7fba55d3c5"
+
 react-proxy@^3.0.0-alpha.0:
   version "3.0.0-alpha.1"
   resolved "https://registry.yarnpkg.com/react-proxy/-/react-proxy-3.0.0-alpha.1.tgz#4400426bcfa80caa6724c7755695315209fa4b07"
@@ -6108,9 +6120,16 @@ react-router-dom@^4.2.2:
     react-router "^4.2.0"
     warning "^3.0.0"
 
-react-router-preload@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/react-router-preload/-/react-router-preload-0.0.1.tgz#851305aadb870d33afba643c255a48ea678f8516"
+react-router-preload-core@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/react-router-preload-core/-/react-router-preload-core-0.0.2.tgz#c2635aede9c3b1b371f7dac479766cdd371afb52"
+
+react-router-preload-tree@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/react-router-preload-tree/-/react-router-preload-tree-0.0.4.tgz#b1cdb2f5086dee8a33d8af6759b4005490b2e0d8"
+  dependencies:
+    react-preload-core "^0.0.3"
+    react-router-preload-core "^0.0.2"
 
 react-router@^4.2.0:
   version "4.2.0"

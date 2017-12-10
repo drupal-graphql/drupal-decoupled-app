@@ -8,6 +8,7 @@ import { Switch, Route } from 'react-router';
 import Home from 'Home';
 import SplatRouter from 'SplatRouter';
 import ArticleOverview from 'ArticleOverview';
+import LoadingIndicator from 'LoadingIndicator';
 import styles from './styles.css';
 
 const App = (): React.Element<any> =>
@@ -16,6 +17,7 @@ const App = (): React.Element<any> =>
       titleTemplate="Decoupled Drupal - %s"
       defaultTitle="Decoupled Drupal"
     />
+    <LoadingIndicator />
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/articles/:page?/" component={ArticleOverview} />

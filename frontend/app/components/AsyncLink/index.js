@@ -1,8 +1,10 @@
 // @flow
 
-import { createTreeWalkerLink, preloadTreeApollo, preloadTreeUniversalComponent } from 'react-router-preload';
+import { createLink } from 'react-router-preload-tree';
+import { preloadApollo } from 'react-preload-apollo';
+import { preloadUniversalComponent } from 'react-preload-universal-component';
 
-export default createTreeWalkerLink([
-  preloadTreeApollo,
-  preloadTreeUniversalComponent,
+export default createLink([
+  preloadApollo,
+  preloadUniversalComponent,
 ]);
