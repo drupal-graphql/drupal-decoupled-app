@@ -6108,6 +6108,10 @@ react-router-dom@^4.2.2:
     react-router "^4.2.0"
     warning "^3.0.0"
 
+react-router-preload@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/react-router-preload/-/react-router-preload-0.0.1.tgz#851305aadb870d33afba643c255a48ea678f8516"
+
 react-router@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/react-router/-/react-router-4.2.0.tgz#61f7b3e3770daeb24062dae3eedef1b054155986"
@@ -6141,6 +6145,10 @@ react-test-renderer@^16.0.0-0:
     fbjs "^0.8.16"
     object-assign "^4.1.1"
     prop-types "^15.6.0"
+
+react-tree-walker@^2.1.3:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/react-tree-walker/-/react-tree-walker-2.1.3.tgz#e781dd7ba9b5c50cc6300e3388b490f2b43b6295"
 
 react-universal-component@^2.6.0:
   version "2.8.0"
