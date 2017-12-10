@@ -24,6 +24,7 @@ const mountNode = global.document.getElementById('app');
 
 // Encapsulate rendering for hot-reloading.
 const render: Function = (Component): void => {
+  // $FlowIgnore https://github.com/facebook/flow/pull/5074
   ReactDOM.hydrate(
     <Component client={apolloClient} />,
     mountNode,

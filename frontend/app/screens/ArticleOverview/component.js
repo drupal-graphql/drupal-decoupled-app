@@ -35,7 +35,7 @@ const ArticleOverview = ({
   hasNextPage,
   previousPagePath,
   nextPagePath,
-}: ArticleOverviewProps): React.Element<any> | null =>
+}: ArticleOverviewProps): React$Element<any> | null =>
   (!loading &&
     <div className={styles.Wrapper}>
       <Helmet title="Article overview" />

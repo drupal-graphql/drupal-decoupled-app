@@ -11,7 +11,7 @@ import ArticleOverview from 'ArticleOverview';
 import LoadingIndicator from 'LoadingIndicator';
 import styles from './styles.css';
 
-const App = (): React.Element<any> =>
+const App = (): React$Element<any> =>
   (<div className={styles.Wrapper}>
     <Helmet
       titleTemplate="Decoupled Drupal - %s"

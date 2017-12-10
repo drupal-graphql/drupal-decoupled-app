@@ -8,10 +8,12 @@ import styles from './styles.css';
 
 type ArticleProps = {
   title: string,
-  body: string,
+  body: {
+    text: string,
+  },
 };
 
-const Article = ({ title, body }: ArticleProps): React.Element<any> =>
+const Article = ({ title, body }: ArticleProps): React$Element<any> =>
   (<div className={styles.Wrapper}>
     <Helmet title={title} />
     <h1>

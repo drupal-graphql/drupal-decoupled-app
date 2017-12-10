@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 import Link from 'AsyncLink';
 import styles from './styles.css';
 
-const NotFound = (): React.Element<any> =>
+const NotFound = (): React$Element<any> =>
   (<div className={styles.Wrapper}>
     <Helmet title="Page not found" />
     <div>

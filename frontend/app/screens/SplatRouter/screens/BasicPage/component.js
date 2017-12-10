@@ -7,10 +7,12 @@ import styles from './styles.css';
 
 type BasicPageProps = {
   title: string,
-  body: string,
+  body: {
+    text: string,
+  },
 };
 
-const BasicPage = ({ title, body }: BasicPageProps): React.Element<any> =>
+const BasicPage = ({ title, body }: BasicPageProps): React$Element<any> =>
   (<div className={styles.Wraper}>
     <Helmet title={title} />
     <h1>

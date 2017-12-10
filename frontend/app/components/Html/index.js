@@ -3,7 +3,7 @@
 import React from 'react';
 
 type HtmlProps = {
-  children: React.Element<any>,
+  children: string,
 };
 
 /* eslint-disable react/no-danger */

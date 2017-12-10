@@ -7,7 +7,7 @@ import { createApolloFetch } from 'apollo-fetch';
 import { getQueryDocumentKey } from 'persistgraphql/lib/src/common';
 import { apiVersion, queryMap } from 'api';
 
-export default (apiUri) => {
+export default (apiUri: string) => {
   const customFetch = (uri, { body, ...options }) => {
     const delimiter = uri.indexOf('?') === -1 ? '?' : '&';
     const query = JSON.parse(body)

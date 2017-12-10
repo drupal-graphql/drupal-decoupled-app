@@ -62,6 +62,7 @@
   },
   "devDependencies": {
     "@amazee/react-scripts": "^3.0.0",
+    "empty": "^0.10.1",
     "flow-bin": "^0.59.0",
     "jssha": "^2.3.1",
     "lint-staged": "^5.0.0",

@@ -11,7 +11,7 @@ type RootProps = {
   client: any,
 };
 
-const Root = ({ client }: RootProps): React.Element<any> =>
+const Root = ({ client }: RootProps): React$Element<any> =>
   (<AppContainer>
     <BrowserRouter>
       <Preloader>

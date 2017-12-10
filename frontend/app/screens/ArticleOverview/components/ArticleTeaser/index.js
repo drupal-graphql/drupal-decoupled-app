@@ -10,7 +10,9 @@ export type ArticleTeaserProps = {
   url: {
     alias: string,
   },
-  body: string,
+  body: {
+    summary: string,
+  },
 };
 /* eslint-enable react/no-unused-prop-types */
 
@@ -18,7 +20,7 @@ const ArticleTeaser = ({
   title,
   url,
   body,
-}: ArticleTeaserProps): React.Element<any> =>
+}: ArticleTeaserProps): React$Element<any> =>
   (<div>
     <h2>
       <Link to={url && url.alias}>

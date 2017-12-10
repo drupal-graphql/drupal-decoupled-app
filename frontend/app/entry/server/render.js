@@ -159,7 +159,7 @@ export default (clientStats: Object) => (
   // Configure the apollo client.
   const apolloClient = configureApolloClient(apiUri);
 
-  const Root: React.Element<any> = (
+  const Root: React$Element<any> = (
     <StaticRouter location={req.url} context={{}}>
       <ApolloProvider client={apolloClient}>
         <App />

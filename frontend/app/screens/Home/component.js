@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 import Link from 'AsyncLink';
 import styles from './styles.css';
 
-const Home = (): React.Element<any> =>
+const Home = (): React$Element<any> =>
   (<div className={styles.Wrapper}>
     <Helmet title="Welcome" />
     <h1>Welcome!</h1>
