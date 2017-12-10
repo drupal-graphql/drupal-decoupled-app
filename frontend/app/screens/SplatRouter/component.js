@@ -1,13 +1,11 @@
 // @flow
 
 import React from 'react';
-import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
-import { basicPageFragment } from 'BasicPage/fragments';
-import { articleFragment } from 'Article/fragments';
 import BasicPage from 'BasicPage';
 import Article from 'Article';
 import NotFound from 'NotFound';
+import query from './query.graphql';
 
 type SplatRouterProps = {
   entity: any,
@@ -33,22 +31,6 @@ const SplatRouter = ({
       return <NotFound />;
   }
 };
-
-const query = gql`
-  query SplatRouterQuery($path: String!) {
-    route(path: $path) {
-      ... on EntityCanonicalUrl {
-        entity {
-          ...BasicPageFragment
-          ...ArticleFragment
-        }
-      }
-    }
-  }
-
-  ${basicPageFragment}
-  ${articleFragment}
-`;
 
 const withQuery = graphql(query, {
   options: (props: any) => ({

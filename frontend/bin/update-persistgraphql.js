@@ -17,8 +17,8 @@ const extractor = new ExtractGQL({
   queryTransformers,
   inputFilePath,
   outputFilePath,
-  inJsCode: true,
-  extension: 'js',
+  inJsCode: false,
+  extension: 'graphql',
 });
 
 extractor.processInputPath(extractor.inputFilePath).then(outputMap => {

@@ -1,37 +1,20 @@
 // @flow
 
-import { ApolloClient } from 'apollo-client';
-import { HttpLink } from 'apollo-link-http';
 import { BatchHttpLink } from 'apollo-link-batch-http';
 import { BatchLink } from 'apollo-link-batch';
 import { Observable } from 'apollo-link';
-import { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-cache-inmemory';
 import { createApolloFetch } from 'apollo-fetch';
 import { getQueryDocumentKey } from 'persistgraphql/lib/src/common';
+import { apiVersion, queryMap } from 'api';
 
-const createApolloLink = (
-  apiUri: string,
-  apiVersion: string,
-  queryMap: Object,
-) => {
-  const requestUri = `${apiUri}?XDEBUG_SESSION_START=PHPSTORM`;
-
-  if (__DEVELOPMENT__) {
-    return new HttpLink({
-      uri: requestUri,
-      headers: {
-        Accept: 'application/json',
-      },
-    });
-  }
-
+export default (apiUri) => {
   const customFetch = (uri, { body, ...options }) => {
     const delimiter = uri.indexOf('?') === -1 ? '?' : '&';
     const query = JSON.parse(body)
       .map((item, index) => `${index}=${JSON.stringify(item)}`)
       .join('&');
 
-    return global.fetch(`${uri}${delimiter}${query}`, {
+    return fetch(`${uri}${delimiter}${query}`, {
       ...options,
       method: 'GET',
       headers: {
@@ -39,12 +22,10 @@ const createApolloLink = (
         Accept: 'application/json',
       },
     });
-
-    return fetch(uri, options);
   };
 
   const apolloFetch = createApolloFetch({
-    uri: requestUri,
+    uri: apiUri,
     customFetch,
   });
 
@@ -81,32 +62,4 @@ const createApolloLink = (
       batchHandler: batchHandler.bind(apolloLink),
     }),
   });
-}
-
-const configureApolloClient = (
-  apiUri: string,
-  apiVersion: string,
-  queryMap: Object,
-  introspectionData: Object,
-  initialData: Object = {},
-) => {  
-  const apolloLink = createApolloLink(apiUri, apiVersion, queryMap);
-
-  const fragmentMatcher = new IntrospectionFragmentMatcher({
-    introspectionQueryResultData: introspectionData,
-  });
-
-  const apolloCache = __CLIENT__ ?
-    new InMemoryCache({ fragmentMatcher }).restore(initialData) :
-    new InMemoryCache({ fragmentMatcher });
-
-  const apolloClient = new ApolloClient({
-    link: apolloLink,
-    cache: apolloCache,
-    ssrMode: __SERVER__,
-  });
-
-  return apolloClient;
 };
-
-export default configureApolloClient;

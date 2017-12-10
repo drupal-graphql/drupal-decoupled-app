@@ -1,0 +1,11 @@
+#import "ArticleTeaser/fragment.graphql"
+
+query ArticleOverviewQuery($offset: Int, $limit: Int) {
+  nodeQuery(offset: $offset, limit: $limit, filter: { type: "article" }) {
+    count,
+    entities {
+      id:entityId
+      ...ArticleTeaserFragment
+    }
+  }
+}

@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Link from 'AsyncLink';
-import gql from 'graphql-tag';
 import Html from 'Html';
 
 /* eslint-disable react/no-unused-prop-types */
@@ -30,19 +29,5 @@ const ArticleTeaser = ({
       {body && body.summary}
     </Html>
   </div>);
-
-ArticleTeaser.fragments = {
-  articleTeaserFragment: gql`
-    fragment ArticleTeaserFragment on NodeArticle {
-      url: entityUrl {
-        alias
-      }
-      title
-      body {
-        summary: summaryProcessed
-      }
-    }
-  `,
-};
 
 export default ArticleTeaser;

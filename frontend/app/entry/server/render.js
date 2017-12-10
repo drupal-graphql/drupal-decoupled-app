@@ -8,10 +8,8 @@ import { flushChunkNames } from 'react-universal-component/server';
 import flushChunks from 'webpack-flush-chunks';
 import { ApolloProvider } from 'react-apollo';
 import serialize from 'serialize-javascript';
-import configureApolloClient from 'utils/configureApolloClient';
-import { apiVersion, queryMap } from 'api';
-import preloadTree from 'utils/preloadTree';
-import introspectionData from 'introspection.json';
+import configureApolloClient from 'apollo/configureApolloClient';
+import { preloadTree, preloadTreeApollo } from 'react-router-preload';
 import logger from 'logger';
 import App from 'App';
 
@@ -24,9 +22,6 @@ const doRender = (
   const env: Object = req.app.get('env');
   const paths: Object = req.app.get('paths');
   const apiUri = JSON.stringify(env.API);
-
-  // Stop profiling of the react rendering with apollo.
-  logger.profile('Rendering with data dependencies');
 
   // The order in which the html head elements should be rendered.
   const headOrder: Array<string> = [
@@ -45,13 +40,7 @@ const doRender = (
     .map((key: string): string => helmetOutput[key].toString().trim())
     .join('');
 
-  // Start profiling of the initial state extraction.
-  logger.profile('Extracting initial state');
-
   const initialData: string = serialize(apolloClient.cache.extract());
-
-  // Stop profiling of the initial state extraction.
-  logger.profile('Extracting initial state');
 
   const { js, styles, cssHash } = flushChunks(clientStats, {
     chunkNames: flushChunkNames(),
@@ -75,6 +64,9 @@ const doRender = (
   </body>
 </html>
   `);
+
+  // Stop profiling of the react rendering with apollo.
+  logger.profile('Rendering with data dependencies');
 };
 
 type SsrError = Error & {
@@ -82,9 +74,10 @@ type SsrError = Error & {
 };
 
 const extractErrorMessages = (error: SsrError): Array<string> => {
+  console.log(error);
   const errors = (error.queryErrors || [])
-    .reduce((carry, current) => [...carry, current.message.toString()], [
-      error.message.toString(),
+    .reduce((carry, current) => [...carry, current.toString()], [
+      error.toString(),
     ]);
 
   return errors;
@@ -163,13 +156,8 @@ export default (clientStats: Object) => (
   const env: Object = req.app.get('env');
   const apiUri = env.API;
 
-  // Configure the apollo client with persisted queries.
-  const apolloClient = configureApolloClient(
-    apiUri,
-    apiVersion,
-    queryMap,
-    introspectionData,
-  );
+  // Configure the apollo client.
+  const apolloClient = configureApolloClient(apiUri);
 
   const Root: React.Element<any> = (
     <StaticRouter location={req.url} context={{}}>
@@ -188,7 +176,7 @@ export default (clientStats: Object) => (
   // Renders the app component tree into a string.
   const doRenderErrorFinal = doRenderError(clientStats);
 
-  preloadTree(Root)
+  preloadTree(Root, {}, true, [preloadTreeApollo])
     .then(() => renderToString(Root))
     .then(doRenderFinal(req, res))
     .catch(doRenderErrorFinal(req, res));

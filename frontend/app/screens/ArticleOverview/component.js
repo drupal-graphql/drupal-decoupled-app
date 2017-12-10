@@ -5,12 +5,11 @@ import Helmet from 'react-helmet';
 import compose from 'recompose/compose';
 import defaultProps from 'recompose/defaultProps';
 import withPropsOnChange from 'recompose/withPropsOnChange';
-import gql from 'graphql-tag';
 import Link from 'AsyncLink';
 import { graphql } from 'react-apollo';
-import { filter } from 'graphql-anywhere';
 import ArticleTeaser from 'ArticleTeaser';
 import type { ArticleTeaserProps } from 'ArticleTeaser';
+import query from './query.graphql';
 import styles from './styles.css';
 
 type ArticleOverviewItem = ArticleTeaserProps & {
@@ -42,11 +41,8 @@ const ArticleOverview = ({
       <Helmet title="Article overview" />
       <h1>Article overview</h1>
       <ul>
-        {articles.map(article =>
-          (<ArticleTeaser
-            key={article.id}
-            {...filter(ArticleTeaser.fragments.articleTeaserFragment, article)}
-          />),
+        {articles && articles.map(article =>
+          (<ArticleTeaser key={article.id} {...article} />),
         )}
       </ul>
       <div>
@@ -55,20 +51,6 @@ const ArticleOverview = ({
       </div>
     </div>) ||
   null;
-
-const query = gql`
-  query ArticleOverviewQuery($offset: Int, $limit: Int) {
-    nodeQuery(offset: $offset, limit: $limit, filter: {type: "article" }) {
-      count,
-      entities {
-        id:entityId
-        ...ArticleTeaserFragment
-      }
-    }
-  }
-
-  ${ArticleTeaser.fragments.articleTeaserFragment}
-`;
 
 const withQuery = graphql(query, {
   options: ({ pageSize, match: { params: { page = 0 } } }) => ({

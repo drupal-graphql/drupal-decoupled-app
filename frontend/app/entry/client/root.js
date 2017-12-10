@@ -4,7 +4,7 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
 import { AppContainer } from 'react-hot-loader';
-import Preloader from 'Preloader';
+import Preloader from 'react-router-preload';
 import App from 'App';
 
 type RootProps = {
@@ -14,11 +14,11 @@ type RootProps = {
 const Root = ({ client }: RootProps): React.Element<any> =>
   (<AppContainer>
     <BrowserRouter>
-      <ApolloProvider client={client}>
-        <Preloader context={{ client }}>
+      <Preloader>
+        <ApolloProvider client={client}>
           <App />
-        </Preloader>
-      </ApolloProvider>
+        </ApolloProvider>
+      </Preloader>
     </BrowserRouter>
   </AppContainer>);
 
