@@ -1,0 +1,5 @@
+jwt: null
+_core:
+  default_config_hash: VnJRkQumCIpCyjYAJevVI3NEg_EMkh2AyvPbn8pbGP4
+algorithm: HS256
+key_id: authentication

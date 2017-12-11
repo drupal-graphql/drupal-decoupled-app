@@ -1,5 +1,6 @@
 module:
   automated_cron: 0
+  basic_auth: 0
   block: 0
   block_content: 0
   breakpoint: 0
@@ -19,6 +20,10 @@ module:
   help: 0
   history: 0
   image: 0
+  jwt: 0
+  jwt_auth_consumer: 0
+  jwt_auth_issuer: 0
+  key: 0
   link: 0
   menu_ui: 0
   node: 0
