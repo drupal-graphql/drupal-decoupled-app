@@ -1,5 +1,8 @@
 // @flow
 
+// Babel polyfill for things like async/await.
+import 'babel-polyfill';
+
 // Fetch polyfill for node.
 import 'fetch-everywhere';
 

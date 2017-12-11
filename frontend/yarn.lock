@@ -375,6 +375,12 @@ apollo-link-batch@^1.0.1, apollo-link-batch@^1.0.3:
   dependencies:
     apollo-link "^1.0.6"
 
+apollo-link-context@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/apollo-link-context/-/apollo-link-context-1.0.3.tgz#9b823e26780a39655a35347f0b0e88b83acdeabe"
+  dependencies:
+    apollo-link "^1.0.6"
+
 apollo-link-core@^0.5.0:
   version "0.5.4"
   resolved "https://registry.yarnpkg.com/apollo-link-core/-/apollo-link-core-0.5.4.tgz#8efd4cd747959872a32f313f0ccfc2a76b396668"
@@ -1820,7 +1826,7 @@ cookie-signature@1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/cookie-signature/-/cookie-signature-1.0.6.tgz#e303a882b342cc3ee8ca513a79999734dab3ae2c"
 
-cookie@0.3.1:
+cookie@0.3.1, cookie@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.3.1.tgz#e7e0a1f9ef43b4c8ba925c5c5a96e806d16873bb"
 
@@ -6161,17 +6167,17 @@ react-hot-loader@next:
     redbox-react "^1.3.6"
     source-map "^0.6.1"
 
-react-preload-apollo@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/react-preload-apollo/-/react-preload-apollo-0.0.1.tgz#dbc764bfa6e7bc50c43ed89a7cd9a1358b03cc3e"
-
-react-preload-core@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/react-preload-core/-/react-preload-core-0.0.3.tgz#62f1848853280d9ae50ea42d42bdc6fbaa84bfbe"
-
-react-preload-universal-component@^0.0.2:
+react-preload-apollo@^0.0.2:
   version "0.0.2"
-  resolved "https://registry.yarnpkg.com/react-preload-universal-component/-/react-preload-universal-component-0.0.2.tgz#c0d40ab7bdd996566ea7b2bb4bffce7fba55d3c5"
+  resolved "https://registry.yarnpkg.com/react-preload-apollo/-/react-preload-apollo-0.0.2.tgz#45b103ebc593384d1c3f51038a8c527f841651d0"
+
+react-preload-core@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/react-preload-core/-/react-preload-core-0.0.4.tgz#ab28e386700b4554a799f766f492e7e0e964fba7"
+
+react-preload-universal-component@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/react-preload-universal-component/-/react-preload-universal-component-0.0.3.tgz#b81b5f2179241b477b17130011fec4174b44b0d0"
 
 react-proxy@^3.0.0-alpha.0:
   version "3.0.0-alpha.1"
@@ -6190,16 +6196,16 @@ react-router-dom@^4.2.2:
     react-router "^4.2.0"
     warning "^3.0.0"
 
-react-router-preload-core@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/react-router-preload-core/-/react-router-preload-core-0.0.2.tgz#c2635aede9c3b1b371f7dac479766cdd371afb52"
+react-router-preload-core@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/react-router-preload-core/-/react-router-preload-core-0.0.3.tgz#254d2521008764bc31f046d2183cef79bf876eb3"
 
-react-router-preload-tree@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/react-router-preload-tree/-/react-router-preload-tree-0.0.4.tgz#b1cdb2f5086dee8a33d8af6759b4005490b2e0d8"
+react-router-preload-tree@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/react-router-preload-tree/-/react-router-preload-tree-0.0.5.tgz#b045f83818588193f90ac7eb70bfedd5e6a6b22a"
   dependencies:
-    react-preload-core "^0.0.3"
-    react-router-preload-core "^0.0.2"
+    react-preload-core "^0.0.4"
+    react-router-preload-core "^0.0.3"
 
 react-router@^4.2.0:
   version "4.2.0"
@@ -7320,6 +7326,13 @@ units-css@^0.4.0:
   dependencies:
     isnumeric "^0.2.0"
     viewport-dimensions "^0.2.0"
+
+universal-cookie@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/universal-cookie/-/universal-cookie-2.1.2.tgz#7c0824c0e027f572789538932f066315611c2836"
+  dependencies:
+    cookie "^0.3.1"
+    object-assign "^4.1.0"
 
 universalify@^0.1.0:
   version "0.1.1"

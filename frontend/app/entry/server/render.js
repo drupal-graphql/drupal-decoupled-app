@@ -7,9 +7,10 @@ import { flushChunkNames } from 'react-universal-component/server';
 import flushChunks from 'webpack-flush-chunks';
 import { ApolloProvider } from 'react-apollo';
 import serialize from 'serialize-javascript';
-import configureApolloClient from 'apollo/configureApolloClient';
 import { renderToStringWithPreload } from 'react-preload-core/lib/server';
 import { preloadApollo } from 'react-preload-apollo';
+import configureApolloClient from 'apollo/configureApolloClient';
+import { getUserToken } from 'apollo/tokenStorage';
 import logger from 'logger';
 import App from 'App';
 
@@ -156,8 +157,9 @@ export default (clientStats: Object) => (
   const env: Object = req.app.get('env');
   const apiUri = env.API;
 
-  // Configure the apollo client.
-  const apolloClient = configureApolloClient(apiUri);
+  // Use the cookie from the request object to load the token.
+  const loadToken = () => getUserToken(req.headers.cookie);
+  const apolloClient = configureApolloClient(apiUri, loadToken);
 
   const Root: React$Element<any> = (
     <StaticRouter location={req.url} context={{}}>

@@ -3,10 +3,24 @@
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-cache-inmemory';
+import { setContext } from 'apollo-link-context';
 import createPersistedBatchLink from 'apollo/createPersistedBatchLink';
 import introspectionData from 'introspection.json';
 
-const createApolloLink = (apiUri: string) => {
+const createAuthLink = (loadToken: Function) => {
+  return setContext((request, { headers }) => {
+    const token = loadToken();
+
+    return {
+      headers: {
+        ...headers,
+        authorization: token ? `Bearer ${token}` : null,
+      },
+    };
+  });
+}
+
+const createHttpLink = (apiUri: string) => {
   if (__DEVELOPMENT__) {
     return new HttpLink({
       // Enable remote xdebug during development.
@@ -22,9 +36,11 @@ const createApolloLink = (apiUri: string) => {
 
 export default (
   apiUri: string,
+  loadToken: Function,
   initialData: Object = {},
 ) => {
-  const apolloLink = createApolloLink(apiUri);
+  const apolloLink = createHttpLink(apiUri);
+  const authLink = createAuthLink(loadToken);
 
   const fragmentMatcher = new IntrospectionFragmentMatcher({
     introspectionQueryResultData: introspectionData,
@@ -35,7 +51,7 @@ export default (
     new InMemoryCache({ fragmentMatcher });
 
   const apolloClient = new ApolloClient({
-    link: apolloLink,
+    link: authLink.concat(apolloLink),
     cache: apolloCache,
     ssrMode: __SERVER__,
   });

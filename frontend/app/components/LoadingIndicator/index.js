@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-import { withLoadingState } from 'react-router-preload-core';
 import styles from './styles.css';
 
 const LoadingIndicator = ({ loading }) => loading && (
@@ -15,4 +14,4 @@ const LoadingIndicator = ({ loading }) => loading && (
   </div>
 ) || null;
     
-export default withLoadingState(LoadingIndicator);
+export default LoadingIndicator;
