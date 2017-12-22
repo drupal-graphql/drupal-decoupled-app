@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { graphql } from 'react-apollo';
+import graphql from 'utils/graphql';
 import BasicPage from 'BasicPage';
 import Article from 'Article';
 import NotFound from 'NotFound';

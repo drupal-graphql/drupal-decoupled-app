@@ -2,13 +2,14 @@
 
 import React from 'react';
 import Helmet from 'react-helmet';
+import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import { flushChunkNames } from 'react-universal-component/server';
 import flushChunks from 'webpack-flush-chunks';
 import { ApolloProvider } from 'react-apollo';
 import serialize from 'serialize-javascript';
-import { renderToStringWithPreload } from 'react-preload-core/lib/server';
-import { preloadApollo } from 'react-preload-apollo';
+import { walkTreeAndPreload } from 'react-preload-core';
+import { PreloadContainer } from 'react-router-preload';
 import configureApolloClient from 'apollo/configureApolloClient';
 import { getUserToken } from 'apollo/tokenStorage';
 import logger from 'logger';
@@ -163,9 +164,11 @@ export default (clientStats: Object) => (
 
   const Root: React$Element<any> = (
     <StaticRouter location={req.url} context={{}}>
-      <ApolloProvider client={apolloClient}>
-        <App />
-      </ApolloProvider>
+      <PreloadContainer>
+        <ApolloProvider client={apolloClient}>
+          <App />
+        </ApolloProvider>
+      </PreloadContainer>
     </StaticRouter>
   );
 
@@ -178,7 +181,8 @@ export default (clientStats: Object) => (
   // Renders the app component tree into a string.
   const doRenderErrorFinal = doRenderError(clientStats);
 
-  renderToStringWithPreload(Root, [preloadApollo])
+  walkTreeAndPreload(Root)
+    .then(() => renderToString(Root))
     .then(doRenderFinal(req, res))
     .catch(doRenderErrorFinal(req, res));
 };

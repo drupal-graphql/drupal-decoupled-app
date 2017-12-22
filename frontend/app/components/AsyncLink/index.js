@@ -1,10 +1,6 @@
 // @flow
 
-import { createLink } from 'react-router-preload-tree';
-import { preloadApollo } from 'react-preload-apollo';
-import { preloadUniversalComponent } from 'react-preload-universal-component';
+import { Link } from 'react-router-dom';
+import { withRoutePreloading } from 'react-router-preload';
 
-export default createLink([
-  preloadApollo,
-  preloadUniversalComponent,
-]);
+export default withRoutePreloading()(Link);

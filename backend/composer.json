@@ -17,6 +17,7 @@
         "drupal/core": "~8.0",
         "drupal/graphql": "3.x-dev",
         "drupal/jwt": "^1.0@alpha",
+        "drupal/rules": "3.x-dev",
         "drush/drush": "~8.0",
         "webmozart/path-util": "^2.3"
     },

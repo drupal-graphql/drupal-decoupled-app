@@ -6,7 +6,7 @@ import compose from 'recompose/compose';
 import defaultProps from 'recompose/defaultProps';
 import withPropsOnChange from 'recompose/withPropsOnChange';
 import Link from 'AsyncLink';
-import { graphql } from 'react-apollo';
+import graphql from 'utils/graphql';
 import ArticleTeaser from 'ArticleTeaser';
 import type { ArticleTeaserProps } from 'ArticleTeaser';
 import query from './query.graphql';

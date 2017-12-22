@@ -1,5 +1,5 @@
 // @flow
 
-import universal from 'react-universal-component';
+import universal from 'utils/universal';
 
 export default universal(import('SplatRouter/component'));
