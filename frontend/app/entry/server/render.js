@@ -9,7 +9,6 @@ import flushChunks from 'webpack-flush-chunks';
 import { ApolloProvider } from 'react-apollo';
 import serialize from 'serialize-javascript';
 import { walkTreeAndPreload } from 'react-preload-core';
-import { PreloadContainer } from 'react-router-preload';
 import configureApolloClient from 'apollo/configureApolloClient';
 import { getUserToken } from 'apollo/tokenStorage';
 import logger from 'logger';
@@ -164,11 +163,9 @@ export default (clientStats: Object) => (
 
   const Root: React$Element<any> = (
     <StaticRouter location={req.url} context={{}}>
-      <PreloadContainer>
-        <ApolloProvider client={apolloClient}>
-          <App />
-        </ApolloProvider>
-      </PreloadContainer>
+      <ApolloProvider client={apolloClient}>
+        <App />
+      </ApolloProvider>
     </StaticRouter>
   );
 

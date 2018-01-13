@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import Link from 'AsyncLink';
+import { Link } from 'react-router-dom';
 import Html from 'Html';
 
 /* eslint-disable react/no-unused-prop-types */

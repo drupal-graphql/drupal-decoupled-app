@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Helmet from 'react-helmet';
-import Link from 'AsyncLink';
+import { Link } from 'react-router-dom';
 import Html from 'Html';
 import styles from './styles.css';
 

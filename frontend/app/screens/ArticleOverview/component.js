@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 import compose from 'recompose/compose';
 import defaultProps from 'recompose/defaultProps';
 import withPropsOnChange from 'recompose/withPropsOnChange';
-import Link from 'AsyncLink';
+import { Link } from 'react-router-dom';
 import graphql from 'utils/graphql';
 import ArticleTeaser from 'ArticleTeaser';
 import type { ArticleTeaserProps } from 'ArticleTeaser';
