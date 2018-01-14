@@ -1,7 +1,8 @@
 // @flow
 
 import React from 'react';
-import graphql from 'utils/graphql';
+import { graphql } from 'react-apollo';
+import { withPreloading } from 'react-preload-apollo';
 import BasicPage from 'BasicPage';
 import Article from 'Article';
 import NotFound from 'NotFound';
@@ -45,4 +46,4 @@ const withQuery = graphql(query, {
   }),
 });
 
-export default withQuery(SplatRouter);
+export default withPreloading(withQuery(SplatRouter));

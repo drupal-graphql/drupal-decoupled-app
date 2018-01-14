@@ -1,5 +1,6 @@
 // @flow
 
-import universal from 'utils/universal';
+import universal from 'react-universal-component';
+import { withPreloading } from 'react-preload-universal-component';
 
-export default universal(import('Article/component'));
+export default withPreloading(universal(import('Article/component')));

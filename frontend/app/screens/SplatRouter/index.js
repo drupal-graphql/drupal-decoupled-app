@@ -1,5 +1,6 @@
 // @flow
 
-import universal from 'utils/universal';
+import universal from 'react-universal-component';
+import { withPreloading } from 'react-preload-universal-component';
 
-export default universal(import('SplatRouter/component'));
+export default withPreloading(universal(import('SplatRouter/component')));

@@ -6,7 +6,8 @@ import compose from 'recompose/compose';
 import defaultProps from 'recompose/defaultProps';
 import withPropsOnChange from 'recompose/withPropsOnChange';
 import { Link } from 'react-router-dom';
-import graphql from 'utils/graphql';
+import { graphql } from 'react-apollo';
+import { withPreloading } from 'react-preload-apollo';
 import ArticleTeaser from 'ArticleTeaser';
 import type { ArticleTeaserProps } from 'ArticleTeaser';
 import query from './query.graphql';
@@ -85,6 +86,6 @@ const withPagination = withPropsOnChange(
   }),
 );
 
-export default compose(withDefaultProps, withQuery, withPagination)(
+export default compose(withDefaultProps, withPreloading, withQuery, withPagination)(
   ArticleOverview,
 );
