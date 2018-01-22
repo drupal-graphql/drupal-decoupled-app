@@ -1579,11 +1579,11 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/graphql",
-                "reference": "160a7bfd92bf28f4f09a9fa6b7303a00677e2dad"
+                "reference": "c54fc511963f678845f62b191b549d553d070c23"
             },
             "require": {
                 "drupal/core": "~8.0",
-                "youshido/graphql": "~1.5"
+                "youshido/graphql": "1.5.3"
             },
             "type": "drupal-module",
             "extra": {
@@ -1591,8 +1591,8 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.0-beta1+23-dev",
-                    "datestamp": "1511088484",
+                    "version": "8.x-3.0-beta1+35-dev",
+                    "datestamp": "1516377785",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -1618,7 +1618,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/graphql"
             },
-            "time": "2017-11-19 12:18:58"
+            "time": "2018-01-20 08:05:55"
         },
         {
             "name": "drupal/jwt",
@@ -4786,16 +4786,16 @@
         },
         {
             "name": "youshido/graphql",
-            "version": "v1.5.2",
+            "version": "v1.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Youshido/GraphQL.git",
-                "reference": "627de161919059821a5411b9f3d58c26afb81683"
+                "reference": "e941e8f208e780b529948fa10c502bc59c9fa644"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Youshido/GraphQL/zipball/627de161919059821a5411b9f3d58c26afb81683",
-                "reference": "627de161919059821a5411b9f3d58c26afb81683",
+                "url": "https://api.github.com/repos/Youshido/GraphQL/zipball/e941e8f208e780b529948fa10c502bc59c9fa644",
+                "reference": "e941e8f208e780b529948fa10c502bc59c9fa644",
                 "shasum": ""
             },
             "require": {
@@ -4825,7 +4825,7 @@
                 }
             ],
             "description": "Pure PHP GraphQL",
-            "time": "2017-10-20T11:25:48+00:00"
+            "time": "2018-01-16T15:26:05+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",
