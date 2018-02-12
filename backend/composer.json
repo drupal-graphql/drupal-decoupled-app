@@ -1,5 +1,5 @@
 {
-    "name": "fubhy/drupal-decoupled-app",
+    "name": "graphql-drupal/drupal-decoupled-app",
     "description": "A demo project for showcasing decoupled Drupal with React.",
     "type": "project",
     "repositories": [
@@ -17,7 +17,6 @@
         "drupal/core": "~8.0",
         "drupal/graphql": "3.x-dev",
         "drupal/jwt": "^1.0@alpha",
-        "drupal/rules": "3.x-dev",
         "drush/drush": "~8.0",
         "webmozart/path-util": "^2.3"
     },

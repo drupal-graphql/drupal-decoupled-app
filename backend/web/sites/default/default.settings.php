@@ -86,7 +86,7 @@
  * );
  * @endcode
  */
- $databases = array();
+$databases = array();
 
 /**
  * Customizing database settings.
@@ -440,6 +440,15 @@ $settings['update_free_access'] = FALSE;
  */
 # $settings['cache_ttl_4xx'] = 3600;
 
+/**
+ * Expiration of cached forms.
+ *
+ * Drupal's Form API stores details of forms in a cache and these entries are
+ * kept for at least 6 hours by default. Expired entries are cleared by cron.
+ *
+ * @see \Drupal\Core\Form\FormCache::setCache()
+ */
+# $settings['form_cache_expiration'] = 21600;
 
 /**
  * Class Loader.
@@ -643,6 +652,7 @@ if ($settings['hash_salt']) {
  * configuration values in settings.php will not fire any of the configuration
  * change events.
  */
+# $config['system.file']['path']['temporary'] = '/tmp';
 # $config['system.site']['name'] = 'My Drupal site';
 # $config['system.theme']['default'] = 'stark';
 # $config['user.settings']['anonymous'] = 'Visitor';
@@ -748,6 +758,16 @@ $settings['file_scan_ignore_directories'] = [
   'node_modules',
   'bower_components',
 ];
+
+/**
+ * The default number of entities to update in a batch process.
+ *
+ * This is used by update and post-update functions that need to go through and
+ * change all the entities on a site, so it is useful to increase this number
+ * if your hosting configuration (i.e. RAM allocation, CPU speed) allows for a
+ * larger number of entities to be processed in a single batch run.
+ */
+$settings['entity_update_batch_size'] = 50;
 
 /**
  * Load local development override configuration, if available.

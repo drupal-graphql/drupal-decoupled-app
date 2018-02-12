@@ -10,6 +10,11 @@ parameters:
     auto_reload: true # reloads the twig files on every request, so no drush cache clear is required
     cache: false # No twig internal cache, important: check the example.settings.loca.php to fully fully disable the twig cache
 
+  graphql.config:
+    result_cache: false
+    schema_cache: true
+    development: true
+
 services:
   cache.backend.null: # Defines a Cache Backend Factory which is just empty, it is not used by default
     class: Drupal\Core\Cache\NullBackendFactory
