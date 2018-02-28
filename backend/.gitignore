@@ -8,8 +8,8 @@ web/profiles/contrib
 web/libraries
 
 # Ignore configuration files that may contain environment-sensitive information.
-web/sites/*/local.settings.php
-web/sites/*/local.services.yml
+web/sites/*/settings.local.php
+web/sites/*/services.local.yml
 
 # Ignore Drupal's file directory
 web/sites/*/files
