@@ -1,42 +1,142 @@
-# Create here the Drupal site you would like
-version: '2'
-services:
-  drupal:
-    # Choose your URL and hostname for this Docker Container
-    # NEEDS to end with '.docker.amazee.io' !
-    # DO NOT remove the '&hostname'
-    hostname: &hostname decoupled.backend.docker.amazee.io
+version: '2.3'
 
-    environment:
-      # If you use https://github.com/drupal-composer/drupal-project or something similar,
-      # the Drupal root is not inside the Repository root, you can define in which folder
-      # the the Drupal Root lives
-      WEBROOT: backend/web
+x-lagoon-project:
+  # Lagoon project name (leave `&lagoon-project` when you edit this)
+  &lagoon-project drupal-decoupled-app
 
-      # If you would like to use blackfire.io, uncomment and add your server credentials:
-      #BLACKFIRE_SERVER_ID: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-      #BLACKFIRE_SERVER_TOKEN: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-      # APC Support is by default enabled, but in some cases it can make issues, change to 0 to disable:
-      APC: 1
-
-      # Do not change:
-      VIRTUAL_HOST: *hostname
-
+x-drupal-volumes:
+  &drupal-volumes
+    # Define all volumes you would like to have real-time mounted into the drupal docker containers
     volumes:
-      # per default our solr image is shipped with the 'drupal-4.2-solr-3.x' config, which is good
-      # for Drupal 7 and 8 and search_api module. If by any reason you need to change the solr config
-      # put the config files in a folder 'docker/solr' and uncomment this line:
-      #- ./docker/solr:/etc/solr/conf/drupal/conf
-      - ./.amazeeio/nginx.conf:/etc/nginx/site-configs.d/20be-drupal.conf
+      - ./backend:/app:delegated
+      - ./frontend/app/shared/queries:/frontend/app/shared/queries:delegated # mount the frontend querries folder into the Drupal
 
-################################################
-### Do not change anything below here, unless you know what you do
-      - .:/var/www/drupal/public_html
-    image: amazeeio/drupal:php70-solr
-    volumes_from:
+
+x-environment:
+  &default-environment
+    LAGOON_PROJECT: *lagoon-project
+    # Route that should be used locally
+    LAGOON_ROUTE: http://drupal-decoupled-app.docker.amazee.io
+    # Uncomment if you like to have the system behave like in production
+    #LAGOON_ENVIRONMENT_TYPE: production
+    # Uncomment to enable xdebug and then restart via `docker-compose up -d`
+    #XDEBUG_ENABLE: "true"
+
+
+services:
+
+  frontend:
+    command: yarn run dev # this only applies for local development
+    build: # how to build the frontend
+      context: frontend
+      dockerfile: Dockerfile
+    labels:
+      # Lagoon Labels
+      lagoon.type: node
+    volumes:
+      - ./frontend/app:/app/app:delegated # specifically only mount the /frontend/app folder, so that node_module are still existing from the Docker Build
+    environment:
+      << : *default-environment # loads the defined environment variables from the top
+      LAGOON_LOCALDEV_URL: drupal-decoupled-app.docker.amazee.io
+      API: http://drupal-varnish.drupal-decoupled-app.docker.amazee.io/graphql
+    extra_hosts:
+      - "drupal-varnish.drupal-decoupled-app.docker.amazee.io:172.17.0.1" # Telling the frontend how to communicate with the drupal
+    networks:
+      - amazeeio-network
+      - default
+
+  cli: # cli container, will be used for executing composer and any local commands (drush, drupal, etc.)
+    build:
+      context: backend
+      dockerfile: Dockerfile.cli
+    image: *lagoon-project # this image will be reused as `CLI_IMAGE` in subsequent Docker builds
+    labels:
+      # Lagoon Labels
+      lagoon.type: cli-persistent
+      lagoon.persistent.name: nginx # mount the persistent storage of nginx into this container
+      lagoon.persistent: /app/web/sites/default/files/ # location where the persistent storage should be mounted
+    << : *drupal-volumes # loads the defined volumes from the top
+    volumes_from: # mount the ssh-agent from the pygmy or cachalot ssh-agent
       - container:amazeeio-ssh-agent
-    container_name: *hostname
-    network_mode: bridge
+    environment:
+      << : *default-environment # loads the defined environment variables from the top
+
+  nginx:
+    build:
+      context: backend
+      dockerfile: Dockerfile.nginx
+      args:
+        CLI_IMAGE: *lagoon-project # Inject the name of the cli image
+    labels:
+      lagoon.type: nginx-php-persistent
+      lagoon.persistent: /app/web/sites/default/files/ # define where the persistent storage should be mounted too
+    << : *drupal-volumes # loads the defined volumes from the top
+    depends_on:
+      - cli # basically just tells docker-compose to build the cli first
+    environment:
+      << : *default-environment # loads the defined environment variables from the top
+      LAGOON_LOCALDEV_URL: nginx.drupal-decoupled-app.docker.amazee.io # generate another route for nginx
+    networks:
+      - amazeeio-network
+      - default
+
+  php:
+    build:
+      context: backend
+      dockerfile: Dockerfile.php
+      args:
+        CLI_IMAGE: *lagoon-project
+    labels:
+      lagoon.type: nginx-php-persistent
+      lagoon.name: nginx # we want this service be part of the nginx pod in Lagoon
+      lagoon.persistent: /app/web/sites/default/files/ # define where the persistent storage should be mounted too
+    << : *drupal-volumes # loads the defined volumes from the top
+    depends_on:
+      - cli # basically just tells docker-compose to build the cli first
+    environment:
+      << : *default-environment # loads the defined environment variables from the top
+
+
+  mariadb:
+    image: amazeeio/mariadb-drupal
+    labels:
+      lagoon.type: mariadb
     ports:
-      - "3306"
+      - "3306" # exposes the port 3306 with a random local port, find it with `docker-compose port mariadb 3306`
+    environment:
+      << : *default-environment
+
+  # redis:
+  #   image: amazeeio/redis
+  #   labels:
+  #     lagoon.type: redis
+  #   environment:
+  #     << : *default-environment
+
+  # solr:
+  #   image: amazeeio/solr:6.6-drupal
+  #   labels:
+  #     lagoon.type: solr
+  #   ports:
+  #     - "8983" # exposes the port 8983 with a random local port, find it with `docker-compose port solr 8983`
+  #   environment:
+  #     << : *default-environment
+
+
+  drupal-varnish:
+    image: amazeeio/varnish-drupal
+    labels:
+      lagoon.type: varnish
+    links:
+      - nginx # links varnish to the nginx in this docker-compose project, or it would try to connect to any nginx running in docker
+    environment:
+      << : *default-environment
+      VARNISH_BYPASS: "true" # by default we bypass varnish, change to 'false' or remove in order to use Varnish
+      LAGOON_LOCALDEV_URL: drupal-varnish.drupal-decoupled-app.docker.amazee.io # generate another route for varnish
+    networks:
+      - amazeeio-network
+      - default
+
+networks:
+  amazeeio-network:
+    external: true
