@@ -2,61 +2,35 @@
 
 ## Prerequisites
 
-- amazee.io local Docker development environment (https://docs.amazee.io/local_docker_development/local_docker_development.html)
-- Composer (http://getcomposer.org)
-- Yarn (http://yarnpkg.com)
-- Node (http://nodejs.org)
+- Docker
+- amazee.io/Lagoon local Docker development environment (http://lagoon.readthedocs.io/en/latest/using_lagoon/local_development_environments/)
 
 ## Usage
 
 First, you need to clone this repository.
 
-```
-git clone git@github.com:fubhy/drupal-decoupled-app
-```
+    git clone git@github.com:drupal-graphql/drupal-decoupled-app.git
 
-Then, you need to install the dependencies.
+Then, you need to build the images
 
-```
-cd backend && composer install
-cd frontend && yarn install
-```
+    docker-compose build
 
-Then, you need to boot the backend container.
+Then, start the containers:
 
-```
-docker-compose up -d
-docker-compose exec --user drupal drupal bash
-```
 
-Once connected to the container, you can now install Drupal.
+    docker-compose up -d
 
-```
-drush si config_installer -y --account-name=admin --account-pass=admin
-```
+Once started, connect to the cli container of Drupal and install Drupal.
 
-Now you can create some content (basic page or article) and run the frontend application.
+    docker-compose exec cli bash
+    composer install
+    drush si config_installer -y --account-name=admin --account-pass=admin
 
-```
-yarn run dev
-```
+Now you can create some content (basic page or article) within Drupal at http://drupal-varnish.drupal-decoupled-app.docker.amazee.io
 
-Navigating to http://localhost:3000 should present you with a paginated list of articles
+Navigating to http://drupal-decoupled-app.docker.amazee.io should present you with a paginated list of articles
 and by navigation to the path of one of the nodes (basic page or article) you just
 created, you should see a simple teaser of that node.
-
-
-### Development mode
-
-```
-yarn run dev
-```
-
-### Production mode
-
-```
-yarn run build && yarn run start
-```
 
 ## License
 
