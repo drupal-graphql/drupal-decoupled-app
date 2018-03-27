@@ -1,0 +1,6 @@
+fragment PageFragment on NodePage {
+  title
+  body {
+    text: processed
+  }
+}

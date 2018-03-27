@@ -1,0 +1,17 @@
+#import "@components/ArticleTeaser/fragment.gql"
+#import "@components/PageTeaser/fragment.gql"
+
+query ArticleOverviewQuery($offset: Int!, $limit: Int!) {
+  nodeQuery(
+    offset: $offset
+    limit: $limit
+    filter: { conditions: [{ field: "type", value: ["article", "page"] }] }
+  ) {
+    count
+    entities {
+      id: entityId
+      ...ArticleTeaserFragment
+      ...PageTeaserFragment
+    }
+  }
+}

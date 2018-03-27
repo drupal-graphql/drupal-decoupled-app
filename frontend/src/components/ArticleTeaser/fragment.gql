@@ -1,0 +1,9 @@
+fragment ArticleTeaserFragment on NodeArticle {
+  url: entityUrl {
+    alias
+  }
+  title
+  body {
+    summary: summaryProcessed
+  }
+}

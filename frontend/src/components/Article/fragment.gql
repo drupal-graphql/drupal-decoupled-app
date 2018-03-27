@@ -1,0 +1,6 @@
+fragment ArticleFragment on NodeArticle {
+  title
+  body {
+    text: processed
+  }
+}

@@ -1,0 +1,9 @@
+fragment PageTeaserFragment on NodePage {
+  url: entityUrl {
+    alias
+  }
+  title
+  body {
+    summary: summaryProcessed
+  }
+}

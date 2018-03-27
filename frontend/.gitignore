@@ -1,10 +1,6 @@
+
 # Generated stuff
-.happypack
 coverage
-styleguide
-dlls
-build
+dist
 node_modules
-npm-debug.log
-graphql.schema.json
-graphql.config.json
+*.log

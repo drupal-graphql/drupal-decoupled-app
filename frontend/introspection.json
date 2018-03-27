@@ -1,0 +1,266 @@
+{
+  "__schema": {
+    "types": [
+      { "kind": "OBJECT", "name": "RootQuery", "possibleTypes": null },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "EntityQueryFilterInput",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "EntityQueryFilterConditionInput",
+        "possibleTypes": null
+      },
+      { "kind": "SCALAR", "name": "String", "possibleTypes": null },
+      { "kind": "ENUM", "name": "QueryOperator", "possibleTypes": null },
+      { "kind": "ENUM", "name": "LanguageId", "possibleTypes": null },
+      { "kind": "ENUM", "name": "QueryConjunction", "possibleTypes": null },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "EntityQuerySortInput",
+        "possibleTypes": null
+      },
+      { "kind": "SCALAR", "name": "Undefined", "possibleTypes": null },
+      { "kind": "SCALAR", "name": "Int", "possibleTypes": null },
+      {
+        "kind": "ENUM",
+        "name": "EntityQueryRevisionMode",
+        "possibleTypes": null
+      },
+      { "kind": "OBJECT", "name": "EntityQueryResult", "possibleTypes": null },
+      {
+        "kind": "INTERFACE",
+        "name": "Entity",
+        "possibleTypes": [
+          { "name": "User" },
+          { "name": "File" },
+          { "name": "BlockContentBasic" },
+          { "name": "NodeArticle" },
+          { "name": "NodePage" },
+          { "name": "ShortcutDefault" },
+          { "name": "TaxonomyTermTags" },
+          { "name": "MenuLinkContentMenuLinkContent" },
+          { "name": "UnexposedEntity" }
+        ]
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "EntityRevisionable",
+        "possibleTypes": [
+          { "name": "User" },
+          { "name": "File" },
+          { "name": "BlockContentBasic" },
+          { "name": "NodeArticle" },
+          { "name": "NodePage" },
+          { "name": "ShortcutDefault" },
+          { "name": "TaxonomyTermTags" },
+          { "name": "MenuLinkContentMenuLinkContent" }
+        ]
+      },
+      { "kind": "OBJECT", "name": "User", "possibleTypes": null },
+      {
+        "kind": "INTERFACE",
+        "name": "Url",
+        "possibleTypes": [
+          { "name": "EntityCanonicalUrl" },
+          { "name": "ExternalUrl" },
+          { "name": "DefaultInternalUrl" }
+        ]
+      },
+      { "kind": "OBJECT", "name": "Language", "possibleTypes": null },
+      { "kind": "SCALAR", "name": "Boolean", "possibleTypes": null },
+      { "kind": "ENUM", "name": "UserDisplayModeId", "possibleTypes": null },
+      { "kind": "OBJECT", "name": "FieldUserRoles", "possibleTypes": null },
+      { "kind": "OBJECT", "name": "FieldUserPass", "possibleTypes": null },
+      {
+        "kind": "OBJECT",
+        "name": "FieldUserPreferredAdminLangcode",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "FieldUserPreferredLangcode",
+        "possibleTypes": null
+      },
+      { "kind": "OBJECT", "name": "FieldUserLangcode", "possibleTypes": null },
+      {
+        "kind": "INTERFACE",
+        "name": "EntityOwnable",
+        "possibleTypes": [
+          { "name": "File" },
+          { "name": "NodeArticle" },
+          { "name": "NodePage" }
+        ]
+      },
+      { "kind": "OBJECT", "name": "File", "possibleTypes": null },
+      { "kind": "OBJECT", "name": "FieldFileUid", "possibleTypes": null },
+      { "kind": "OBJECT", "name": "FieldFileLangcode", "possibleTypes": null },
+      { "kind": "OBJECT", "name": "Menu", "possibleTypes": null },
+      { "kind": "OBJECT", "name": "MenuLink", "possibleTypes": null },
+      { "kind": "OBJECT", "name": "__Schema", "possibleTypes": null },
+      { "kind": "OBJECT", "name": "__Type", "possibleTypes": null },
+      { "kind": "OBJECT", "name": "__InputValue", "possibleTypes": null },
+      { "kind": "OBJECT", "name": "__EnumValue", "possibleTypes": null },
+      { "kind": "OBJECT", "name": "__Field", "possibleTypes": null },
+      { "kind": "OBJECT", "name": "__Directive", "possibleTypes": null },
+      { "kind": "ENUM", "name": "__DirectiveLocation", "possibleTypes": null },
+      {
+        "kind": "INTERFACE",
+        "name": "InternalUrl",
+        "possibleTypes": [
+          { "name": "EntityCanonicalUrl" },
+          { "name": "DefaultInternalUrl" }
+        ]
+      },
+      { "kind": "OBJECT", "name": "EntityCanonicalUrl", "possibleTypes": null },
+      { "kind": "OBJECT", "name": "InternalResponse", "possibleTypes": null },
+      { "kind": "OBJECT", "name": "Link", "possibleTypes": null },
+      { "kind": "OBJECT", "name": "ExternalResponse", "possibleTypes": null },
+      { "kind": "OBJECT", "name": "ImageResource", "possibleTypes": null },
+      { "kind": "OBJECT", "name": "EntityCrudOutput", "possibleTypes": null },
+      {
+        "kind": "OBJECT",
+        "name": "ConstraintViolation",
+        "possibleTypes": null
+      },
+      { "kind": "ENUM", "name": "SortOrder", "possibleTypes": null },
+      {
+        "kind": "ENUM",
+        "name": "BlockContentDisplayModeId",
+        "possibleTypes": null
+      },
+      { "kind": "ENUM", "name": "NodeDisplayModeId", "possibleTypes": null },
+      {
+        "kind": "ENUM",
+        "name": "TaxonomyTermDisplayModeId",
+        "possibleTypes": null
+      },
+      { "kind": "OBJECT", "name": "ExternalUrl", "possibleTypes": null },
+      { "kind": "ENUM", "name": "ImageStyleId", "possibleTypes": null },
+      {
+        "kind": "INTERFACE",
+        "name": "BlockContent",
+        "possibleTypes": [{ "name": "BlockContentBasic" }]
+      },
+      { "kind": "OBJECT", "name": "BlockContentBasic", "possibleTypes": null },
+      {
+        "kind": "OBJECT",
+        "name": "FieldBlockContentRevisionUser",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "FieldBlockContentBody",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "FieldBlockContentType",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "FieldBlockContentLangcode",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "Node",
+        "possibleTypes": [{ "name": "NodeArticle" }, { "name": "NodePage" }]
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "EntityPublishable",
+        "possibleTypes": [{ "name": "NodeArticle" }, { "name": "NodePage" }]
+      },
+      { "kind": "OBJECT", "name": "NodeArticle", "possibleTypes": null },
+      { "kind": "OBJECT", "name": "FieldNodeFieldTags", "possibleTypes": null },
+      {
+        "kind": "OBJECT",
+        "name": "FieldNodeFieldImage",
+        "possibleTypes": null
+      },
+      { "kind": "OBJECT", "name": "FieldNodeBody", "possibleTypes": null },
+      { "kind": "OBJECT", "name": "FieldNodeUid", "possibleTypes": null },
+      { "kind": "OBJECT", "name": "FieldNodeType", "possibleTypes": null },
+      { "kind": "OBJECT", "name": "FieldNodeLangcode", "possibleTypes": null },
+      {
+        "kind": "OBJECT",
+        "name": "FieldNodeRevisionUid",
+        "possibleTypes": null
+      },
+      { "kind": "OBJECT", "name": "NodePage", "possibleTypes": null },
+      {
+        "kind": "INTERFACE",
+        "name": "Shortcut",
+        "possibleTypes": [{ "name": "ShortcutDefault" }]
+      },
+      { "kind": "OBJECT", "name": "ShortcutDefault", "possibleTypes": null },
+      {
+        "kind": "OBJECT",
+        "name": "FieldShortcutLangcode",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "FieldShortcutShortcutSet",
+        "possibleTypes": null
+      },
+      { "kind": "OBJECT", "name": "FieldShortcutLink", "possibleTypes": null },
+      {
+        "kind": "INTERFACE",
+        "name": "TaxonomyTerm",
+        "possibleTypes": [{ "name": "TaxonomyTermTags" }]
+      },
+      { "kind": "OBJECT", "name": "TaxonomyTermTags", "possibleTypes": null },
+      {
+        "kind": "OBJECT",
+        "name": "FieldTaxonomyTermParent",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "FieldTaxonomyTermDescription",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "FieldTaxonomyTermVid",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "FieldTaxonomyTermLangcode",
+        "possibleTypes": null
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "MenuLinkContent",
+        "possibleTypes": [{ "name": "MenuLinkContentMenuLinkContent" }]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "MenuLinkContentMenuLinkContent",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "FieldMenuLinkContentLink",
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "FieldMenuLinkContentLangcode",
+        "possibleTypes": null
+      },
+      { "kind": "OBJECT", "name": "DefaultInternalUrl", "possibleTypes": null },
+      {
+        "kind": "OBJECT",
+        "name": "FieldUserUserPicture",
+        "possibleTypes": null
+      },
+      { "kind": "OBJECT", "name": "UnexposedEntity", "possibleTypes": null }
+    ]
+  }
+}
