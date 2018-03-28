@@ -9,8 +9,6 @@ x-drupal-volumes:
     # Define all volumes you would like to have real-time mounted into the drupal docker containers
     volumes:
       - ./backend:/app:delegated
-      - ./frontend/app/shared/queries:/frontend/app/shared/queries:delegated # mount the frontend querries folder into the Drupal
-
 
 x-environment:
   &default-environment
@@ -22,9 +20,7 @@ x-environment:
     # Uncomment to enable xdebug and then restart via `docker-compose up -d`
     #XDEBUG_ENABLE: "true"
 
-
 services:
-
   frontend:
     command: yarn run dev # this only applies for local development
     build: # how to build the frontend
@@ -96,7 +92,6 @@ services:
     environment:
       << : *default-environment # loads the defined environment variables from the top
 
-
   mariadb:
     image: amazeeio/mariadb-drupal
     labels:
@@ -121,7 +116,6 @@ services:
   #     - "8983" # exposes the port 8983 with a random local port, find it with `docker-compose port solr 8983`
   #   environment:
   #     << : *default-environment
-
 
   drupal-varnish:
     image: amazeeio/varnish-drupal

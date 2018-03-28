@@ -23,8 +23,6 @@ tasks:
         command: drush -y cr
         service: cli
 
-
-
 environments:
   master:
     cronjobs:
