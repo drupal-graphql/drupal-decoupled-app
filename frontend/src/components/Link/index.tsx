@@ -1,7 +1,12 @@
 import { Link } from '@routes';
-import React from 'react';
+import React, { StatelessComponent } from 'react';
 
-const NextLink = ({ href, ...props }) => (
+export interface ILinkProps {
+  href: string;
+  [key: string]: any;
+}
+
+const NextLink: StatelessComponent<ILinkProps> = ({ href, ...props }) => (
   <Link route={href}>
     <a {...props} href={href} />
   </Link>

@@ -1,5 +1,5 @@
 import Link from '@components/Link';
-import React from 'react';
+import React, { StatelessComponent } from 'react';
 import styles from './styles.css';
 
 export interface IArticleTeaserFragment {
@@ -15,7 +15,14 @@ export interface IArticleTeaserFragment {
   };
 }
 
-const ArticleTeaser = ({ title, url, body }) => (
+// tslint:disable-next-line:no-empty-interface
+export interface IArticleTeaserProps extends IArticleTeaserFragment {}
+
+const ArticleTeaser: StatelessComponent<IArticleTeaserProps> = ({
+  title,
+  url,
+  body,
+}) => (
   <div className="Wrapper">
     <style jsx>{styles}</style>
     <h1>

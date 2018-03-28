@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { StatelessComponent } from 'react';
 import styles from './styles.css';
 
 export interface IPageFragment {
@@ -10,7 +10,10 @@ export interface IPageFragment {
   };
 }
 
-const Page = ({ title, body }) => (
+// tslint:disable-next-line:no-empty-interface
+export interface IPageProps extends IPageFragment {}
+
+const Page: StatelessComponent<IPageProps> = ({ title, body }) => (
   <div className="Wrapper">
     <style jsx>{styles}</style>
     <h1>{title}</h1>

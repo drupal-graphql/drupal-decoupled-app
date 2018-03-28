@@ -8,7 +8,10 @@ import { graphql } from 'react-apollo';
 import { compose } from 'recompose';
 import query from './query.gql';
 
-export const Router: StatelessComponent<IRouterQueryChildProps> = ({
+// tslint:disable-next-line:no-empty-interface
+export interface IRouterProps extends IRouterQueryChildProps {}
+
+export const Router: StatelessComponent<IRouterProps> = ({
   entity,
   loading,
 }) => {
