@@ -2,5 +2,18 @@
 # Generated stuff
 coverage
 dist
+
+# dependencies
 node_modules
-*.log
+
+# environment
+.env*
+!.env.defaults
+!.env.schema
+
+# logs
+*.log*
+
+# idea
+.idea
+*.iml

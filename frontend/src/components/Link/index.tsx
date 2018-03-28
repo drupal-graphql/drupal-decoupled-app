@@ -1,5 +1,5 @@
-import React from 'react';
 import { Link } from '@routes';
+import React from 'react';
 
 const NextLink = ({ href, ...props }) => (
   <Link route={href}>

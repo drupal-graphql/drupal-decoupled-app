@@ -1,6 +1,15 @@
 import React from 'react';
 import styles from './styles.css';
 
+export interface IPageFragment {
+  __typename: string;
+  title: string;
+  body: {
+    __typename: string;
+    text: string;
+  };
+}
+
 const Page = ({ title, body }) => (
   <div className="Wrapper">
     <style jsx>{styles}</style>

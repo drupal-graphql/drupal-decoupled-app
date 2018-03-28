@@ -13,7 +13,7 @@ export default withApollo({
   link: {
     http: ({ headers }) =>
       createHttpLink({
-        uri: typeof window === 'undefined' ? process.env.API : global.__API__,
+        uri: typeof window === 'undefined' ? process.env.API : window.__API__,
         credentials: 'same-origin',
         headers,
       }),

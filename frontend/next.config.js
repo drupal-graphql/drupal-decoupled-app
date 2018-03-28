@@ -18,6 +18,9 @@ const withComposedConfig = R.compose(
 
 module.exports = withComposedConfig(
   Object.assign({}, distConfig, {
+    typescriptLoaderOptions: {
+      transpileOnly: false,
+    },
     resolveAliases: {
       '@components': path.resolve(process.cwd(), 'src', 'components'),
       '@shared': path.resolve(process.cwd(), 'src', 'shared'),

@@ -1,6 +1,15 @@
-import React from 'react';
 import Link from '@components/Link';
+import React from 'react';
 import styles from './styles.css';
+
+export interface IArticleFragment {
+  __typename: string;
+  title: string;
+  body: {
+    __typename: string;
+    text: string;
+  };
+}
 
 const Article = ({ title, body }) => (
   <div className="Wrapper">

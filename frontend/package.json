@@ -31,6 +31,7 @@
       "git add"
     ],
     "*.{ts,tsx}": [
+      "tslint -p tsconfig.json --fix",
       "prettier --parser typescript --trailing-comma es5 --single-quote --write",
       "git add"
     ]

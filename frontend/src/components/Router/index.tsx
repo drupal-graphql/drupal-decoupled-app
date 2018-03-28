@@ -1,17 +1,14 @@
-import React, { StatelessComponent } from 'react';
-import { compose } from 'recompose';
-import { graphql } from 'react-apollo';
-import Article from '@components/Article';
-import Page from '@components/Page';
+import { IArticleFragment } from '@components/Article';
+import { IPageFragment } from '@components/Page';
 import withApollo from '@shared/withApollo';
+import dynamic from 'next/dynamic';
+import { SingletonRouter } from 'next/router';
+import React, { ComponentType, StatelessComponent } from 'react';
+import { graphql } from 'react-apollo';
+import { compose } from 'recompose';
 import query from './query.gql';
 
-export interface IRouterProps {
-  entity: any;
-  loading: boolean;
-}
-
-export const Router: StatelessComponent<IRouterProps> = ({
+export const Router: StatelessComponent<IRouterQueryChildProps> = ({
   entity,
   loading,
 }) => {
@@ -20,21 +17,51 @@ export const Router: StatelessComponent<IRouterProps> = ({
   }
 
   switch (entity && entity.__typename) {
-    case 'NodeArticle':
+    case 'NodeArticle': {
+      // @ts-ignore
+      const Article = dynamic(import('@components/Article'));
       return <Article {...entity} />;
+    }
 
-    case 'NodePage':
+    case 'NodePage': {
+      // @ts-ignore
+      const Page = dynamic(import('@components/Page'));
       return <Page {...entity} />;
+    }
 
     default:
       return null;
   }
 };
 
-const withQuery = graphql(query, {
-  options: (props: any) => ({
+export interface IRouterQueryProps {
+  url: SingletonRouter;
+}
+
+export interface IRouterQueryData {
+  route: {
+    __typename: string;
+    entity: IPageFragment | IArticleFragment;
+  };
+}
+
+export interface IRouterQueryVariables {
+  path: string;
+}
+
+export interface IRouterQueryChildProps extends IRouterQueryProps {
+  entity: IPageFragment | IArticleFragment;
+  loading: boolean;
+}
+
+const withQuery = graphql<
+  IRouterQueryProps,
+  IRouterQueryData,
+  IRouterQueryVariables,
+  IRouterQueryChildProps
+>(query, {
+  options: props => ({
     variables: {
-      // Default to the front page when no path suffix was given.
       path: props.url.asPath,
     },
   }),

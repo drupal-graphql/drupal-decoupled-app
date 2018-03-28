@@ -1,5 +1,5 @@
-import React, { StatelessComponent } from 'react';
 import Link from '@components/Link';
+import React, { StatelessComponent } from 'react';
 import styles from './styles.css';
 
 export const Home: StatelessComponent<{}> = () => (
