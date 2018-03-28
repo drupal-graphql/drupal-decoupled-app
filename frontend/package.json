@@ -1,73 +1,108 @@
 {
   "private": true,
+  "bin": {
+    "introspect": "bin/introspect.js"
+  },
   "scripts": {
-    "dev": "react-scripts dev",
-    "build": "react-scripts build",
-    "start": "react-scripts start",
-    "test": "react-scripts test",
-    "test:watch": "yarn run test -- --watch",
-    "flow": "flow",
-    "lint": "react-scripts lint",
-    "lint:fix": "react-scripts lint --fix",
-    "prettier": "prettier --trailing-comma all --single-quote --write",
-    "format": "yarn run prettier -- 'app/**/*.js' && yarn run lint:fix",
-    "persist": "node bin/update-persistgraphql",
-    "introspect": "node bin/update-introspection",
-    "precommit": "lint-staged && node bin/precommit",
-    "storybook": "start-storybook -p 9001 -c .storybook",
-    "storybook:build": "build-storybook -c .storybook -o styleguide"
+    "precommit": "lint-staged",
+    "dev": "nodemon server/index.ts",
+    "build": "yarn build:server && yarn build:next",
+    "build:server": "NODE_ENV=production tsc -p server",
+    "build:next":
+      "NODE_ENV=production node --require dotenv-extended/config $(npm bin)/next build src",
+    "start":
+      "NODE_ENV=production node --require dotenv-extended/config dist/server",
+    "introspect": "node bin/introspect",
+    "lint": "tslint -p tsconfig.json",
+    "test": "NODE_ENV=test jest",
+    "test:watch": "NODE_ENV=test jest --watch",
+    "test:coverage": "NODE_ENV=test jest --coverage",
+    "format": "yarn format:ts && yarn format:js",
+    "format:base":
+      "prettier --trailing-comma es5 --single-quote --ignore-path .gitignore",
+    "format:ts":
+      "yarn format:base --parser typescript --write \"**/*.{ts,tsx}\" \"!{dist,coverage}/**/*\"",
+    "format:js":
+      "yarn format:base --write \"**/*.{js,jsx,json,gql,graphql}\" \"!{dist,coverage}/**/*\""
   },
   "lint-staged": {
-    "linters": {
-      "frontend/app/**/*.js": [
-        "prettier",
-        "lint:fix",
-        "git add"
-      ]
-    }
+    "*.{js,jsx,json,gql,graphql}": [
+      "prettier --trailing-comma es5 --single-quote --write",
+      "git add"
+    ],
+    "*.{ts,tsx}": [
+      "tslint -p tsconfig.json --fix",
+      "prettier --parser typescript --trailing-comma es5 --single-quote --write",
+      "git add"
+    ]
   },
   "dependencies": {
-    "apollo-cache-inmemory": "^1.1.1",
-    "apollo-client": "^2.0.3",
-    "apollo-fetch": "^0.6.0",
-    "apollo-link": "^1.0.3",
-    "apollo-link-batch": "^1.0.1",
-    "apollo-link-batch-http": "^1.0.1",
-    "apollo-link-context": "^1.0.3",
-    "apollo-link-http": "^1.2.0",
-    "babel-polyfill": "^6.26.0",
-    "compression": "^1.7.1",
+    "apollo-cache-inmemory": "^1.1.12",
+    "apollo-fetch": "^0.7.0",
+    "apollo-link-http": "^1.5.3",
+    "classnames": "^2.2.5",
+    "compression": "^1.7.2",
+    "dotenv-extended": "^2.0.1",
     "express": "^4.16.2",
-    "fetch-everywhere": "^1.0.5",
-    "persistgraphql": "^0.3.11",
-    "prop-types": "^15.6.0",
+    "graphql": "^0.13.1",
+    "next": "^5.1.0",
+    "next-routes": "^1.4.0",
+    "next-with-apollo": "^1.0.4",
     "ramda": "^0.25.0",
-    "react": "^16.1.1",
-    "react-apollo": "^1.4.8",
-    "react-dom": "^16.1.1",
-    "react-helmet": "^5.2.0",
-    "react-hot-loader": "^3.1.3",
-    "react-preload-apollo": "^1.0.2",
-    "react-preload-core": "^1.0.1",
-    "react-preload-universal-component": "^1.0.2",
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
-    "react-router-preload": "^1.0.3",
-    "react-tree-walker": "^2.1.3",
-    "react-universal-component": "^2.6.0",
-    "recompose": "^0.26.0",
-    "serialize-javascript": "^1.4.0",
-    "universal-cookie": "^2.1.2",
-    "webpack-flush-chunks": "^1.2.1",
-    "winston": "^2.4.0"
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "recompose": "^0.26.0"
   },
   "devDependencies": {
-    "@amazee/react-scripts": "^3.0.0",
-    "empty": "^0.10.1",
-    "flow-bin": "^0.59.0",
-    "jssha": "^2.3.1",
-    "lint-staged": "^5.0.0",
-    "prettier": "^1.8.2",
-    "sync-request": "^4.1.0"
+    "@types/jest": "^22.1.3",
+    "@types/next": "^2.4.7",
+    "@types/ramda": "^0.25.18",
+    "@types/react": "^16.0.36",
+    "@types/recompose": "^0.24.5",
+    "@types/styled-jsx": "^2.2.2",
+    "@zeit/next-typescript": "^0.0.10",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.1",
+    "graphql-tag": "^2.8.0",
+    "husky": "^0.14.3",
+    "jest": "^22.4.2",
+    "lint-staged": "^7.0.0",
+    "nodemon": "^1.17.2",
+    "prettier": "^1.10.2",
+    "styled-jsx-css-loader": "^0.3.0",
+    "ts-jest": "^22.4.0",
+    "ts-node": "^5.0.1",
+    "tslint": "^5.9.1",
+    "tslint-config-prettier": "^1.10.0",
+    "tslint-react": "^3.5.1",
+    "typescript": "^2.7.1"
+  },
+  "jest": {
+    "setupFiles": ["<rootDir>/config/tests/jest.setup"],
+    "snapshotSerializers": ["enzyme-to-json/serializer"],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest",
+      "^.+\\.(graphql|gql)$": "<rootDir>/config/tests/gql.transform"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
+    "moduleFileExtensions": ["js", "jsx", "ts", "tsx", "json", "node"],
+    "moduleNameMapper": {
+      "^.+\\.css$": "<rootDir>/config/tests/styles.stub",
+      "^@components/(.*)$": "<rootDir>/src/components/$1",
+      "^@pages/(.*)$": "<rootDir>/src/pages/$1",
+      "^@shared/(.*)$": "<rootDir>/src/shared/$1",
+      "^@tests/(.*)$": "<rootDir>/tests/$1",
+      "^@routes$": "<rootDir>/server/routes"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tests/tsconfig.json",
+        "babelConfig": {
+          "presets": ["react"],
+          "plugins": ["transform-es2015-modules-commonjs", "styled-jsx/babel"]
+        }
+      }
+    }
   }
 }
