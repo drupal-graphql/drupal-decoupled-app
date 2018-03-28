@@ -1,0 +1,7 @@
+{
+  "watch": ["server/**/*.ts"],
+  "execMap": {
+    "ts":
+      "ts-node --project server/tsconfig.json --typeCheck --require dotenv-extended/config"
+  }
+}

@@ -5,8 +5,7 @@
   },
   "scripts": {
     "precommit": "lint-staged",
-    "dev":
-      "ts-node --project server/tsconfig.json --require dotenv-extended/config server",
+    "dev": "nodemon server/index.ts",
     "build": "yarn build:server && yarn build:next",
     "build:server": "NODE_ENV=production tsc -p server",
     "build:next":
@@ -68,6 +67,7 @@
     "husky": "^0.14.3",
     "jest": "^22.4.2",
     "lint-staged": "^7.0.0",
+    "nodemon": "^1.17.2",
     "prettier": "^1.10.2",
     "styled-jsx-css-loader": "^0.3.0",
     "ts-jest": "^22.4.0",
