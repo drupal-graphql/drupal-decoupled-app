@@ -1,5 +1,5 @@
 {
-  "watch": ["server/**/*.ts"],
+  "watch": ["server/**/*.ts", "config/**/*.js", "next.config.js"],
   "execMap": {
     "ts":
       "ts-node --project server/tsconfig.json --typeCheck --require dotenv-extended/config"
