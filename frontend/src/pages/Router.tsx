@@ -1,3 +1,3 @@
-import Router from '@components/Router';
+import Router from '~/components/Router';
 
 export default Router;

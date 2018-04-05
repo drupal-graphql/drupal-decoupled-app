@@ -64,6 +64,7 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.1",
+    "file-loader": "^1.1.11",
     "graphql-tag": "^2.8.0",
     "husky": "^0.14.3",
     "jest": "^22.4.2",
@@ -76,7 +77,8 @@
     "tslint": "^5.9.1",
     "tslint-config-prettier": "^1.10.0",
     "tslint-react": "^3.5.1",
-    "typescript": "^2.7.1"
+    "typescript": "^2.7.1",
+    "url-loader": "^1.0.1"
   },
   "jest": {
     "setupFiles": ["<rootDir>/config/tests/jest.setup"],
@@ -89,11 +91,13 @@
     "moduleFileExtensions": ["js", "jsx", "ts", "tsx", "json", "node"],
     "moduleNameMapper": {
       "^.+\\.css$": "<rootDir>/config/tests/styles.stub",
-      "^@components/(.*)$": "<rootDir>/src/components/$1",
-      "^@pages/(.*)$": "<rootDir>/src/pages/$1",
-      "^@shared/(.*)$": "<rootDir>/src/shared/$1",
-      "^@tests/(.*)$": "<rootDir>/tests/$1",
-      "^@routes$": "<rootDir>/server/routes"
+      "^.+\\.(svg|jpe?g|png|gif|ico)$": "<rootDir>/config/tests/assets.stub",
+      "^~/components/(.*)$": "<rootDir>/src/components/$1",
+      "^~/pages/(.*)$": "<rootDir>/src/pages/$1",
+      "^~/shared/(.*)$": "<rootDir>/src/shared/$1",
+      "^~/static/(.*)$": "<rootDir>/src/static/$1",
+      "^~/tests/(.*)$": "<rootDir>/tests/$1",
+      "^~/routes$": "<rootDir>/server/routes"
     },
     "globals": {
       "ts-jest": {

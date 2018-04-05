@@ -1,11 +1,11 @@
-import { IArticleFragment } from '@components/Article';
-import { IPageFragment } from '@components/Page';
-import withApollo from '@shared/withApollo';
 import dynamic from 'next/dynamic';
 import { SingletonRouter } from 'next/router';
 import React, { ComponentType, StatelessComponent } from 'react';
 import { graphql } from 'react-apollo';
 import { compose } from 'recompose';
+import { IArticleFragment } from '~/components/Article';
+import { IPageFragment } from '~/components/Page';
+import withApollo from '~/shared/withApollo';
 import query from './query.gql';
 
 // tslint:disable-next-line:no-empty-interface
@@ -22,13 +22,13 @@ export const Router: StatelessComponent<IRouterProps> = ({
   switch (entity && entity.__typename) {
     case 'NodeArticle': {
       // @ts-ignore
-      const Article = dynamic(import('@components/Article'));
+      const Article = dynamic(import('~/components/Article'));
       return <Article {...entity} />;
     }
 
     case 'NodePage': {
       // @ts-ignore
-      const Page = dynamic(import('@components/Page'));
+      const Page = dynamic(import('~/components/Page'));
       return <Page {...entity} />;
     }
 

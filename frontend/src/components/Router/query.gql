@@ -1,5 +1,5 @@
-#import "@components/Page/fragment.gql"
-#import "@components/Article/fragment.gql"
+#import "~/components/Page/fragment.gql"
+#import "~/components/Article/fragment.gql"
 
 query RouterQuery($path: String!) {
   route(path: $path) {

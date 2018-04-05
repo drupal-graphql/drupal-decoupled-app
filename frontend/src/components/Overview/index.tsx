@@ -1,14 +1,14 @@
-import ArticleTeaser, {
-  IArticleTeaserFragment,
-} from '@components/ArticleTeaser';
-import Link from '@components/Link';
-import PageTeaser, { IPageTeaserFragment } from '@components/PageTeaser';
-import withApollo from '@shared/withApollo';
 import { SingletonRouter } from 'next/router';
 import * as R from 'ramda';
 import React, { StatelessComponent } from 'react';
 import { graphql } from 'react-apollo';
 import { compose, withPropsOnChange } from 'recompose';
+import ArticleTeaser, {
+  IArticleTeaserFragment,
+} from '~/components/ArticleTeaser';
+import Link from '~/components/Link';
+import PageTeaser, { IPageTeaserFragment } from '~/components/PageTeaser';
+import withApollo from '~/shared/withApollo';
 import query from './query.gql';
 
 export interface IOverviewProps

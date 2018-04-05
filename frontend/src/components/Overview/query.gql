@@ -1,5 +1,5 @@
-#import "@components/ArticleTeaser/fragment.gql"
-#import "@components/PageTeaser/fragment.gql"
+#import "~/components/ArticleTeaser/fragment.gql"
+#import "~/components/PageTeaser/fragment.gql"
 
 query ArticleOverviewQuery($offset: Int!, $limit: Int!) {
   nodeQuery(

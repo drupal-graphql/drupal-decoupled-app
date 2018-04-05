@@ -1,5 +1,5 @@
-import { Link } from '@routes';
 import React, { StatelessComponent } from 'react';
+import { Link } from '~/routes';
 
 export interface ILinkProps {
   href: string;

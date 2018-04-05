@@ -1,5 +1,6 @@
 import OriginalDocument, { Head, Main, NextScript } from 'next/document';
 import React from 'react';
+import favicon from '~/static/favicon.ico';
 
 // These globals will be injected at run-time, thus allowing
 // environment variables to be changed independent of the
@@ -18,6 +19,7 @@ export default class Document extends OriginalDocument {
           <meta charSet="utf-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="icon" href={favicon} type="image/x-icon" />
         </Head>
         <body>
           <Main />
