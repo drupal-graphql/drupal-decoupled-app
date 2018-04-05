@@ -6,11 +6,10 @@ module.exports = (nextConfig = {}) =>
         config = nextConfig.webpack(config, options);
       }
 
-      config.resolve.alias = Object.assign(
-        {},
-        config.resolve.alias || {},
-        nextConfig.resolveAliases || {}
-      );
+      config.resolve.alias = {
+        ...(config.resolve.alias || {}),
+        ...(nextConfig.resolveAliases || {}),
+      };
 
       return config;
     },
