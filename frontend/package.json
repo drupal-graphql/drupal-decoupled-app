@@ -17,13 +17,14 @@
     "test": "NODE_ENV=test jest",
     "test:watch": "NODE_ENV=test jest --watch",
     "test:coverage": "NODE_ENV=test jest --coverage",
-    "format": "yarn format:ts && yarn format:js",
+    "format": "yarn format:ts && yarn format:js && yarn format:css",
     "format:base":
       "prettier --trailing-comma es5 --single-quote --ignore-path .gitignore",
     "format:ts":
       "yarn format:base --parser typescript --write \"**/*.{ts,tsx}\" \"!{dist,coverage}/**/*\"",
     "format:js":
-      "yarn format:base --write \"**/*.{js,jsx,json,gql,graphql}\" \"!{dist,coverage}/**/*\""
+      "yarn format:base --write \"**/*.{js,jsx,json,gql,graphql}\" \"!{dist,coverage}/**/*\"",
+    "format:css": "stylelint '**/*.css'"
   },
   "lint-staged": {
     "*.{js,jsx,json,gql,graphql}": [
@@ -34,7 +35,8 @@
       "tslint -p tsconfig.json --fix",
       "prettier --parser typescript --trailing-comma es5 --single-quote --write",
       "git add"
-    ]
+    ],
+    "*.css": ["stylelint '**/*.css' --fix"]
   },
   "dependencies": {
     "apollo-cache-inmemory": "^1.1.12",
@@ -51,7 +53,9 @@
     "ramda": "^0.25.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "recompose": "^0.26.0"
+    "recompose": "^0.26.0",
+    "stylelint": "^9.2.0",
+    "stylelint-config-standard": "^18.2.0"
   },
   "devDependencies": {
     "@types/jest": "^22.1.3",
