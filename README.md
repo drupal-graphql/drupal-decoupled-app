@@ -13,6 +13,7 @@ First, you need to clone this repository.
 
 Then, you need to build the images
 
+    docker-compose build cli (docker trick to do first, to get full build to work afterwards)
     docker-compose build
 
 Then, start the containers:
